@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860265082457",
+    "project_id": "elawalu-b2fff",
+    "storage_bucket": "elawalu-b2fff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860265082457:android:c78d8290ac2c2cb2900b48",
+        "android_client_info": {
+          "package_name": "com.example.elawalu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIV2ORmxMYlsRmbpt-RI0tm7xyRbpzOpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
