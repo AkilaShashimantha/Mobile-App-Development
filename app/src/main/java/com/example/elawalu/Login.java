@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -56,6 +57,17 @@ signInBtn.setOnClickListener(new View.OnClickListener() {
         finish();
     }
 });
+
+        Button button2 = findViewById(R.id.button2);
+        button2.setBackground(null);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, SignUp.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
