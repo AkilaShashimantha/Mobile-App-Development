@@ -12,22 +12,29 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class SplashScreen extends AppCompatActivity {
 
+
+    private  Handler handler = new Handler();
+    private  Runnable runnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash_screen);
 
-
         getSupportActionBar().hide();
 
-        new Handler().postDelayed(() -> {
 
-            Intent intent = new Intent(SplashScreen.this,Login.class);
-            startActivity(intent);
-            finish();
+       runnable = new Runnable() {
+           @Override
+           public void run() {
+               Intent intent = new Intent(SplashScreen.this, Login.class);
+                  startActivity(intent);
+                  finish();
+           }
+       };
 
-        },2000);
+       handler.postDelayed(runnable, 2500);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
