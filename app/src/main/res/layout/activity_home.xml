@@ -10,7 +10,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,6 +62,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="178dp"
+                android:layout_margin="20px"
+                android:layout_marginBottom="20px"
                 app:cardBackgroundColor="#D7D9DDD9">
 
                 <LinearLayout
@@ -118,6 +122,225 @@
                             android:textAlignment="center"
                             android:textColor="#346730"
                             android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="178dp"
+                android:layout_margin="20px"
+                android:layout_marginBottom="20px"
+                app:cardBackgroundColor="#D7D9DDD9">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView44"
+                        android:layout_width="339dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/carrot"
+                        tools:ignore="DuplicateIds" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView22"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Carrots"
+                            android:textAlignment="center"
+                            android:textColor="#020202"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:text="Location:  Nuwara Eliya"
+                            android:textAlignment="center"
+                            android:textColor="#AF1111"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView25"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Whole Price:  Rs.200 Per 1 kg"
+                            android:textAlignment="center"
+                            android:textColor="#766D6D"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Available Quantity: 1000kg "
+                            android:textAlignment="center"
+                            android:textColor="#346730"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="178dp"
+                android:layout_margin="20px"
+                android:layout_marginBottom="20px"
+                app:cardBackgroundColor="#D7D9DDD9">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView44"
+                        android:layout_width="339dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/carrot"
+                        tools:ignore="DuplicateIds" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView22"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Carrots"
+                            android:textAlignment="center"
+                            android:textColor="#020202"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:text="Location:  Nuwara Eliya"
+                            android:textAlignment="center"
+                            android:textColor="#AF1111"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView25"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Whole Price:  Rs.200 Per 1 kg"
+                            android:textAlignment="center"
+                            android:textColor="#766D6D"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Available Quantity: 1000kg "
+                            android:textAlignment="center"
+                            android:textColor="#346730"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="178dp"
+                android:layout_margin="20px"
+                android:layout_marginBottom="20px"
+                app:cardBackgroundColor="#D7D9DDD9">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView44"
+                        android:layout_width="339dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/carrot"
+                        tools:ignore="DuplicateIds" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView22"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Carrots"
+                            android:textAlignment="center"
+                            android:textColor="#020202"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView23"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:text="Location:  Nuwara Eliya"
+                            android:textAlignment="center"
+                            android:textColor="#AF1111"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView25"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Whole Price:  Rs.200 Per 1 kg"
+                            android:textAlignment="center"
+                            android:textColor="#766D6D"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Available Quantity: 1000kg "
+                            android:textAlignment="center"
+                            android:textColor="#346730"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
 
                     </LinearLayout>
                 </LinearLayout>
