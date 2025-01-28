@@ -166,16 +166,19 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="342dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="35dp"
-        android:text="Don't Have Account Register Here"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/googleSignInBtn"
+        android:layout_width="324dp"
+        android:layout_height="49dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FAFAFA"
+        android:text="Don't Have Sign With Account"
+        android:textAlignment="center"
+        android:textColor="#100F0F"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.862" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
