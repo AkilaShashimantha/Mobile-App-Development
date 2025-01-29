@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="Vegetable Whole Sales"
                     android:textAlignment="center"
-                    android:textColor="#0A8208"
+                    android:textColor="#0AB108"
                     android:textSize="34sp"
                     android:textStyle="bold" />
             </LinearLayout>
