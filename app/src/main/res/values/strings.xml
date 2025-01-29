@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Elawalu</string>
     <string name="default_web_client_id">199479381789-rp3v3rh1nr38h5niufbgeteom110mhk3.apps.googleusercontent.com</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_contact_number">Enter Contact Number</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="submit">Submit</string>
 
 </resources>
