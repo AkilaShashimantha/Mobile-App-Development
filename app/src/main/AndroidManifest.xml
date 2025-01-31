@@ -15,15 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:targetApi="31">
-
+        <activity
+            android:name=".View_Product"
+            android:exported="false" />
+        <activity
+            android:name=".View_Cart"
+            android:exported="false" />
         <activity
             android:name=".Items"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".User_Details"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".SignUp"
             android:exported="false" />
