@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.ViewFlipper;
 import android.widget.ImageButton;
 
@@ -20,6 +23,26 @@ public class Items extends AppCompatActivity {
         setContentView(R.layout.activity_items);
 
 
+
+        Spinner vegetableSpinner = findViewById(R.id.vegetableSpinner);
+
+        // Load vegetables from strings.xml
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.vegetable_list, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        vegetableSpinner.setAdapter(adapter);
+
+        Spinner locationSpinner = findViewById(R.id.locationspinner);
+
+        // Load Locations from strings.xml
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.location_list, android.R.layout.simple_spinner_item);
+
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationSpinner.setAdapter(adapter2);
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -30,12 +53,6 @@ public class Items extends AppCompatActivity {
         ViewFlipper viewFlipper = findViewById(R.id.viewFlipper);
         viewFlipper.setFlipInterval(3000);
         viewFlipper.startFlipping();
-
-
-        // Back button functionality
-        ImageButton backButton = findViewById(R.id.imageButton5); // Ensure this ID matches your XML
-
-            backButton.setOnClickListener(v -> finish());
 
 
 

@@ -14,4 +14,25 @@
     </string-array>
 
 
+    <string-array name="vegetable_list">
+        <item>Carrots</item>
+        <item>Cabbage</item>
+        <item>Pumpkin</item>
+        <item>Leeks</item>
+        <item>Beetroots</item>
+    </string-array>
+
+    <string-array name="location_list">
+        <item>Nuwara Eliya</item>
+        <item>Hatton</item>
+        <item>Maskeliya</item>
+        <item>Thalawakale</item>
+        <item>Badulla</item>
+        <item>Jaffna</item>
+        <item>Anuradhapura</item>
+        <item>Polonnaruwa</item>
+        <item>Bandarawela</item>
+        <item>Dabulla</item>
+    </string-array>
+
 </resources>

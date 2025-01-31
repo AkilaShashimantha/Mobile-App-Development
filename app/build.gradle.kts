@@ -47,5 +47,10 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.android.gms:play-services-auth:20.2.0")
     implementation ("com.airbnb.android:lottie:4.0.0")
+
+
+
+
+
 }
 

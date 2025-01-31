@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:backgroundTint="#FFFFFF"
-    tools:context=".Login">
+    tools:context=".Login"
+    tools:ignore="ExtraText">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -29,7 +30,7 @@
         android:layout_marginEnd="126dp"
         android:text="SIGN IN"
         android:textAlignment="center"
-        android:textColor="#2A9F10"
+        android:textColor="#0AB108"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +51,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.219"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.391" />
@@ -66,11 +67,12 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:paddingStart="20px"
-        android:textColor="#6B6767"
+        android:textAlignment="viewStart"
+        android:textColor="#494545"
+        android:textColorHint="#504E4E"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.452" />
@@ -86,10 +88,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintVertical_bias="0.533" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
@@ -101,10 +103,11 @@
         android:hint="Enter Your Password"
         android:inputType="textPassword"
         android:paddingStart="20px"
-        android:textColor="#191818"
+        android:textColor="#494545"
+        android:textColorHint="#504E4E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.612" />
@@ -131,7 +134,7 @@
         android:layout_width="116dp"
         android:layout_height="48dp"
 
-        android:backgroundTint="#0A8B2C"
+        android:backgroundTint="#0AB108"
 
         android:foregroundTint="#FFFFFF"
         android:text="Sign In"
@@ -167,22 +170,41 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="324dp"
-        android:layout_height="49dp"
+        android:layout_width="124dp"
+        android:layout_height="48dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FAFAFA"
-        android:text="Don't Have Sign With Account"
+        android:text="Click Here"
         android:textAlignment="center"
-        android:textColor="#100F0F"
+        android:textAllCaps="false"
+        android:textColor="#3F51B5"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.871"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
+        app:layout_constraintVertical_bias="0.862"
+        tools:ignore="MissingConstraints" />
 
-        app:layout_constraintVertical_bias="0.885" />
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="232dp"
+        android:layout_height="36dp"
+        android:text="Don't Have Account"
+        android:textAlignment="center"
+        android:textColor="#211F1F"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.864" />
+
+    app:layout_constraintVertical_bias="0.885" />
 
 
 
