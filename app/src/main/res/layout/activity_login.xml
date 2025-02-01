@@ -149,26 +149,6 @@
         app:layout_constraintVertical_bias="0.784" />
 
     <Button
-        android:id="@+id/googleSignInBtn"
-        android:layout_width="282dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#FDFBFB"
-        android:fontFamily="sans-serif"
-        android:text="Sign With Google Account"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#F80707"
-        android:textStyle="bold"
-        app:iconPadding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:layout_constraintVertical_bias="0.932" />
-
-    <Button
         android:id="@+id/button2"
         android:layout_width="124dp"
         android:layout_height="48dp"
@@ -204,11 +184,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.864" />
 
+    <ImageButton
+        android:id="@+id/googleSignInBtn"
+        android:layout_width="196dp"
+        android:layout_height="45dp"
+        android:src="@drawable/android_light_sq_ctn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.959"
+        tools:ignore="TouchTargetSizeCheck" /><![CDATA[
+
     app:layout_constraintVertical_bias="0.885" />
 
 
-
-
-
-
+]]>
 </androidx.constraintlayout.widget.ConstraintLayout>
