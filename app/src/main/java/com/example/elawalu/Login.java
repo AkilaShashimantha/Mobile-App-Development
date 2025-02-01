@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class Login extends AppCompatActivity {
 
         // Set up Google Sign-In button
 
-        Button googleSignInBtn = findViewById(R.id.googleSignInBtn);
+        ImageButton googleSignInBtn = findViewById(R.id.googleSignInBtn);
         googleSignInBtn.setOnClickListener(view -> signIn());
 
         Button signInBtn = findViewById(R.id.button);
