@@ -1,5 +1,6 @@
 package com.example.elawalu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
@@ -9,12 +10,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ViewFlipper;
 import android.widget.ImageButton;
 
 
 public class Items extends AppCompatActivity {
+
+    private Button readtoSaleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,18 @@ public class Items extends AppCompatActivity {
 
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(adapter2);
+
+
+        //Continue Farmer_Payement Page
+
+        readtoSaleBtn = findViewById(R.id.readtoSaleBtn);
+        readtoSaleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Items.this,Farmer_Payment.class);
+                startActivity(intent);
+            }
+        });
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
