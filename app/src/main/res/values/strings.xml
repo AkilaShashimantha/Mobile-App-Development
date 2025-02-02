@@ -7,6 +7,7 @@
     <string name="enter_email">Enter Email</string>
     <string name="enter_address">Enter Address</string>
     <string name="submit">Submit</string>
+    <string name="navigator">Bottom Navigation</string>
 
     <string-array name="user_type_options">
         <item>Buyer</item>

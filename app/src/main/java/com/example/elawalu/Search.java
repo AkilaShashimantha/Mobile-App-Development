@@ -11,13 +11,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class View_Cart extends AppCompatActivity {
+public class Search extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_view_cart);
+        setContentView(R.layout.activity_search);
 
         getSupportActionBar().hide();
 
@@ -28,7 +28,7 @@ public class View_Cart extends AppCompatActivity {
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_Cart);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_search);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
@@ -37,15 +37,14 @@ public class View_Cart extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.bottom_search) {
-                startActivity(new Intent(getApplicationContext(), Search.class));
-                finish();
                 return true;
             } else if (id == R.id.bottom_Cart) {
+                startActivity(new Intent(getApplicationContext(), View_Cart.class));
+                finish();
                 return true;
             }
 
             return false;
         });
-
     }
 }

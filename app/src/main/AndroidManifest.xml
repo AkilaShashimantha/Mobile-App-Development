@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:targetApi="31">
         <activity
+
+            android:name=".Search"
+
             android:name=".Farmer_Payment"
             android:exported="false" />
         <activity
@@ -27,6 +30,7 @@
             android:exported="false" />
         <activity
             android:name=".Payment_Access"
+
             android:exported="false" />
         <activity
             android:name=".View_Product"
