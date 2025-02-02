@@ -1,7 +1,7 @@
 package com.example.elawalu;
 
 import android.os.Bundle;
-import com.example.elawalu.User_Details;
+
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
