@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class Home extends AppCompatActivity {
 
 
@@ -62,6 +64,26 @@ addproductBtn.setOnClickListener(new View.OnClickListener() {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.bottom_home) {
+                return true;
+            } else if (id == R.id.bottom_search) {
+                startActivity(new Intent(getApplicationContext(), Search.class));
+                finish();
+                return true;
+            } else if (id == R.id.bottom_Cart) {
+                startActivity(new Intent(getApplicationContext(), View_Cart.class));
+                finish();
+                return true;
+            }
+
+            return false;
         });
     }
 }

@@ -1,5 +1,6 @@
 package com.example.elawalu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
@@ -12,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.ViewFlipper;
 import android.widget.ImageButton;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class Items extends AppCompatActivity {
@@ -54,7 +57,33 @@ public class Items extends AppCompatActivity {
         viewFlipper.setFlipInterval(3000);
         viewFlipper.startFlipping();
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
+        // Deselect All Items
+        bottomNavigationView.getMenu().setGroupCheckable(0, true, false);
+        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+            bottomNavigationView.getMenu().getItem(i).setChecked(false);
+        }
+        bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
 
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.bottom_home) {
+                startActivity(new Intent(getApplicationContext(), Home.class));
+                finish();
+                return true;
+            } else if (id == R.id.bottom_search) {
+                startActivity(new Intent(getApplicationContext(), Search.class));
+                finish();
+                return true;
+            } else if (id == R.id.bottom_Cart) {
+                startActivity(new Intent(getApplicationContext(), View_Cart.class));
+                finish();
+                return true;
+            }
+
+            return false;
+        });
     }
 }

@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:targetApi="31">
         <activity
+            android:name=".Search"
+            android:exported="false" />
+        <activity
             android:name=".View_Product"
             android:exported="false" />
         <activity
