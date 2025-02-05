@@ -40,7 +40,7 @@ public class Search extends AppCompatActivity {
                 return true;
             } else if (id == R.id.bottom_Cart) {
                 startActivity(new Intent(getApplicationContext(), View_Cart.class));
-                finish();
+
                 return true;
             }
 

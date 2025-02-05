@@ -15,10 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:targetApi="31">
+
+       <activity
+           android:name=".Search"
+           android:exported="false"
+           />
+
         <activity
-
-            android:name=".Search"
-
             android:name=".Farmer_Payment"
             android:exported="false" />
         <activity
