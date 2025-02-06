@@ -1,7 +1,9 @@
 package com.example.elawalu;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class View_Cart extends AppCompatActivity {
 
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +25,28 @@ public class View_Cart extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        View mainLayout = findViewById(R.id.main);
+        bottomNavigationView = findViewById(R.id.bottomNavigation);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            Rect r = new Rect();
+            mainLayout.getWindowVisibleDisplayFrame(r);
+            int screenHeight = mainLayout.getRootView().getHeight();
+            int keypadHeight = screenHeight - r.bottom;
+
+            if (keypadHeight > screenHeight * 0.15) {
+                // Keyboard is open
+                bottomNavigationView.setVisibility(View.GONE);
+            } else {
+                // Keyboard is closed
+                bottomNavigationView.setVisibility(View.VISIBLE);
+            }
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);

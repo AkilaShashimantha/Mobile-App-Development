@@ -1,243 +1,185 @@
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".User_Details">
 
-    <ScrollView
+    <!-- Main Content Layout -->
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:background="@color/ic_launcher_background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/pro_pic" />
-
-            <TextView
-                android:id="@+id/txtProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:text="Profile"
-                android:textColor="#0AB108"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
+                <!-- Profile Image -->
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/profile_user" />
-
-                <EditText
-                    android:id="@+id/fName"
+                    android:id="@+id/profileImage"
                     android:layout_width="150dp"
-                    android:layout_height="53dp"
-                    android:hint="First Name"
-                    android:paddingStart="20dp"
-                    android:textColor="#504E4E"
-                    android:textColorHint="#504E4E" />
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pro_pic" />
 
-                <EditText
-                    android:id="@+id/lName"
-                    android:layout_width="194dp"
-                    android:layout_height="53dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Last Name"
-                    android:inputType="text"
-                    android:textColor="#504E4E"
-                    android:textColorHint="#504E4E" />
-            </LinearLayout>
+                <!-- Profile Title -->
+                <TextView
+                    android:id="@+id/txtProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="Profile"
+                    android:textColor="#0AB108"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/idsvg" />
-
-                <EditText
-                    android:id="@+id/editTextText3"
-                    android:layout_width="316dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Enter Your NIC"
-                    android:inputType="text"
-                    android:paddingStart="20dp"
-                    android:textColor="#504E4E"
-                    android:textColorHint="#504E4E" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                <!-- First Name & Last Name Fields -->
                 <LinearLayout
-                    android:layout_width="6dp"
-                    android:layout_height="328dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="66dp"
+                    <ImageView
+                        android:layout_width="40dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:src="@mipmap/profile_user" />
 
-                        <TextView
-                            android:id="@+id/textView24"
-                            android:layout_width="67dp"
-                            android:layout_height="77dp"
-                            android:text="Select Your Birthday"
-                            android:textAlignment="center"
-                            android:textColor="#504E4E"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.183" />
+                    <EditText
+                        android:id="@+id/fName"
+                        android:layout_width="150dp"
+                        android:layout_height="53dp"
+                        android:hint="First Name"
+                        android:paddingStart="20dp"
+                        android:textColor="#504E4E"
+                        android:textColorHint="#504E4E" />
 
-                        <ImageView
-                            android:id="@+id/imageView7"
-                            android:layout_width="40dp"
-                            android:layout_height="54dp"
-                            android:layout_weight="1"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/date" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <EditText
+                        android:id="@+id/lName"
+                        android:layout_width="194dp"
+                        android:layout_height="53dp"
+                        android:layout_weight="1"
+                        android:hint="Last Name"
+                        android:inputType="text"
+                        android:textColor="#504E4E"
+                        android:textColorHint="#504E4E" />
                 </LinearLayout>
 
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="217dp"
-                    android:layout_height="316dp"
-                    android:layout_weight="1"
-                    android:background="#504E4E"
-                    tools:visibility="visible" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="45dp"
-                    android:src="@mipmap/phone_call" />
-
-                <EditText
-                    android:id="@+id/etContact"
+                <!-- Contact Number -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:hint="   Enter Contact Number"
-                    android:inputType="phone"
-                    android:textColor="#504E4E"
-                    android:textColorHint="#504E4E" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/phone_call" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/email" />
+                    <EditText
+                        android:id="@+id/etContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:hint="   Enter Contact Number"
+                        android:inputType="phone"
+                        android:textColor="#504E4E"
+                        android:textColorHint="#504E4E" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/etEmail"
+                <!-- Email Address -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:hint="   Enter Email"
-                    android:inputType="textEmailAddress"
-                    android:textColor="#504E4E"
-                    android:textColorHint="#504E4E" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/email" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="45dp"
-                    android:src="@mipmap/gps" />
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:hint="   Enter Email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="#504E4E"
+                        android:textColorHint="#504E4E" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/etAddress"
+                <!-- Address -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:hint="   Enter Address"
-                    android:textColor="#504E4E"
-                    android:textColorHint="#504E4E" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/gps" />
+
+                    <EditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:hint="   Enter Address"
+                        android:textColor="#504E4E"
+                        android:textColorHint="#504E4E" />
+                </LinearLayout>
+
+                <!-- Confirm Changes Button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnUpdate"
+                        android:layout_width="163dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:background="#0AB108"
+                        android:text="Confirm Changes"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+        </ScrollView>
 
-                <Button
-                    android:id="@+id/btnUpdate"
-                    android:layout_width="163dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:background="#0AB108"
-                    android:text="Confirm Changes"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
+    <!-- Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@drawable/bottom_background"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_menu" />
-</LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
