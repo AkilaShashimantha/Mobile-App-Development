@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/home"
+            android:icon="@drawable/home"
+            android:title="Home"
+            />
+
+        <item android:id="@+id/profile"
+            android:icon="@mipmap/profile_user"
+            android:title="Profile"
+            />
+        <item android:id="@+id/addProduct"
+            android:title="Add product"
+            />
+        <item android:id="@+id/seller"
+            android:title="vegetable Sellers"
+            />
+        <item android:id="@+id/paymentHistory"
+
+            android:title="Payment History"
+            />
+    </group>
+
+<!--    <item android:title="Profile">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
+
+<!--                <item android:id="@+id/userfirst"-->
+<!--                    android:icon="@drawable/account_circle_btn"-->
+<!--                    android:title="User"-->
+<!--                    />-->
+<!--                <item android:id="@+id/contactfirst"-->
+<!--                    android:icon="@mipmap/phone_call"-->
+<!--                    android:title="Contact"-->
+<!--                    />-->
+
+<!--            </group>-->
+
+<!--        </menu>-->
+
+<!--    </item>-->
+
+
+</menu>

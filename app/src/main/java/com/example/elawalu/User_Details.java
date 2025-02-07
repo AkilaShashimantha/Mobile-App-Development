@@ -56,20 +56,13 @@ public class User_Details extends AppCompatActivity {
             }
         });
 
-        // Deselect all items in Bottom Navigation
-        bottomNavigationView.getMenu().setGroupCheckable(0, true, false);
-        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
-            bottomNavigationView.getMenu().getItem(i).setChecked(false);
-        }
-        bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
-
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
             if (id == R.id.bottom_home) {
                 startActivity(new Intent(getApplicationContext(), Home.class));
-
-                return true;
             } else if (id == R.id.bottom_search) {
                 startActivity(new Intent(getApplicationContext(), Search.class));
 
@@ -82,5 +75,8 @@ public class User_Details extends AppCompatActivity {
 
             return false;
         });
+
+
+
     }
 }
