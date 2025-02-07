@@ -18,9 +18,14 @@
 
         <activity
             android:name=".Search"
+
+
+        <activity
+            android:name=".Search"
             android:exported="false" />
         <activity
             android:name=".Farmer_Payment"
+
             android:exported="false" />
         <activity
             android:name="lk.payhere.androidsdk.PHMainActivity"
@@ -30,8 +35,7 @@
             android:name=".Payment"
             android:exported="false" />
         <activity
-            android:name=".Payment_Access"
-
+            android:name=".Farmer_Payment"
             android:exported="false" />
         <activity
             android:name=".View_Product"
