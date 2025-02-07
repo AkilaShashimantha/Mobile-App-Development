@@ -3,6 +3,13 @@ package com.example.elawalu;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+
+
+//import com.example.elawalu.User_Details;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+
+
 import android.view.View;
 import android.view.ViewTreeObserver;
 import androidx.activity.EdgeToEdge;
