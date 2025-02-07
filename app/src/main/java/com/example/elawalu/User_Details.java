@@ -61,15 +61,15 @@ public class User_Details extends AppCompatActivity {
 
             if (id == R.id.bottom_home) {
                 startActivity(new Intent(getApplicationContext(), Home.class));
-                finish();
+
                 return true;
             } else if (id == R.id.bottom_search) {
                 startActivity(new Intent(getApplicationContext(), Search.class));
-                finish();
+
                 return true;
             } else if (id == R.id.bottom_Cart) {
                 startActivity(new Intent(getApplicationContext(), View_Cart.class));
-                finish();
+
                 return true;
             }
 

@@ -56,11 +56,11 @@ public class View_Cart extends AppCompatActivity {
 
             if (id == R.id.bottom_home) {
                 startActivity(new Intent(getApplicationContext(), Home.class));
-                finish();
+
                 return true;
             } else if (id == R.id.bottom_search) {
                 startActivity(new Intent(getApplicationContext(), Search.class));
-                finish();
+
                 return true;
             } else if (id == R.id.bottom_Cart) {
                 return true;

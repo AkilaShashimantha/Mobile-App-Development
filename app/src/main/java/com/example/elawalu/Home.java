@@ -95,11 +95,11 @@ addproductBtn.setOnClickListener(new View.OnClickListener() {
                 return true;
             } else if (id == R.id.bottom_search) {
                 startActivity(new Intent(getApplicationContext(), Search.class));
-                finish();
+
                 return true;
             } else if (id == R.id.bottom_Cart) {
                 startActivity(new Intent(getApplicationContext(), View_Cart.class));
-                finish();
+
                 return true;
             }
 
