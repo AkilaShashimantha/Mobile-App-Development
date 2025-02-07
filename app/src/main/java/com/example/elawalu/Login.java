@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -44,7 +46,7 @@ public class Login extends AppCompatActivity {
 
         // Set up Google Sign-In button
 
-        Button googleSignInBtn = findViewById(R.id.googleSignInBtn);
+        ImageButton googleSignInBtn = findViewById(R.id.googleSignInBtn);
         googleSignInBtn.setOnClickListener(view -> signIn());
 
         Button signInBtn = findViewById(R.id.button);
@@ -56,6 +58,17 @@ signInBtn.setOnClickListener(new View.OnClickListener() {
         finish();
     }
 });
+
+        Button button2 = findViewById(R.id.button2);
+        button2.setBackground(null);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, SignUp.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -105,5 +118,6 @@ signInBtn.setOnClickListener(new View.OnClickListener() {
         startActivity(intent);
         finish();
     }
+
 }
 
