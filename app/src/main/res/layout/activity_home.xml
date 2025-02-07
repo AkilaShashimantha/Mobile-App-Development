@@ -67,7 +67,8 @@
                     app:layout_constraintHorizontal_bias="0.997"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/account_circle_btn" />
+                    app:srcCompat="@drawable/account_circle_btn"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <Button
                     android:id="@+id/addProductBtn"
@@ -157,7 +158,8 @@
                             android:textAlignment="center"
                             android:textColor="#766D6D"
                             android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
 
                         <TextView
                             android:id="@+id/textView26"
@@ -190,7 +192,8 @@
                         android:layout_width="339dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carrot" />
+                        app:srcCompat="@drawable/carrot"
+                        tools:ignore="DuplicateIds" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -206,7 +209,8 @@
                             android:textAlignment="center"
                             android:textColor="#020202"
                             android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
 
                         <TextView
                             android:id="@+id/textView23"
@@ -216,7 +220,8 @@
                             android:textAlignment="center"
                             android:textColor="#AF1111"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
 
                         <TextView
                             android:id="@+id/textView25"
@@ -226,7 +231,8 @@
                             android:textAlignment="center"
                             android:textColor="#766D6D"
                             android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
 
                         <TextView
                             android:id="@+id/textView26"
@@ -236,7 +242,8 @@
                             android:text="Available Quantity: 1000kg "
                             android:textAlignment="center"
                             android:textColor="#346730"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -258,7 +265,8 @@
                 android:layout_width="339dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/carrot" />
+                app:srcCompat="@drawable/carrot"
+                tools:ignore="DuplicateIds" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -273,7 +281,8 @@
                 android:textAlignment="center"
                 android:textColor="#020202"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -283,7 +292,8 @@
                 android:textAlignment="center"
                 android:textColor="#AF1111"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -293,7 +303,8 @@
                 android:textAlignment="center"
                 android:textColor="#766D6D"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView26"
@@ -303,7 +314,8 @@
                 android:text="Available Quantity: 1000kg "
                 android:textAlignment="center"
                 android:textColor="#346730"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             </LinearLayout>
         </LinearLayout>
@@ -326,7 +338,8 @@
             android:layout_width="339dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/carrot" />
+            app:srcCompat="@drawable/carrot"
+            tools:ignore="DuplicateIds" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -342,7 +355,8 @@
                 android:textAlignment="center"
                 android:textColor="#020202"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -352,7 +366,8 @@
                 android:textAlignment="center"
                 android:textColor="#AF1111"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -362,7 +377,8 @@
                 android:textAlignment="center"
                 android:textColor="#766D6D"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
                 <TextView
                     android:id="@+id/textView26"
@@ -372,7 +388,8 @@
                     android:text="Available Quantity: 1000kg "
                     android:textAlignment="center"
                     android:textColor="#346730"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="DuplicateIds" />
 
             </LinearLayout>
         </LinearLayout>
@@ -394,7 +411,8 @@
                 android:layout_width="339dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/carrot" />
+                app:srcCompat="@drawable/carrot"
+                tools:ignore="DuplicateIds" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -410,7 +428,8 @@
                 android:textAlignment="center"
                 android:textColor="#020202"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -420,7 +439,8 @@
                 android:textAlignment="center"
                 android:textColor="#AF1111"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -430,7 +450,8 @@
                 android:textAlignment="center"
                 android:textColor="#766D6D"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             <TextView
                 android:id="@+id/textView26"
@@ -440,7 +461,8 @@
                 android:text="Available Quantity: 1000kg "
                 android:textAlignment="center"
                 android:textColor="#346730"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds" />
 
             </LinearLayout>
         </LinearLayout>
