@@ -18,8 +18,10 @@ public class Payment_History extends AppCompatActivity {
 
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_payment_history);
 
