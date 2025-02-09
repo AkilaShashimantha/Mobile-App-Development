@@ -132,7 +132,13 @@ public class Home extends AppCompatActivity {
                     showToast("Add product Selected");
 
                     startActivity(new Intent(Home.this, Items.class));
-                } else {
+                }
+                else if (id == R.id.seller) {
+                    showToast("Vegetable Sellers Selected");
+
+                    startActivity(new Intent(Home.this, Vegetable_Sellers.class));
+                }
+                else {
                     return false; // If no valid item is selected
                 }
 

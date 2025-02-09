@@ -15,12 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".Vegetable_Sellers"
+            android:exported="false" />
         <activity
             android:name=".Search"
             android:exported="false" />
-
         <activity
             android:name="lk.payhere.androidsdk.PHMainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
