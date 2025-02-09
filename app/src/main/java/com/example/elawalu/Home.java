@@ -138,6 +138,12 @@ public class Home extends AppCompatActivity {
 
                     startActivity(new Intent(Home.this, Vegetable_Sellers.class));
                 }
+
+                     else if (id == R.id.paymentHistory) {
+                    showToast("Payment History Selected");
+
+                    startActivity(new Intent(Home.this, Payment_History.class));
+                }
                 else {
                     return false; // If no valid item is selected
                 }

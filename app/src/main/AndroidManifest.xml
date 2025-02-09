@@ -19,6 +19,9 @@
             android:name=".Vegetable_Sellers"
             android:exported="false" />
         <activity
+            android:name=".Payment_History"
+            android:exported="false" />
+        <activity
             android:name=".Search"
             android:exported="false" />
         <activity
