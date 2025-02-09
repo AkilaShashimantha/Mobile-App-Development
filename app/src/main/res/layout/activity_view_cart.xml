@@ -16,14 +16,104 @@
         android:backgroundTint="#FFFFFF"
         tools:context=".View_Cart">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Toolbar for the cart page -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Cart"
-            android:textColor="@color/veggreen"
-            android:textSize="36sp" />
+            android:background="#FFFFFF"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:paddingTop="50dp"
+            android:gravity="center_vertical|center_horizontal">
 
+            <!-- Custom Title TextView -->
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cart"
+                android:textSize="22sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Empty Cart Message -->
+        <TextView
+            android:id="@+id/emptyCartTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Your cart is empty!"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:visibility="gone" />
+
+        <!-- RecyclerView to display cart items -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cartRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_above="@+id/totalPriceLayout"
+            android:padding="16dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_cart" />
+
+        <!-- Layout for total price, checkout button, and remove all button -->
+        <LinearLayout
+            android:id="@+id/totalPriceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottomNavigation"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="8dp"
+            android:padding="16dp">
+
+            <!-- Total price TextView -->
+            <TextView
+                android:id="@+id/totalPriceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total: Rs:0.00"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="textEnd"
+                android:paddingBottom="8dp" />
+
+            <!-- Remove All Button -->
+            <Button
+                android:id="@+id/removeAllButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remove All"
+                android:backgroundTint="@color/veggreen"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="4dp" />
+
+            <!-- Checkout Button -->
+            <Button
+                android:id="@+id/checkoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Proceed to Checkout"
+                android:backgroundTint="@color/veggreen"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:padding="12dp"
+                android:elevation="4dp" />
+        </LinearLayout>
+
+        <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"

@@ -14,12 +14,14 @@
             />
         <item android:id="@+id/addProduct"
             android:title="Add product"
+            android:icon="@drawable/shopping"
             />
         <item android:id="@+id/seller"
             android:title="vegetable Sellers"
+            android:icon="@drawable/seller"
             />
         <item android:id="@+id/paymentHistory"
-
+            android:icon="@drawable/history"
             android:title="Payment History"
             />
     </group>

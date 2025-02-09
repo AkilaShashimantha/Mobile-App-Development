@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Product Image -->
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/carrot" />
+
+        <!-- Product Title -->
+        <TextView
+            android:id="@+id/productTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/productImage"
+            android:layout_marginStart="16dp"
+            android:text="Product Title"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <!-- Product Price -->
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productTitle"
+            android:layout_toEndOf="@id/productImage"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="$19.99"
+            android:textSize="14sp"
+            android:textColor="@android:color/black" />
+
+        <!-- Quantity Selector -->
+        <LinearLayout
+            android:id="@+id/quantityLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productPrice"
+            android:layout_toEndOf="@id/productImage"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:background="@drawable/quantity_background"
+        android:gravity="center">
+
+        <!-- Decrease Quantity Button -->
+        <Button
+            android:id="@+id/decreaseButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="-"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/button_background"
+        android:stateListAnimator="@null" />
+
+        <!-- Quantity Display -->
+        <TextView
+            android:id="@+id/quantityTextView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <!-- Increase Quantity Button -->
+        <Button
+            android:id="@+id/increaseButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="+"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/button_background"
+            android:stateListAnimator="@null" />
+    </LinearLayout>
+
+    <!-- Save for Later Button -->
+    <ImageButton
+        android:id="@+id/saveForLaterButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/deleteButton"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/account_circle_btn"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Save for Later" />
+
+    <!-- Delete Button -->
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/delete"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Delete" />
+</RelativeLayout>
+    </androidx.cardview.widget.CardView>
