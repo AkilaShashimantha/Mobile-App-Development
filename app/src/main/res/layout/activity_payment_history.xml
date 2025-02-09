@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Top Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#54FF39"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Payment History Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Payment History"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <!-- Profile Image -->
+
+        <!-- User Name -->
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="108dp"
+            android:layout_height="119dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/white__1_"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pro_pic" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Ponna Janaka"
+            android:textColor="@color/ic_launcher_background"
+            android:textSize="34sp"
+            android:textStyle="bold|italic" />
+
+    </LinearLayout>
+
+    <!-- Transactions Section -->
+    <TextView
+        android:layout_width="422dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="260dp"
+        android:text="Transactions"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic|bold" />
+
+    <!-- Transactions List -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="379dp"
+        android:layout_marginTop="290dp"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Transaction Item 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:marginBottom="10dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="142dp"
+                    android:layout_height="107dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/carrot" />
+
+                <TextView
+                    android:layout_width="270dp"
+                    android:layout_height="86dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Carrot\n 10 (kg)\n 2500.00"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Transaction Item 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:marginBottom="10dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="142dp"
+                    android:layout_height="111dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/belpeper" />
+
+                <TextView
+                    android:layout_width="276dp"
+                    android:layout_height="96dp"
+                    android:layout_marginStart="10dp"
+                    android:text="ITEM Name\nunits (kg)\nPrice"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+
+            <!-- Transaction Item 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:marginBottom="10dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="142dp"
+                    android:layout_height="103dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/watakolu" />
+
+                <TextView
+                    android:layout_width="273dp"
+                    android:layout_height="86dp"
+                    android:layout_marginStart="10dp"
+                    android:text="ITEM Name\nunits (kg)\nPrice"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp">
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_background"
+            app:itemIconSize="30dp"
+            app:itemIconTint="@drawable/item_selector"
+            app:itemRippleColor="@android:color/transparent"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_menu" />
+
+    </LinearLayout>
+
+</RelativeLayout>
