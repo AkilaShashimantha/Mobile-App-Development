@@ -18,9 +18,11 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+                android:fillViewport="true"
+                android:paddingTop="50dp"
+           >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -92,14 +94,14 @@
 
                         <ImageView
                             android:id="@+id/imageView6"
-                            android:layout_width="100dp"
+                            android:layout_width="77dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             app:srcCompat="@drawable/idsvg" />
 
                         <EditText
                             android:id="@+id/editTextText3"
-                            android:layout_width="316dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:ems="10"
@@ -124,14 +126,14 @@
 
                             <ImageView
                                 android:id="@+id/imageView7"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
+                                android:layout_width="69dp"
+                                android:layout_height="40dp"
                                 android:layout_weight="1"
                                 app:srcCompat="@drawable/date" />
 
                             <EditText
                                 android:id="@+id/editTextDate"
-                                android:layout_width="316dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:ems="10"
