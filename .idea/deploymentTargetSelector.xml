@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-02-08T11:57:24.866295500Z">
+        <DropdownSelection timestamp="2025-02-09T12:54:51.156944600Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\nuwar\.android\avd\aachchige_hutta.avd" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=QV721Q3H25" />
             </handle>
           </Target>
         </DropdownSelection>
