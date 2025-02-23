@@ -87,9 +87,7 @@ public class Login extends AppCompatActivity {
 
         forgotPassword.setOnClickListener(view -> resetPassword());
 
-        passwordEditText = findViewById(R.id.passwordLogin);
-
-// Set a listener for the EditText (when the icon is clicked)
+        // Set a listener for the EditText (when the icon is clicked)
         passwordEditText.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 Drawable drawableEnd = passwordEditText.getCompoundDrawables()[2];
@@ -149,13 +147,26 @@ public class Login extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null) {
-                    firebaseAuthWithGoogle(account);
+                    // Check if the user exists in Firebase
+                    checkUserExistsInFirebase(account);
                 }
             } catch (ApiException e) {
                 Log.e("GoogleSignIn", "Google Sign-In Failed: " + e.getStatusCode());
                 Toast.makeText(this, "Google Sign-In Failed. Error: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void checkUserExistsInFirebase(GoogleSignInAccount account) {
+        usersRef.child(account.getId()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                // User exists in Firebase, authenticate with Google and navigate to home
+                firebaseAuthWithGoogle(account);
+            } else {
+                // User does not exist in Firebase, navigate to SignUp
+                navigateToSignUp(account);
+            }
+        });
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
@@ -224,6 +235,14 @@ public class Login extends AppCompatActivity {
     private void navigateToHome(String userName) {
         Intent intent = new Intent(Login.this, Home.class);
         intent.putExtra("USER_NAME", userName);
+        startActivity(intent);
+        finish();
+    }
+
+    private void navigateToSignUp(GoogleSignInAccount account) {
+        Intent intent = new Intent(Login.this, SignUp.class);
+        intent.putExtra("USER_NAME", account.getDisplayName());
+        intent.putExtra("USER_EMAIL", account.getEmail());
         startActivity(intent);
         finish();
     }
