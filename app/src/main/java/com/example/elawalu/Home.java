@@ -19,8 +19,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.elawalu.User_Details;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.appcompat.app.AlertDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class Home extends AppCompatActivity {
 
@@ -30,11 +36,14 @@ public class Home extends AppCompatActivity {
     NavigationView navigationView;
     ActionBarDrawerToggle drawerToggle;
 
+    private Button signOutBtn;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_btn);
@@ -43,7 +52,11 @@ public class Home extends AppCompatActivity {
         View mainLayout = findViewById(R.id.main);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
+        mAuth = FirebaseAuth.getInstance();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build());
 
+        signOutBtn = findViewById(R.id.signOutBtn);
+        signOutBtn.setOnClickListener(view -> showSignOutDialog());
 
         //Card view clicked function
 
@@ -175,4 +188,23 @@ public class Home extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+    private void showSignOutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Sign Out")
+                .setMessage("Are you sure you want to sign out?")
+                .setPositiveButton("Yes", (dialog, which) -> signOut())
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void signOut() {
+        mAuth.signOut();
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            Intent intent = new Intent(Home.this, Login.class);
+            startActivity(intent);
+            finish();
+        });
+    }
+
 }

@@ -43,6 +43,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/elawalu" />
+                    <Button
+                        android:id="@+id/signOutBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sign Out"
+                        android:layout_centerInParent="true"/>
+
 
                     <ImageView
                         android:id="@+id/imageView42"
