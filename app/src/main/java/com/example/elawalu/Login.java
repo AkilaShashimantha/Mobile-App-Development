@@ -36,6 +36,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -77,14 +78,8 @@ public class Login extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         signInBtn.setOnClickListener(view -> signInWithEmail());
-
-        signUpBtn.setOnClickListener(view -> {
-            startActivity(new Intent(Login.this, SignUp.class));
-            finish();
-        });
-
+        signUpBtn.setOnClickListener(view -> startActivity(new Intent(Login.this, SignUp.class)));
         googleSignInBtn.setOnClickListener(view -> signInWithGoogle());
-
         forgotPassword.setOnClickListener(view -> resetPassword());
 
         // Set a listener for the EditText (when the icon is clicked)
@@ -112,6 +107,7 @@ public class Login extends AppCompatActivity {
             return false;
         });
 
+
     }
 
     private void signInWithEmail() {
@@ -126,7 +122,8 @@ public class Login extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        navigateToHome(mAuth.getCurrentUser().getDisplayName());
+                        Toast.makeText(Login.this, "Sign In Successfully", Toast.LENGTH_SHORT).show();
+                        navigateToHome(mAuth.getCurrentUser().getDisplayName(),"");
                     } else {
                         Toast.makeText(this, "Authentication failed. Check email/password", Toast.LENGTH_SHORT).show();
                     }
@@ -147,26 +144,13 @@ public class Login extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null) {
-                    // Check if the user exists in Firebase
-                    checkUserExistsInFirebase(account);
+                    firebaseAuthWithGoogle(account);
                 }
             } catch (ApiException e) {
                 Log.e("GoogleSignIn", "Google Sign-In Failed: " + e.getStatusCode());
-                Toast.makeText(this, "Google Sign-In Failed. Error: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Google Sign-In Failed", Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    private void checkUserExistsInFirebase(GoogleSignInAccount account) {
-        usersRef.child(account.getId()).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful() && task.getResult().exists()) {
-                // User exists in Firebase, authenticate with Google and navigate to home
-                firebaseAuthWithGoogle(account);
-            } else {
-                // User does not exist in Firebase, navigate to SignUp
-                navigateToSignUp(account);
-            }
-        });
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
@@ -176,14 +160,27 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            Toast.makeText(this, "Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                            navigateToHome(user.getDisplayName());
+                            checkUserExistsInFirebase(user);
                         }
                     } else {
                         Toast.makeText(this, "Firebase Authentication Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    private void checkUserExistsInFirebase(FirebaseUser user) {
+        usersRef.child(user.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                String profileImageUrl = (user.getPhotoUrl() != null) ? user.getPhotoUrl().toString() : "default_url";
+                Toast.makeText(this, "Signed in as " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                navigateToHome(user.getDisplayName(), profileImageUrl);
+            } else {
+                Toast.makeText(Login.this, "Please Sign Up first", Toast.LENGTH_SHORT).show();
+                navigateToSignUp(user);
+            }
+        });
+    }
+
 
     private void resetPassword() {
         String email = emailEditText.getText().toString().trim();
@@ -232,17 +229,19 @@ public class Login extends AppCompatActivity {
         webDialog.show();
     }
 
-    private void navigateToHome(String userName) {
+    private void navigateToHome(String userName, String profileImageUrl) {
         Intent intent = new Intent(Login.this, Home.class);
         intent.putExtra("USER_NAME", userName);
+        intent.putExtra("USER_IMAGE", profileImageUrl);
         startActivity(intent);
         finish();
     }
 
-    private void navigateToSignUp(GoogleSignInAccount account) {
+
+    private void navigateToSignUp(FirebaseUser user) {
         Intent intent = new Intent(Login.this, SignUp.class);
-        intent.putExtra("USER_NAME", account.getDisplayName());
-        intent.putExtra("USER_EMAIL", account.getEmail());
+        intent.putExtra("USER_NAME", user.getDisplayName());
+        intent.putExtra("USER_EMAIL", user.getEmail());
         startActivity(intent);
         finish();
     }
