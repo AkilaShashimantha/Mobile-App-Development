@@ -1,5 +1,6 @@
 package com.example.elawalu;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.ViewFlipper;
 import android.widget.ImageButton;
@@ -24,6 +27,8 @@ public class Items extends AppCompatActivity {
     private Button readtoSaleBtn;
 
     private BottomNavigationView bottomNavigationView;
+
+    private EditText editTextNumberSigned3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class Items extends AppCompatActivity {
 
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(adapter2);
+
 
 
         //Continue Farmer_Payement Page

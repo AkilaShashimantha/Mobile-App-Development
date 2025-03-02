@@ -176,6 +176,8 @@ public class Login extends AppCompatActivity {
                 navigateToHome(user.getDisplayName(), profileImageUrl);
             } else {
                 Toast.makeText(Login.this, "Please Sign Up first", Toast.LENGTH_SHORT).show();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
                 navigateToSignUp(user);
             }
         });
