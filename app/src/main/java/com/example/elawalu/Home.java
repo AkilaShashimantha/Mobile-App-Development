@@ -2,6 +2,7 @@ package com.example.elawalu;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -52,9 +53,9 @@ public class Home extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_btn);
 
         // Get passed data from Login Activity
-        Intent intent = getIntent();
-        String userName = intent.getStringExtra("USER_NAME");
-        String profileImageUrl = intent.getStringExtra("USER_IMAGE");
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("USER_NAME", "Guest");
+        String profileImageUrl = sharedPreferences.getString("PROFILE_IMAGE", "");
 
 
         // Reference Navigation Drawer Header
@@ -226,6 +227,12 @@ public class Home extends AppCompatActivity {
     }
 
     private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Clears all stored user data
+        editor.apply();
+
         mAuth.signOut();
         mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
             Intent intent = new Intent(Home.this, Login.class);

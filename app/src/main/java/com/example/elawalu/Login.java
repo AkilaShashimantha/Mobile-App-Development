@@ -2,6 +2,7 @@ package com.example.elawalu;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -37,8 +38,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
@@ -51,6 +54,8 @@ public class Login extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
     private DatabaseReference usersRef;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +112,60 @@ public class Login extends AppCompatActivity {
             return false;
         });
 
+//Session Create check
+        sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+
+        if(sharedPreferences.getBoolean("isLoggedIn", false)){
+
+            startActivity(new Intent(Login.this, Home.class));
+            finish();
+
+        }
+
+    }
+
+    private  void saveUserSession(String userId ,String displayName){
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+
+                    String email = snapshot.child("email").getValue(String.class);
+                    String firstName = snapshot.child("firstName").getValue(String.class);
+                    String lastName = snapshot.child("lastName").getValue(String.class);
+                    String gender = snapshot.child("gender").getValue(String.class);
+                    String phone = snapshot.child("phone").getValue(String.class);
+                    String profileImageUrl = snapshot.child("profileImageUrl").getValue(String.class);
+                    String role = snapshot.child("role").getValue(String.class);
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.putString("USER_ID", userId);
+                    editor.putString("USER_NAME", displayName);
+                    editor.putString("EMAIL", email);
+                    editor.putString("FIRST_NAME", firstName);
+                    editor.putString("LAST_NAME", lastName);
+                    editor.putString("GENDER", gender);
+                    editor.putString("PHONE", phone);
+                    editor.putString("PROFILE_IMAGE", profileImageUrl);
+                    editor.putString("ROLE", role);
+
+                    editor.apply();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Login.this, "Failed to load user data", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -122,8 +181,13 @@ public class Login extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Login.this, "Sign In Successfully", Toast.LENGTH_SHORT).show();
-                        navigateToHome(mAuth.getCurrentUser().getDisplayName(),"");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if(user != null){
+                            Toast.makeText(Login.this, "Sign In Successfully", Toast.LENGTH_SHORT).show();
+                            navigateToHome();
+                            saveUserSession(user.getUid(),"");
+                        }
+
                     } else {
                         Toast.makeText(this, "Authentication failed. Check email/password", Toast.LENGTH_SHORT).show();
                     }
@@ -173,12 +237,13 @@ public class Login extends AppCompatActivity {
             if (task.isSuccessful() && task.getResult().exists()) {
                 String profileImageUrl = (user.getPhotoUrl() != null) ? user.getPhotoUrl().toString() : "default_url";
                 Toast.makeText(this, "Signed in as " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                navigateToHome(user.getDisplayName(), profileImageUrl);
+                navigateToHome();
+                saveUserSession(user.getUid(),user.getDisplayName());
             } else {
                 Toast.makeText(Login.this, "Please Sign Up first", Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 mGoogleSignInClient.signOut();
-                navigateToSignUp(user);
+                navigateToSignUp();
             }
         });
     }
@@ -231,19 +296,15 @@ public class Login extends AppCompatActivity {
         webDialog.show();
     }
 
-    private void navigateToHome(String userName, String profileImageUrl) {
+    private void navigateToHome() {
         Intent intent = new Intent(Login.this, Home.class);
-        intent.putExtra("USER_NAME", userName);
-        intent.putExtra("USER_IMAGE", profileImageUrl);
         startActivity(intent);
         finish();
     }
 
 
-    private void navigateToSignUp(FirebaseUser user) {
+    private void navigateToSignUp() {
         Intent intent = new Intent(Login.this, SignUp.class);
-        intent.putExtra("USER_NAME", user.getDisplayName());
-        intent.putExtra("USER_EMAIL", user.getEmail());
         startActivity(intent);
         finish();
     }
