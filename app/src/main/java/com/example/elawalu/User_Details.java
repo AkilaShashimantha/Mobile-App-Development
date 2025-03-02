@@ -11,16 +11,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.widget.EditText;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.widget.NestedScrollView;
 
 public class User_Details extends AppCompatActivity {
 
+    private NestedScrollView scrollView;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -30,6 +33,20 @@ public class User_Details extends AppCompatActivity {
         setContentView(R.layout.activity_user_details);
 
         getSupportActionBar().hide();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        scrollView = findViewById(R.id.scrollView);
+        EditText address = findViewById(R.id.addressLine1);
+
+        address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    scrollView.postDelayed(() -> scrollView.smoothScrollTo(0, address.getTop()), 300);
+                }
+            }
+        });
 
         View mainLayout = findViewById(R.id.main);
         bottomNavigationView = findViewById(R.id.bottomNavigation);

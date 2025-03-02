@@ -2,12 +2,15 @@ package com.example.elawalu;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.elawalu.User_Details;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -48,6 +52,30 @@ public class Home extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_btn);
 
+        // Get passed data from Login Activity
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("USER_NAME", "Guest");
+        String profileImageUrl = sharedPreferences.getString("PROFILE_IMAGE", "");
+
+
+        // Reference Navigation Drawer Header
+        NavigationView navigationView = findViewById(R.id.nav_btn);
+        View headerView = navigationView.getHeaderView(0);
+
+        // Find Header Views
+        TextView userNameTextView = headerView.findViewById(R.id.userNameTextView);
+        ImageView profileImageView = headerView.findViewById(R.id.profileImageView);
+
+        userNameTextView.setText(userName);
+
+        // Load Profile Image using Glide (Recommended)
+        if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(profileImageUrl)
+                    .placeholder(R.drawable.account_circle_btn)  // Placeholder Image
+                    .error(R.drawable.account_circle_btn)           // Error Image
+                    .into(profileImageView);
+        }
 
         View mainLayout = findViewById(R.id.main);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -199,6 +227,12 @@ public class Home extends AppCompatActivity {
     }
 
     private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Clears all stored user data
+        editor.apply();
+
         mAuth.signOut();
         mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
             Intent intent = new Intent(Home.this, Login.class);
