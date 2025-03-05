@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ScrollView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +24,10 @@ import androidx.core.widget.NestedScrollView;
 
 public class User_Details extends AppCompatActivity {
 
-    private NestedScrollView scrollView;
+
     private BottomNavigationView bottomNavigationView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +39,8 @@ public class User_Details extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-        scrollView = findViewById(R.id.scrollView);
-        EditText address = findViewById(R.id.addressLine1);
 
-        address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    scrollView.postDelayed(() -> scrollView.smoothScrollTo(0, address.getTop()), 300);
-                }
-            }
-        });
+
 
         View mainLayout = findViewById(R.id.main);
         bottomNavigationView = findViewById(R.id.bottomNavigation);

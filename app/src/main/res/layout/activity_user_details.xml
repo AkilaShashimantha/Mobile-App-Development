@@ -16,61 +16,96 @@
         <!-- Profile Section -->
 
         <!-- Scrollable Content -->
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+
+        <!-- Bottom Navigation -->
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.003">
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/pro_pic" />
-
-            <TextView
-                android:id="@+id/txtProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:text="Profile"
-                android:textColor="#0AB108"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:fillViewport="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints">
 
                 <!-- First Name & Last Name -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/profileback"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:gravity="center|start|top"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+                        android:transitionGroup="false">
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView6"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_gravity="start"
+                                app:srcCompat="@drawable/elawalu" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/profileImage"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/white__1_"
+                                android:paddingTop="10dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/pro_pic" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txtProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:text="Profile"
+                        android:textColor="#0AB108"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -86,7 +121,9 @@
                         android:hint="First Name"
                         android:paddingStart="20dp"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                     <EditText
                         android:id="@+id/lName"
@@ -96,7 +133,9 @@
                         android:hint="Last Name"
                         android:inputType="text"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <!-- NIC -->
@@ -117,7 +156,9 @@
                         android:hint="Enter Your NIC"
                         android:paddingStart="20dp"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <!-- Birthday -->
@@ -140,7 +181,9 @@
                         android:inputType="date"
                         android:paddingStart="20dp"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <!-- Contact Number -->
@@ -162,7 +205,9 @@
                         android:hint="Contact Number"
                         android:paddingStart="20dp"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <!-- Email Address -->
@@ -183,11 +228,13 @@
                         android:layout_height="wrap_content"
                         android:editable="false"
                         android:enabled="false"
-                        android:hint="Enter Email"
+                        android:hint="Your Email"
                         android:inputType="textEmailAddress"
                         android:paddingStart="20dp"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <!-- Address -->
@@ -213,7 +260,9 @@
                         android:paddingStart="20dp"
                         android:scrollbars="vertical"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <!-- Confirm Changes Button -->
@@ -239,7 +288,9 @@
                         android:paddingStart="20dp"
                         android:textAlignment="textStart"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
 
@@ -258,7 +309,9 @@
                         android:inputType="text"
                         android:paddingStart="60dp"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -276,22 +329,31 @@
                         android:inputType="number"
                         android:paddingStart="60dp"
                         android:textColor="#504E4E"
-                        android:textColorHint="#504E4E" />
+                        android:textColorHint="#504E4E"
+                        android:textSize="12sp"
+                        tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/button3"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="#0AB108"
-                    android:text="Confirm Changes"
-                    android:textColor="#FFFFFF" />
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="#0AB108"
+                        android:text="Confirm Changes"
+                        android:textColor="#263238"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
-        <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
