@@ -183,9 +183,7 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if(user != null){
-                            Toast.makeText(Login.this, "Sign In Successfully", Toast.LENGTH_SHORT).show();
-                            navigateToHome();
-                            saveUserSession(user.getUid(),"");
+                            retrieveUserDataFromDatabase(user);
                         }
 
                     } else {
@@ -193,6 +191,23 @@ public class Login extends AppCompatActivity {
                     }
                 });
     }
+
+    private void retrieveUserDataFromDatabase(FirebaseUser user) {
+        usersRef.child(user.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                Toast.makeText(this, " successfully Signed in ", Toast.LENGTH_SHORT).show();
+                navigateToHome();
+                saveUserSession(user.getUid(),user.getDisplayName());
+            } else {
+                Toast.makeText(Login.this, "Please Sign Up first", Toast.LENGTH_SHORT).show();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
+                navigateToSignUp();
+            }
+        });
+
+    }
+
 
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();

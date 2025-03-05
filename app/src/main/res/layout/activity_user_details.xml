@@ -87,15 +87,15 @@
                                     android:layout_gravity="center"
                                     android:orientation="vertical">
 
-                                    <ImageView
+                                    <com.google.android.material.imageview.ShapeableImageView
                                         android:id="@+id/profileImage"
-                                        android:layout_width="150dp"
-                                        android:layout_height="150dp"
-                                        android:layout_gravity="center"
-                                        android:background="@drawable/white__1_"
-                                        android:paddingTop="10dp"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
                                         android:scaleType="centerCrop"
-                                        android:src="@drawable/pro_pic" />
+                                        android:src="@drawable/account_circle_btn"
+                                        app:strokeColor="@color/white"
+                                        app:strokeWidth="2dp"
+                                        app:shapeAppearanceOverlay="@style/RoundedImageView" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -244,6 +244,7 @@
                                 android:textColor="#504E4E"
                                 android:textColorHint="#504E4E"
                                 android:textSize="12sp"
+                                android:textStyle="bold"
                                 tools:ignore="TouchTargetSizeCheck" />
                         </LinearLayout>
 
@@ -357,7 +358,7 @@
                                 android:layout_marginTop="10dp"
                                 android:background="#0AB108"
                                 android:text="Confirm Changes"
-                                android:textColor="#263238"
+                                android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
 

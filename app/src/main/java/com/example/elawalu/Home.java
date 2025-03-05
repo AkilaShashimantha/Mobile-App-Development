@@ -56,6 +56,9 @@ public class Home extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         String userName = sharedPreferences.getString("USER_NAME", "Guest");
         String profileImageUrl = sharedPreferences.getString("PROFILE_IMAGE", "");
+        String uId = sharedPreferences.getString("USER_ID", "");
+        String email = sharedPreferences.getString("EMAIL", "");
+        String role = sharedPreferences.getString("ROLE", "");
 
 
         // Reference Navigation Drawer Header
