@@ -60,8 +60,8 @@ dependencies {
     implementation("com.github.PayHereDevs:payhere-android-sdk:v3.0.17")
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("com.google.code.gson:gson:2.8.0")
-
     implementation("com.google.android.material:material:1.9.0")
+
 
     testImplementation("junit:junit:4.12")
     androidTestImplementation("com.android.support.test:runner:1.0.1")

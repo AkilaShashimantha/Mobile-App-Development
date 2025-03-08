@@ -9,7 +9,8 @@ import android.os.Bundle;
 //import com.example.elawalu.User_Details;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 
 import android.view.View;
@@ -26,6 +27,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class User_Details extends AppCompatActivity {
 
 
@@ -40,6 +46,7 @@ public class User_Details extends AppCompatActivity {
         setContentView(R.layout.activity_user_details);
 
         getSupportActionBar().hide();
+
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -57,8 +64,14 @@ public class User_Details extends AppCompatActivity {
         ImageView profileImage = findViewById(R.id.profileImage);
         TextView fname = findViewById(R.id.fName);
         TextView lname = findViewById(R.id.lName);
-        TextView phoneNumber = findViewById(R.id.phone);
+        TextView phoneNumber = findViewById(R.id.PhoneNumber);
         TextView userEmail = findViewById(R.id.email);
+        TextView birthday = findViewById(R.id.profileBirthday);
+        TextView nic = findViewById(R.id.nic);
+        TextView address = findViewById(R.id.address);
+        TextView city = findViewById(R.id.city);
+
+
 
         if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
             Glide.with(this)
@@ -117,6 +130,43 @@ public class User_Details extends AppCompatActivity {
 
             return false;
         });
+
+//Date Picker
+
+
+birthday.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build();
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override
+            public void onPositiveButtonClick(Long selection) {
+
+                String date = new SimpleDateFormat("dd-MM-yyy", Locale.getDefault()).format(new Date(selection));
+                birthday.setText(MessageFormat.format("{0}",date));
+
+            }
+        });
+        materialDatePicker.show(getSupportFragmentManager(),"tag");
+
+    }
+});
+
+ImageView profileBackBtn = findViewById(R.id.profileBackBtn);
+
+profileBackBtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(User_Details.this, Home.class);
+        startActivity(intent);
+        finish();
+    }
+});
+
 
 
 
