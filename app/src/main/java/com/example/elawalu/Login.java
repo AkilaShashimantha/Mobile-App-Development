@@ -140,6 +140,10 @@ public class Login extends AppCompatActivity {
                     String phone = snapshot.child("phone").getValue(String.class);
                     String profileImageUrl = snapshot.child("profileImageUrl").getValue(String.class);
                     String role = snapshot.child("role").getValue(String.class);
+                    String nic = snapshot.child("nic").getValue(String.class);
+                    String birthday = snapshot.child("birthday").getValue(String.class);
+                    String address = snapshot.child("address").getValue(String.class);
+                    String city = snapshot.child("city").getValue(String.class);
 
                     SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -154,6 +158,10 @@ public class Login extends AppCompatActivity {
                     editor.putString("PHONE", phone);
                     editor.putString("PROFILE_IMAGE", profileImageUrl);
                     editor.putString("ROLE", role);
+                    editor.putString("NIC", nic);
+                    editor.putString("BIRTHDAY", birthday);
+                    editor.putString("ADDRESS", address);
+                    editor.putString("CITY", city);
 
                     editor.apply();
 

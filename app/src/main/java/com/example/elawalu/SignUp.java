@@ -154,7 +154,7 @@ backSignIn.setOnClickListener(new View.OnClickListener() {
             return;
         }
         if (!isValidPassword(password)) {
-            Toast.makeText(this, "Password must be more than 6 characters and \ninclude at least one uppercase letter, one symbol, and one number!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password must be more than 6 characters and \ninclude at least one uppercase letter, one symbol, and one number!", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -193,7 +193,7 @@ backSignIn.setOnClickListener(new View.OnClickListener() {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://elawalu-b2fff-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference userRef = database.getReference("Users").child(userId);
 
-        User user = new User(fName, lName, email, phone, role, gender,"");
+        User user = new User(fName, lName, email, phone, role, gender,"","","","","");
 
         userRef.setValue(user)
                 .addOnCompleteListener(task -> {
@@ -210,11 +210,11 @@ backSignIn.setOnClickListener(new View.OnClickListener() {
 
 
     public static class User {
-        public String firstName, lastName, email, phone, role, gender, profileImageUrl;
+        public String firstName, lastName, email, phone, role, gender, profileImageUrl,nic,birthday,address,city;
 
         public User() {}
 
-        public User(String firstName, String lastName, String email, String phone, String role, String gender, String profileImageUrl) {
+        public User(String firstName, String lastName, String email, String phone, String role, String gender, String profileImageUrl, String nic ,String birthday, String address, String city) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
@@ -222,6 +222,10 @@ backSignIn.setOnClickListener(new View.OnClickListener() {
             this.role = role;
             this.gender = gender;
             this.profileImageUrl = profileImageUrl;
+            this.nic = nic;
+            this.birthday = birthday;
+            this.address = address;
+            this.city = city;
         }
     }
 
@@ -316,7 +320,7 @@ backSignIn.setOnClickListener(new View.OnClickListener() {
         String profileImageUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "default_image_url"; // Default URL if no profile picture
 
         // Create a new User object to store in the database
-        User newUser = new User(fName, lName, email, phone, role, gender, profileImageUrl);
+        User newUser = new User(fName, lName, email, phone, role, gender, profileImageUrl,"","","","");
 
         // Get Firebase database reference
         DatabaseReference userRef = FirebaseDatabase.getInstance("https://elawalu-b2fff-default-rtdb.asia-southeast1.firebasedatabase.app")
