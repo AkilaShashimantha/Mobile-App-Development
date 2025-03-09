@@ -1,385 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".Items"
+    android:background="@color/white"
     >
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-
+    <ScrollView
+        android:id="@+id/itemScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF">
-
+        android:layout_above="@id/bottom_navigation">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
+            android:padding="16dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:orientation="vertical">
+
+
+                    <ImageButton
+                        android:id="@+id/itemBackBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@color/white"
+                        app:srcCompat="@drawable/back_button" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:srcCompat="@drawable/elawalu" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center"
+                    android:text="Add Vegetable Stock For Sale"
+                    android:textColor="@color/veggreen"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ViewFlipper
+                        android:id="@+id/viewFlipper"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:flipInterval="3000">
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/elavaluokkoma" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/carrot" />
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/elavalu3" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/elavalu2" />
+
+                    </ViewFlipper>
+                </FrameLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="20dp"
-                    android:text="Add Vegetable Stock For Sale"
-                    android:textAlignment="center"
-                    android:textColor="#0AB108"
-                    android:textSize="34sp"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ViewFlipper
-                    android:id="@+id/viewFlipper"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:flipInterval="3000">
-
-
-                    <ImageView
+                    <TextView
+                        android:id="@+id/textView12"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/elavaluokkoma" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/carrot" />
-
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/elavalu3" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/elavalu2" />
-
-                </ViewFlipper>
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="380dp"
-                android:fillViewport="true"
-                android:isScrollContainer="true"
-                android:paddingStart="2dp"
-                android:paddingEnd="2dp"
-                android:paddingBottom="50dp"
-                app:layout_constraintBottom_toBottomOf="@+id/bottomNavigation"
-                tools:layout_editor_absoluteX="0dp">
+                        android:layout_height="wrap_content"
+                        android:text="Select vegetable"
+                        android:textColor="@color/TextColor"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <!-- FrameLayout for ViewFlipper -->
-
-                    <!-- Title and See All Section -->
-
-
-                    <!-- Popular Section -->
-
-
-                    <LinearLayout
+                    <Spinner
+                        android:id="@+id/vegetableSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/spinner_background"
+                        android:rotation="0"
+                        android:textColor="#0AFFFFFF"
+                        android:theme="@style/SpinnerStyle" />
+                </LinearLayout>
+            </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:text="Select Vegetable "
-                            android:textAlignment="textStart"
-                            android:textColor="#070707"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                        <Spinner
-                            android:id="@+id/vegetableSpinner"
-                            android:layout_width="251dp"
-                            android:layout_height="48dp"
-                            android:layout_weight="1"
-                            android:background="#020202"
-                            android:rotation="0"
-                            android:textColor="#0AFFFFFF"
-                            android:theme="@style/SpinnerStyle" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/itemQuantityLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Quantity"
+                    android:textColorHint="@color/TextColor"
+                    app:boxStrokeColor="@color/veggreen"
+                    app:counterTextColor="@color/TextColor"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/TextColor">
 
-                    </LinearLayout>
-
-
-                    <LinearLayout
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/itemQuantity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:inputType="number"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        android:textSize="12sp"
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-                            <TextView
-                                android:layout_width="145dp"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:text="Quantity      "
-                                android:textAlignment="viewStart"
-                                android:textColor="#070707"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                            <EditText
-                                android:id="@+id/editTextNumberSigned3"
-                                android:layout_width="169dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:focusable="true"
-                                android:focusableInTouchMode="true"
-                                android:hint="Add Quantity"
-                                android:inputType="numberSigned"
-                                android:textAlignment="center"
-                                android:textColor="#040404"
-                                android:textColorHint="#504E4E"
-                                tools:ignore="TouchTargetSizeCheck" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/textView17"
-                                android:layout_width="79dp"
-                                android:layout_height="45dp"
-                                android:layout_weight="1"
-                                android:text="kg"
-                                android:textAlignment="center"
-                                android:textColor="#050505"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/textView13"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView15"
-                                android:layout_width="154dp"
-                                android:layout_height="52dp"
-                                android:paddingStart="20dp"
-                                android:paddingTop="10dp"
-                                android:text="Select Location"
-                                android:textColor="#070707"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <Spinner
-                                android:id="@+id/locationspinner"
-                                android:layout_width="240dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginEnd="10dp"
-                                android:layout_weight="1"
-                                android:background="#020202"
-                                android:textColor="#0AFFFFFF"
-                                android:theme="@style/SpinnerStyle" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView18"
-                                android:layout_width="154dp"
-                                android:layout_height="45dp"
-                                android:layout_weight="1"
-                                android:paddingStart="20dp"
-                                android:paddingTop="10dp"
-                                android:text="Contact Number"
-                                android:textColor="#070707"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:id="@+id/editTextPhone3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:hint="Add Phone Number"
-                                android:inputType="phone"
-                                android:textAlignment="center"
-                                android:textColor="#040404"
-                                android:textColorHint="#504E4E"
-                                tools:ignore="TouchTargetSizeCheck" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView30"
-                            android:layout_width="154dp"
-                            android:layout_height="34dp"
-                            android:layout_marginTop="4dp"
-                            android:paddingTop="10dp"
-                            android:paddingEnd="20dp"
-                            android:text="Price       Rs."
-                            android:textAlignment="textEnd"
-                            android:textColor="#050505"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.025"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <EditText
-                            android:id="@+id/editTextNumberDecimal2"
-                            android:layout_width="100dp"
-                            android:layout_height="43dp"
-                            android:layout_marginStart="2dp"
-                            android:background="@drawable/edittext_border"
-                            android:backgroundTint="#D9D4D4"
-                            android:ems="10"
-                            android:hint="Add price"
-                            android:inputType="numberDecimal"
-                            android:textAlignment="center"
-                            android:textColor="#050505"
-                            android:textColorHint="#504E4E"
-                            android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/textView31"
-                            app:layout_constraintHorizontal_bias="0.638"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.444" />
-
-                        <TextView
-                            android:id="@+id/textView31"
-                            android:layout_width="wrap_content"
-                            android:layout_height="38dp"
-                            android:paddingStart="2dp"
-                            android:paddingTop="10dp"
-                            android:text="per 1kg"
-                            android:textAlignment="center"
-                            android:textColor="#0B0B0B"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.974"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/readtoSaleBtn"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:backgroundTint="#0AB108"
-                                android:text="Ready to Sale"
-                                android:textAlignment="center"
-                                android:textAllCaps="false"
-                                android:textColor="#FDFFFD"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-
+                        android:layout_height="wrap_content"
+                        android:text="Select Location"
+                        android:textColor="@color/TextColor"
+                        android:textStyle="bold" />
                 </LinearLayout>
-            </ScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/locationspinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/spinner_background"
+                        android:textColor="#0AFFFFFF"
+                        android:theme="@style/SpinnerStyle" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/itemContactNumberlayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Contact Number"
+                    android:textColorHint="@color/TextColor"
+                    app:boxStrokeColor="@color/veggreen"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10"
+                    app:counterOverflowTextColor="@color/TextColor"
+                    app:counterTextColor="@color/TextColor"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/TextColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/itemContactNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/itemPriceLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Price per kg Rs."
+                    android:textColorHint="@color/TextColor"
+
+                    app:boxStrokeColor="@color/veggreen"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/TextColor"
+                    app:startIconTint="@color/TextColor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/itemPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        android:textSize="12sp"
+
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/readySale"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:text="Ready to Sale"
+                    android:textColor="@color/veggreen"
+                    app:cornerRadius="10dp"
+                    app:strokeColor="@color/veggreen"
+                    app:strokeWidth="2dp"
+
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bottom_background"
-            app:itemIconSize="30dp"
-            app:itemIconTint="@drawable/item_selector"
-            app:itemRippleColor="@android:color/transparent"
-            app:labelVisibilityMode="unlabeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_menu" />
+    </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="2dp"
+        app:compatShadowEnabled="false"
+        android:background="@color/white"
+        app:itemRippleColor="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+
+        />
 
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</RelativeLayout>

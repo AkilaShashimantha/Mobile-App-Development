@@ -47,7 +47,6 @@ public class User_Details extends AppCompatActivity {
 
     private DatabaseReference userRef;
 
-    private BottomNavigationView bottomNavigationView;
 
     private TextInputLayout profileFirstName, profileLastName, nictextLayout, profileBirthdayLayout, profilePhoneNumberLayout,
             profileEmailLayout, profileaddressLayout, profileCityLayout;
@@ -118,50 +117,6 @@ public class User_Details extends AppCompatActivity {
         address.setText(getaddress);
         city.setText(getcity);
 
-        View mainLayout = findViewById(R.id.main);
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
-
-        ViewCompat.setOnApplyWindowInsetsListener(mainLayout, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        // Detect Keyboard Open/Close and Hide/Show Bottom Navigation
-        mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            Rect r = new Rect();
-            mainLayout.getWindowVisibleDisplayFrame(r);
-            int screenHeight = mainLayout.getRootView().getHeight();
-            int keypadHeight = screenHeight - r.bottom;
-
-            if (keypadHeight > screenHeight * 0.15) {
-                // Keyboard is open
-                bottomNavigationView.setVisibility(View.GONE);
-            } else {
-                // Keyboard is closed
-                bottomNavigationView.setVisibility(View.VISIBLE);
-            }
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-
-            if (id == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
-            } else if (id == R.id.bottom_search) {
-                startActivity(new Intent(getApplicationContext(), Search.class));
-
-                return true;
-            } else if (id == R.id.bottom_Cart) {
-                startActivity(new Intent(getApplicationContext(), View_Cart.class));
-
-                return true;
-            }
-
-            return false;
-        });
 
 //Date Picker
 
@@ -222,8 +177,14 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
             Toast.makeText(this, "Please fill the first Name and Last Name!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
+        if (!isValidNIC(nic)) {
+            nictextLayout.setError("Invalid NIC! It should be either 12 digits or 9 digits followed by V/v.");
+            return;
+        }
+        if (!isValidPhoneNumber(phoneNumber)) {
+            profilePhoneNumberLayout.setError("Invalid phone number! Start with 0 and have 9 digits after that.");
+            return;
+        }
 
         // Update user data in Firebase
         Map<String, Object> userUpdates = new HashMap<>();

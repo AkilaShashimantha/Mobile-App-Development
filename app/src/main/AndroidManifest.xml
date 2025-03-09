@@ -16,6 +16,10 @@
         android:theme="@style/Theme.MyApp"
         tools:targetApi="31">
         <activity
+            android:name=".Items"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".Vegetable_Sellers"
             android:exported="false" />
         <activity
@@ -41,13 +45,9 @@
             android:name=".View_Cart"
             android:exported="false" />
         <activity
-            android:name=".Items"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
-        <activity
             android:name=".User_Details"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".SignUp"
             android:exported="false" />

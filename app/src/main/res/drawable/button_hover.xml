@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- button_hover.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When the button is pressed -->
+    <item android:drawable="@color/veggreen" android:state_pressed="true"/>
+    <!-- When the button is not pressed -->
+    <item android:drawable="@android:color/white"/>
+</selector>
