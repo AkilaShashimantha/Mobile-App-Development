@@ -154,7 +154,8 @@ backSignIn.setOnClickListener(new View.OnClickListener() {
             return;
         }
         if (!isValidPassword(password)) {
-            Toast.makeText(this, "Password must be more than 6 characters and \ninclude at least one uppercase letter, one symbol, and one number!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Password must be more than 6 characters ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " include at least one uppercase letter, one symbol, and one number!", Toast.LENGTH_SHORT).show();
             return;
         }
 

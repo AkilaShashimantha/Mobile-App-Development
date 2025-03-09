@@ -28,12 +28,27 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
+import com.example.elawalu.ItemAdapter; // Replace with your actual package name
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Home extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private ItemAdapter adapter;
 
     private BottomNavigationView bottomNavigationView;
     DrawerLayout drawerLayout;
@@ -54,7 +69,9 @@ public class Home extends AppCompatActivity {
 
         // Get passed data from Login Activity
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        String userName = sharedPreferences.getString("USER_NAME", "Guest");
+        String userName = sharedPreferences.getString("USER_NAME", "");
+        String firstName = sharedPreferences.getString("FIRST_NAME","");
+        String lastName = sharedPreferences.getString("LAST_NAME","");
         String profileImageUrl = sharedPreferences.getString("PROFILE_IMAGE", "");
         String uId = sharedPreferences.getString("USER_ID", "");
         String email = sharedPreferences.getString("EMAIL", "");
@@ -70,6 +87,10 @@ public class Home extends AppCompatActivity {
         ImageView profileImageView = headerView.findViewById(R.id.profileImageView);
 
         userNameTextView.setText(userName);
+        String displayName = firstName +" "+ lastName ;
+        if(userName.isEmpty()){
+            userNameTextView.setText(displayName);
+        }
 
         // Load Profile Image using Glide (Recommended)
         if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
@@ -89,16 +110,6 @@ public class Home extends AppCompatActivity {
         signOutBtn = findViewById(R.id.signOutBtn);
         signOutBtn.setOnClickListener(view -> showSignOutDialog());
 
-        //Card view clicked function
-
-        CardView cardViewBtn = findViewById(R.id.cardViewBtn);
-        cardViewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Home.this, View_Product.class);
-                startActivity(intent);
-            }
-        });
 
         mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             Rect r = new Rect();
@@ -183,7 +194,7 @@ public class Home extends AppCompatActivity {
                     startActivity(new Intent(Home.this, Vegetable_Sellers.class));
                 }
 
-                     else if (id == R.id.paymentHistory) {
+                else if (id == R.id.paymentHistory) {
                     showToast("Payment History Selected");
 
                     startActivity(new Intent(Home.this, Payment_History.class));
@@ -194,6 +205,56 @@ public class Home extends AppCompatActivity {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true; // Return true when an item is handled
+            }
+        });
+
+        // Initialize RecyclerView
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize the adapter with an empty list
+        adapter = new ItemAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+
+        // Fetch data from Firebase and update the adapter
+        fetchDataAndUpdateAdapter();
+
+    }
+
+    private void fetchDataAndUpdateAdapter() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Item> itemList = new ArrayList<>();
+
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    String firstName = userSnapshot.child("firstName").getValue(String.class);
+                    String lastName = userSnapshot.child("lastName").getValue(String.class);
+                    String userName = firstName + " " + lastName;
+
+                    if (userSnapshot.hasChild("Items")) {
+                        DataSnapshot itemsSnapshot = userSnapshot.child("Items");
+
+                        for (DataSnapshot itemSnapshot : itemsSnapshot.getChildren()) {
+                            Item item = itemSnapshot.getValue(Item.class);
+                            if (item != null) {
+                                item.setUserName(userName);
+                                itemList.add(item);
+                            }
+                        }
+                    }
+                }
+
+                // Update the adapter with the new data
+                adapter.itemList = itemList;
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Home.this, "Failed to fetch data: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
