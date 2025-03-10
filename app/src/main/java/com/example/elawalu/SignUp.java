@@ -27,6 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,8 +46,12 @@ public class SignUp extends AppCompatActivity {
 
     private TextView backSignIn;
     private Button signUpBtn;
-    private EditText firstName, lastName, emailAddress, phoneNumber, passwordField;
+    private TextInputEditText firstName, lastName, emailAddress, phoneNumber, passwordField;
     private RadioGroup radioGroupRole, radioGroupGender;
+
+    private TextInputLayout firstNameSignUpLayout,lastNameSignUpLayout,emailAddressSignUpLayout,phoneNumberSignUpLayout,
+            passwordSignUpLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,12 @@ public class SignUp extends AppCompatActivity {
         radioGroupRole = findViewById(R.id.radioGroup);
         radioGroupGender = findViewById(R.id.radioGroup2);
 
+        firstNameSignUpLayout = findViewById(R.id.firstNameSignUpLayout);
+        lastNameSignUpLayout = findViewById(R.id.lastNameSignUpLayout);
+        emailAddressSignUpLayout = findViewById(R.id.emailAddressSignUpLayout);
+        phoneNumberSignUpLayout = findViewById(R.id.phoneNumberSignUpLayout);
+        passwordSignUpLayout = findViewById(R.id.passwordSignUpLayout);
+
         signUpBtn.setOnClickListener(view -> registerUser());
 
         // Configure Google Sign-In
@@ -84,30 +96,8 @@ public class SignUp extends AppCompatActivity {
 
         EditText passwordEditText = findViewById(R.id.password);
 
-// Set a listener for the EditText (when the icon is clicked)
-        passwordEditText.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                Drawable drawableEnd = passwordEditText.getCompoundDrawables()[2];
-                if (drawableEnd != null) {
-                    // If eye icon clicked, toggle password visibility
-                    if (event.getRawX() >= (passwordEditText.getRight() - drawableEnd.getBounds().width())) {
-                        int selection = passwordEditText.getSelectionEnd();
-                        if (passwordEditText.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                            // Show password
-                            passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                            passwordEditText.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.eye_open), null);
-                        } else {
-                            // Hide password
-                            passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                            passwordEditText.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.eye_close), null);
-                        }
-                        passwordEditText.setSelection(selection); // Maintain cursor position
-                        return true;
-                    }
-                }
-            }
-            return false;
-        });
+
+
 
 backSignIn = findViewById(R.id.backSignIn);
 backSignIn.setOnClickListener(new View.OnClickListener() {
@@ -122,11 +112,11 @@ backSignIn.setOnClickListener(new View.OnClickListener() {
     }
 
     private void registerUser() {
-        String fName = firstName.getText().toString().trim();
-        String lName = lastName.getText().toString().trim();
-        String email = emailAddress.getText().toString().trim();
-        String phone = phoneNumber.getText().toString().trim();
-        String password = passwordField.getText().toString().trim();
+        String fName = firstNameSignUpLayout.getEditText().getText().toString().trim();
+        String lName = lastNameSignUpLayout.getEditText().getText().toString().trim();
+        String email = emailAddressSignUpLayout.getEditText().getText().toString().trim();
+        String phone = phoneNumberSignUpLayout.getEditText().getText().toString().trim();
+        String password = passwordSignUpLayout.getEditText().getText().toString().trim();
 
         int selectedRoleId = radioGroupRole.getCheckedRadioButtonId();
         int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();

@@ -33,6 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,6 +58,8 @@ public class Login extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    TextInputLayout emailLoginLayout,passwordLoginLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,10 @@ public class Login extends AppCompatActivity {
         googleSignInBtn = findViewById(R.id.googleSignInBtn);
         forgotPassword = findViewById(R.id.forgotPassword);
 
+
+        emailLoginLayout = findViewById(R.id.emailLoginLayout);
+       passwordLoginLayout = findViewById(R.id.passwordLoginLayout);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -87,30 +94,6 @@ public class Login extends AppCompatActivity {
         googleSignInBtn.setOnClickListener(view -> signInWithGoogle());
         forgotPassword.setOnClickListener(view -> resetPassword());
 
-        // Set a listener for the EditText (when the icon is clicked)
-        passwordEditText.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                Drawable drawableEnd = passwordEditText.getCompoundDrawables()[2];
-                if (drawableEnd != null) {
-                    // If eye icon clicked, toggle password visibility
-                    if (event.getRawX() >= (passwordEditText.getRight() - drawableEnd.getBounds().width())) {
-                        int selection = passwordEditText.getSelectionEnd();
-                        if (passwordEditText.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                            // Show password
-                            passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                            passwordEditText.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.eye_open), null);
-                        } else {
-                            // Hide password
-                            passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                            passwordEditText.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.eye_close), null);
-                        }
-                        passwordEditText.setSelection(selection); // Maintain cursor position
-                        return true;
-                    }
-                }
-            }
-            return false;
-        });
 
 //Session Create check
         sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
@@ -178,8 +161,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void signInWithEmail() {
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        String email = emailLoginLayout.getEditText().getText().toString().trim();
+        String password = passwordLoginLayout.getEditText().getText().toString().trim();
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();

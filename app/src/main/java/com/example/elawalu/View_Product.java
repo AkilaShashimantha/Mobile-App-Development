@@ -1,94 +1,82 @@
 package com.example.elawalu;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class View_Product extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_product);
 
         getSupportActionBar().hide();
 
+        // Initialize views
+        ImageView imageVegetable = findViewById(R.id.imageView5);
+        TextView textVegetable = findViewById(R.id.textView19);
+        TextView textQuantity = findViewById(R.id.vegetableQuantity);
+        TextView textLocation = findViewById(R.id.vegetableLocation);
+        TextView textPrice = findViewById(R.id.vegetablePrice);
+        TextView textSellerName = findViewById(R.id.vegetableSeller);
+        TextView textContactNumber = findViewById(R.id.vegetableContact);
 
+        // Retrieve data from the intent
+        Intent intent = getIntent();
+        String userName = intent.getStringExtra("userName");
+        String vegetable = intent.getStringExtra("vegetable");
+        String quantity = intent.getStringExtra("quantity");
+        String location = intent.getStringExtra("location");
+        String contactNumber = intent.getStringExtra("contactNumber");
+        String price = intent.getStringExtra("price");
 
-   Button button4 = findViewById(R.id.button4);
-   button4.setOnClickListener(new View.OnClickListener() {
-       @Override
-       public void onClick(View v) {
-           Intent intent = new Intent(View_Product.this,Payment.class);
-           startActivity(intent);
-       }
-   });
+        // Display the item's details
+        textVegetable.setText(vegetable);
+        textQuantity.setText(quantity);
+        textLocation.setText(location);
+        textPrice.setText("Rs. " + price + " per kg");
+        textSellerName.setText(userName);
+        textContactNumber.setText(contactNumber);
 
-        View mainLayout = findViewById(R.id.main);
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
+        // Set vegetable image dynamically
+        int vegetableImageResId = getVegetableImageResource(vegetable);
+        imageVegetable.setImageResource(vegetableImageResId);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-
-
-        mainLayout.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            Rect r = new Rect();
-            mainLayout.getWindowVisibleDisplayFrame(r);
-            int screenHeight = mainLayout.getRootView().getHeight();
-            int keypadHeight = screenHeight - r.bottom;
-
-            if (keypadHeight > screenHeight * 0.15) {
-                // Keyboard is open
-                bottomNavigationView.setVisibility(View.GONE);
-            } else {
-                // Keyboard is closed
-                bottomNavigationView.setVisibility(View.VISIBLE);
+        ImageView viewProductBackbtn = findViewById(R.id.viewProductBackbtn);
+        viewProductBackbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(View_Product.this ,Home.class);
+                startActivity(intent);
+                finish();
             }
         });
 
-        // Deselect All Items
-        bottomNavigationView.getMenu().setGroupCheckable(0, true, false);
-        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
-            bottomNavigationView.getMenu().getItem(i).setChecked(false);
+    }
+
+    // Helper method to get the vegetable image resource
+    private int getVegetableImageResource(String vegetableName) {
+        switch (vegetableName.toLowerCase()) {
+            case "tomato":
+                return R.drawable.thakkali;
+            case "carrots":
+                return R.drawable.carrot;
+            case "cabbage":
+                return R.drawable.gova;
+            // Add more cases for other vegetables
+            default:
+                return R.drawable.elavaluokkoma; // A default image if no match is found
         }
-        bottomNavigationView.getMenu().setGroupCheckable(0, true, true);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-
-            if (id == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
-
-                return true;
-            } else if (id == R.id.bottom_search) {
-                startActivity(new Intent(getApplicationContext(), Search.class));
-
-                return true;
-            } else if (id == R.id.bottom_Cart) {
-                startActivity(new Intent(getApplicationContext(), View_Cart.class));
-
-                return true;
-            }
-
-            return false;
-        });
     }
 }

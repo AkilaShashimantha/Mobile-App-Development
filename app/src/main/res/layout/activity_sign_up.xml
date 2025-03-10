@@ -1,334 +1,418 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBFBFB"
-    android:backgroundTint="#FDFDFD"
-    tools:context=".SignUp">
+    android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="87dp"
-        android:layout_height="94dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/elawalu" />
+    <ScrollView
+        android:id="@+id/loginScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        >
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="177dp"
-        android:layout_height="40dp"
-        android:text="SIGN UP"
-        android:textAlignment="center"
-        android:textColor="#0AB108"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136"
-        tools:ignore="DuplicateIds" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
 
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="316dp"
-        android:layout_height="48dp"
-        android:background="@drawable/edittext_border"
-        android:backgroundTint="#E2E1E1"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:textAlignment="center"
-        android:textColor="#171616"
-        android:textColorHint="#504E4E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="105dp"
-        android:layout_height="31dp"
-        android:text="First Name"
-        android:textAlignment="center"
-        android:textColor="#101010"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/elawalu" />
+            </LinearLayout>
 
-    <EditText
-        android:id="@+id/emailAddress"
-        android:layout_width="316dp"
-        android:layout_height="48dp"
-        android:background="@drawable/edittext_border"
-        android:backgroundTint="#E2E1E1"
-        android:ems="10"
-        android:hint="Enter Your Email"
-        android:inputType="textEmailAddress"
-        android:textAlignment="center"
-        android:textColor="#272626"
-        android:textColorHint="#504E4E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/lastName"
-        android:layout_width="320dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/edittext_border"
-        android:backgroundTint="#E2E1E1"
-        android:ems="10"
-        android:hint="Enter Last Name"
-        android:inputType="text"
-        android:paddingStart="20px"
-        android:textAlignment="center"
-        android:textColor="#494545"
-        android:textColorHint="#504E4E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.414" />
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="SIGN UP"
+                    android:textAlignment="center"
+                    android:textColor="#0AB108"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.136"
+                    tools:ignore="DuplicateIds" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="100dp"
-        android:layout_height="28dp"
-        android:paddingStart="20px"
-        android:text="Last Name"
-        android:textAlignment="center"
-        android:textColor="#0E0E0E"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/firstName"
-        android:layout_width="320dp"
-        android:layout_height="54dp"
-        android:background="@drawable/edittext_border"
-        android:backgroundTint="#EFEBEB"
-        android:ems="10"
-        android:hint="Enter First Name"
-        android:inputType="text"
-        android:paddingStart="20px"
-        android:textAlignment="center"
-        android:textColor="#494545"
-        android:textColorHint="#403E3E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.299" />
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                   >
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="164dp"
-        android:layout_height="24dp"
-        android:text="Phone Number"
-        android:textAlignment="center"
-        android:textColor="#090909"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/phoneNumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailAddress"
-        app:layout_constraintVertical_bias="1.0" />
+                    <RadioButton
+                        android:id="@+id/seller"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
+                        android:text="Seller"
+                        android:textColor="#403939"
+                        android:textStyle="bold"
+                        tools:ignore="TouchTargetSizeCheck"
+                        tools:layout_editor_absoluteX="71dp"
+                        tools:layout_editor_absoluteY="133dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="112dp"
-        android:layout_height="23dp"
-        android:layout_marginBottom="8dp"
-        android:text="Email Address"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/emailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+                    <RadioButton
+                        android:id="@+id/buyer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
+                        android:text="Buyer"
+                        android:textColor="#403939"
+                        android:textStyle="bold"
+                        tools:ignore="TouchTargetSizeCheck" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup2"
-        android:layout_width="wrap_content"
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/firstNameSignUpLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Your First Name"
+
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconDrawable="@drawable/account_circle_btn"
+                        app:startIconScaleType="centerInside"
+                        app:startIconTint="@color/black"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/firstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp"
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lastNameSignUpLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Your Last Name"
+
+
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconScaleType="centerInside"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp"
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailAddressSignUpLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Enter Your Email Address"
+                    app:startIconDrawable="@drawable/email"
+                    app:startIconTint="@color/black"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/TextColor"
+                    app:boxStrokeColor="@color/veggreen"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/TextColor"
+                    app:startIconScaleType="centerInside"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        android:textSize="12sp"
+
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneNumberSignUpLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Your Phone Number"
+
+                    app:startIconTint="@color/black"
+                    app:startIconDrawable="@drawable/phone_circle"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/TextColor"
+                    app:boxStrokeColor="@color/veggreen"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/TextColor"
+                    app:startIconScaleType="centerInside"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+
+                        android:inputType="phone"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        android:textSize="12sp"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordSignUpLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Enter Your Password"
+                    app:startIconTint="@color/black"
+                    app:startIconDrawable="@drawable/lock3"
+                    android:textColor="@color/TextColor"
+                    android:textColorHint="@color/TextColor"
+                    app:boxStrokeColor="@color/veggreen"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/TextColor"
+                    app:startIconScaleType="centerInside"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:inputType="textPassword"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        android:textSize="12sp"
+
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#050505"
+                    android:orientation="horizontal"
+                  >
+
+                    <RadioButton
+                        android:id="@+id/male"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
+                        android:text="Male"
+                        android:textColor="#403939"
+                        android:textStyle="bold"
+                        tools:ignore="TouchTargetSizeCheck"
+                        tools:layout_editor_absoluteX="201dp"
+                        tools:layout_editor_absoluteY="595dp" />
+
+                    <RadioButton
+                        android:id="@+id/female"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
+                        android:text="Female"
+                        android:textColor="#403939"
+                        android:textStyle="bold"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/signUpBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#0AB108"
+                    android:text="Sign Up"
+                   />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/googleSignUpBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/android_light_sq_ctn" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Already Have Account Sign In"
+                        android:textColor="@color/TextColor"
+                        android:textSize="12sp"
+                        android:textAlignment="textEnd"
+                        android:layout_marginEnd="5dp"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/backSignIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" Here"
+                        android:textSize="14sp"
+                        android:textAlignment="textEnd"
+                        android:textColor="#3F51B5"
+                        android:textStyle="bold"
+                   />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#050505"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.816">
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:minHeight="2dp"
+        app:compatShadowEnabled="false"
 
-        <RadioButton
-            android:id="@+id/male"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="#000000"
-            android:text="Male"
-            android:textColor="#403939"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="201dp"
-            tools:layout_editor_absoluteY="595dp" />
-
-        <RadioButton
-            android:id="@+id/female"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="#000000"
-            android:text="Female"
-            android:textColor="#403939"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck" />
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/signUpBtn"
-        android:layout_width="182dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#0AB108"
-        android:text="Sign Up"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.883" />
-
-    <ImageButton
-        android:id="@+id/googleSignUpBtn"
-        android:layout_width="194dp"
-        android:layout_height="46dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976"
-        app:srcCompat="@drawable/android_light_sq_ctn" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.194">
-
-        <RadioButton
-            android:id="@+id/seller"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="#000000"
-            android:text="Seller"
-            android:textColor="#403939"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="71dp"
-            tools:layout_editor_absoluteY="133dp" />
-
-        <RadioButton
-            android:id="@+id/buyer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="#000000"
-            android:text="Buyer"
-            android:textColor="#403939"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck" />
-
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/passwordText"
-        android:layout_width="135dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="2dp"
-        android:text="Password"
-        android:textAlignment="center"
-        android:textColor="#090909"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.696" />
+        />
 
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="316dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="172dp"
-        android:layout_weight="1"
-        android:background="@drawable/edittext_border"
-        android:backgroundTint="#E2E1E1"
-        android:drawableEnd="@drawable/eye_close"
-        android:hint="Enter Password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:textColor="#171616"
-        android:textColorHint="#504E4E"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.561"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/backSignIn"
-        android:layout_width="354dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="10dp"
-        android:paddingEnd="10dp"
-        android:text="Already Have Account Sign In Here"
-        android:textAlignment="textEnd"
-        android:textColor="#3F51B5"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

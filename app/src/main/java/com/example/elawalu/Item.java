@@ -1,6 +1,8 @@
 package com.example.elawalu; // Replace with your package name
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String vegetable;
     private String quantity;
     private String location;
