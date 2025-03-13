@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group>
+
+          <item
+              android:id="@+id/menu_sign_out"
+              android:title="Sign Out"
+              android:icon="@drawable/sign_out"
+
+
+              />
+          <item
+              android:id="@+id/menu_delete_account"
+              android:title="Delete Account"
+              android:icon="@drawable/delete"
+
+              />
+          <item
+              android:id="@+id/menu_payment_history"
+              android:title="Payment History"
+              android:icon="@drawable/payment_methods"
+
+              />
+          <item
+              android:id="@+id/menu_dashboard"
+              android:title="Dashboard"
+              android:icon="@drawable/dashboard"
+
+              />
+
+  </group>
+
+
+
+</menu>
