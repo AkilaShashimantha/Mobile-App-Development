@@ -135,6 +135,20 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     return R.drawable.carrot;
                 case "cabbage":
                     return R.drawable.gova;
+                case "pumpkin":
+                    return R.drawable.pumking;
+                case "brinjols":
+                    return R.drawable.brinjol;
+                case "ladies fingers":
+                    return R.drawable.ladies_fingers;
+                case "onions":
+                    return R.drawable.b_onion;
+                case "potato":
+                    return R.drawable.potato;
+                case "beetroots":
+                    return R.drawable.beetroot;
+                case "leeks":
+                    return R.drawable.leeks;
                 // Add more cases for other vegetables
                 default:
                     return R.drawable.elavaluokkoma; // A default image if no match is found

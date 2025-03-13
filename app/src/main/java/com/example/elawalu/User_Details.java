@@ -303,9 +303,15 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
         Toast.makeText(this, "Payment History Clicked", Toast.LENGTH_SHORT).show();
     }
 
+
     private void openDashboard() {
         // Handle Dashboard
         Toast.makeText(this, "Dashboard Clicked", Toast.LENGTH_SHORT).show();
+
+        // Navigate to the Seller_Dashboard activity
+        Intent intent = new Intent(User_Details.this, Seller_Dashboard.class);
+        startActivity(intent);
+        finish(); // Close the current activity
     }
 
 
