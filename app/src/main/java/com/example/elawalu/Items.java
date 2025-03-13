@@ -1,8 +1,13 @@
 package com.example.elawalu;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,44 +39,142 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Items extends AppCompatActivity {
 
+    String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_items);
 
-
         getSupportActionBar().hide();
 
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        userId = sharedPreferences.getString("USER_ID", "");
+        String role = sharedPreferences.getString("ROLE", "");
 
+        // Check if the user is a Buyer
+        if ("Buyer".equals(role)) {
+            showSellerRegistrationDialog(userId);
+        } else {
+            initializeUI();
+        }
+    }
+
+    private void showSellerRegistrationDialog(String userId) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_seller_registration);
+
+        ImageView dialogImage = dialog.findViewById(R.id.dialogImage);
+        Button btnCancel = dialog.findViewById(R.id.btnCancle);
+        Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
+        ImageView closeBtn = dialog.findViewById(R.id.closeBtn);
+
+        // Set the image (assuming you have an image in your drawable folder)
+        dialogImage.setImageResource(R.drawable.elawalu);
+
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                navigateToHome();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                navigateToHome();
+            }
+        });
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateUserRoleToSeller(userId);
+                dialog.dismiss();
+
+            }
+        });
+
+        // Handle dialog dismissal (e.g., back button pressed)
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                navigateToHome();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void updateUserRoleToSeller(String userId) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId);
+
+        userRef.child("role").setValue("Seller")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Update role in SharedPreferences
+                            updateRoleInSession("Seller");
+
+                            // Show success message
+                            Toast.makeText(Items.this, "You are now registered as a Seller", Toast.LENGTH_SHORT).show();
+
+                            // Refresh the page
+                            recreate();
+                        } else {
+                            // Show error message
+                            Toast.makeText(Items.this, "Failed to update role", Toast.LENGTH_SHORT).show();
+
+                            // Navigate to Home if the update fails
+                            navigateToHome();
+                        }
+                    }
+                });
+    }
+
+    // Helper method to update role in SharedPreferences
+    private void updateRoleInSession(String newRole) {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ROLE", newRole);
+        editor.apply();
+    }
+
+    private void navigateToHome() {
+        Intent intent = new Intent(Items.this, Home.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void initializeUI() {
         // Vegetable Flipper
         ViewFlipper viewFlipper = findViewById(R.id.viewFlipper);
         viewFlipper.setFlipInterval(3000);
         viewFlipper.startFlipping();
 
-        //Vegetable Spinner
+        // Vegetable Spinner
         Spinner vegetableSpinner = findViewById(R.id.vegetableSpinner);
-
-        // Load vegetables from strings.xml
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.vegetable_list, android.R.layout.simple_spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         vegetableSpinner.setAdapter(adapter);
 
+        // Location Spinner
         Spinner locationSpinner = findViewById(R.id.locationspinner);
-
-        // Load Locations from strings.xml
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.location_list, android.R.layout.simple_spinner_item);
-
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(adapter2);
 
-
         // Quantity
         TextInputEditText itemQuantity = findViewById(R.id.itemQuantity);
-
         itemQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
@@ -94,25 +197,20 @@ public class Items extends AppCompatActivity {
             }
         });
 
-
+        // Back Button
         ImageButton itemBackBtn = findViewById(R.id.itemBackBtn);
         itemBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Items.this, Home.class);
-                startActivity(intent);
-                finish();
+                navigateToHome();
             }
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        String userId = sharedPreferences.getString("USER_ID", "");
-
+        // Ready Sale Button
         MaterialButton readySaleButton = findViewById(R.id.readySale);
         readySaleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Spinner vegetableSpinner = findViewById(R.id.vegetableSpinner);
                 String selectedVegetable = vegetableSpinner.getSelectedItem().toString();
 
@@ -134,29 +232,22 @@ public class Items extends AppCompatActivity {
                 if (selectedVegetable.isEmpty() || quantity.isEmpty() || selectedLocation.isEmpty() || contactNumber.isEmpty() || price.isEmpty()) {
                     Toast.makeText(Items.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                     return;
-
                 }
 
                 saveItemToFirebase(userId, selectedVegetable, quantity, selectedLocation, contactNumber, price);
-
             }
         });
-
     }
 
     private void saveItemToFirebase(String userId, String vegetable, String quantity, String location, String contactNumber, String price) {
         DatabaseReference userRef = FirebaseDatabase.getInstance()
                 .getReference("Users")
                 .child(userId)
-                .child("Items"); // Create a new node "Items" under the user
+                .child("Items");
 
-        // Generate a unique key for each item
         String itemId = userRef.push().getKey();
-
-        // Create an Item object
         Item item = new Item(vegetable, quantity, location, contactNumber, price);
 
-        // Save the item to Firebase
         userRef.child(itemId).setValue(item)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -166,6 +257,8 @@ public class Items extends AppCompatActivity {
                             clearFormFields();
                         } else {
                             Toast.makeText(Items.this, "Failed to save item", Toast.LENGTH_SHORT).show();
+                            clearFormFields();
+                            navigateToHome();
                         }
                     }
                 });
@@ -196,14 +289,10 @@ public class Items extends AppCompatActivity {
         TextInputEditText itemContactNumber = findViewById(R.id.itemContactNumber);
         TextInputEditText itemPrice = findViewById(R.id.itemPrice);
 
-        // Clear the Spinner selection (set to the first item or a default value)
         vegetableSpinner.setSelection(0);
         locationSpinner.setSelection(0);
-
-        // Clear the TextInputEditText fields
         itemQuantity.setText("");
         itemContactNumber.setText("");
         itemPrice.setText("");
     }
-
 }

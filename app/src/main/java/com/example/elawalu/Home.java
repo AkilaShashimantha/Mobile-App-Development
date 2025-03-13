@@ -52,7 +52,7 @@ public class Home extends AppCompatActivity {
 
     private boolean showLoadMoreButton;
 
-    private Button signOutBtn;
+
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -65,7 +65,6 @@ public class Home extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_btn);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        signOutBtn = findViewById(R.id.signOutBtn);
         recyclerView = findViewById(R.id.recyclerView);
 
         // Get passed data from Login Activity
@@ -179,7 +178,7 @@ public class Home extends AppCompatActivity {
         // Handle Sign Out
         mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build());
-        signOutBtn.setOnClickListener(view -> showSignOutDialog());
+
 
         // Initialize RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -290,27 +289,5 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    private void showSignOutDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Sign Out")
-                .setMessage("Are you sure you want to sign out?")
-                .setPositiveButton("Yes", (dialog, which) -> signOut())
-                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
-                .show();
-    }
 
-    private void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Clears all stored user data
-        editor.apply();
-
-        mAuth.signOut();
-        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
-            Intent intent = new Intent(Home.this, Login.class);
-            startActivity(intent);
-            finish();
-        });
-    }
 }
