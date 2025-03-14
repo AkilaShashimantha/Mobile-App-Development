@@ -299,7 +299,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/readySale"
+                    android:id="@+id/readyToSaleBtn"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"

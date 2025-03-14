@@ -8,7 +8,9 @@ import android.os.Bundle;
 
 //import com.example.elawalu.User_Details;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -161,6 +163,8 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(User_Details.this, Home.class);
+        // Clear the back stack and start a new task
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
@@ -236,24 +240,30 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
     }
 
     private void signOut() {
-        // Step 1: Sign out from Firebase Authentication
-        FirebaseAuth.getInstance().signOut();
+        // Step 1: Revoke Google Sign-In
+        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
+        googleSignInClient.revokeAccess().addOnCompleteListener(this, task -> {
+            // Step 2: Sign out from Firebase Authentication
+            FirebaseAuth.getInstance().signOut();
 
-        // Step 2: Clear the user session data from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Clears all stored user data
-        editor.apply();
+            // Step 3: Clear the user session data from SharedPreferences
+            SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear(); // Clears all stored user data
+            editor.apply();
 
-        // Step 3: Show a success message
-        Toast.makeText(this, "Successfully signed out", Toast.LENGTH_SHORT).show();
+            // Step 4: Show a success message
+            Toast.makeText(this, "Successfully signed out", Toast.LENGTH_SHORT).show();
 
-        // Step 4: Navigate to the Login page
-        Intent intent = new Intent(User_Details.this, Login.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
-        startActivity(intent);
-        finish(); // Close the current activity
+            // Step 5: Navigate to the Login page
+            Intent intent = new Intent(User_Details.this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
+            startActivity(intent);
+            finish(); // Close the current activity
+        });
     }
+
+
     private void deleteAccount() {
         // Step 1: Show a confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

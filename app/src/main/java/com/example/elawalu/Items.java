@@ -2,6 +2,7 @@ package com.example.elawalu;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.widget.ViewFlipper;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -40,6 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Items extends AppCompatActivity {
 
     String userId;
+    String lastName, firstName, email,address,contactNumber,selectedLocation,selectedVegetable,quantity,price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,10 @@ public class Items extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         userId = sharedPreferences.getString("USER_ID", "");
         String role = sharedPreferences.getString("ROLE", "");
+         email = sharedPreferences.getString("EMAIL", "");
+         firstName = sharedPreferences.getString("FIRST_NAME", "");
+         lastName = sharedPreferences.getString("LAST_NAME", "");
+        address = sharedPreferences.getString("ADDRESS", "");
 
         // Check if the user is a Buyer
         if ("Buyer".equals(role)) {
@@ -147,8 +154,11 @@ public class Items extends AppCompatActivity {
         editor.apply();
     }
 
+
     private void navigateToHome() {
         Intent intent = new Intent(Items.this, Home.class);
+        // Clear the back stack and start a new task
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
@@ -207,34 +217,46 @@ public class Items extends AppCompatActivity {
         });
 
         // Ready Sale Button
-        MaterialButton readySaleButton = findViewById(R.id.readySale);
+        MaterialButton readySaleButton = findViewById(R.id.readyToSaleBtn);
         readySaleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Spinner vegetableSpinner = findViewById(R.id.vegetableSpinner);
-                String selectedVegetable = vegetableSpinner.getSelectedItem().toString();
+                 selectedVegetable = vegetableSpinner.getSelectedItem().toString();
 
                 TextInputEditText itemQuantity = findViewById(R.id.itemQuantity);
                 TextInputLayout itemQuantityLayout = findViewById(R.id.itemQuantityLayout);
-                String quantity = itemQuantityLayout.getEditText().getText().toString().trim();
+                 quantity = itemQuantityLayout.getEditText().getText().toString().trim();
 
                 Spinner locationSpinner = findViewById(R.id.locationspinner);
-                String selectedLocation = locationSpinner.getSelectedItem().toString();
+                 selectedLocation = locationSpinner.getSelectedItem().toString();
 
                 TextInputEditText itemContactNumber = findViewById(R.id.itemContactNumber);
                 TextInputLayout itemContactNumberLayout = findViewById(R.id.itemContactNumberlayout);
-                String contactNumber = itemContactNumberLayout.getEditText().getText().toString().trim();
+                 contactNumber = itemContactNumberLayout.getEditText().getText().toString().trim();
 
                 TextInputEditText itemPrice = findViewById(R.id.itemPrice);
                 TextInputLayout itemPriceLayout = findViewById(R.id.itemPriceLayout);
-                String price = itemPriceLayout.getEditText().getText().toString().trim();
+                 price = itemPriceLayout.getEditText().getText().toString().trim();
+
+                if (!isValidPhoneNumber(contactNumber)) {
+                    itemContactNumberLayout.setError("Invalid phone number! Start with 0 and have 9 digits after that.");
+                    return;
+                }
 
                 if (selectedVegetable.isEmpty() || quantity.isEmpty() || selectedLocation.isEmpty() || contactNumber.isEmpty() || price.isEmpty()) {
                     Toast.makeText(Items.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                saveItemToFirebase(userId, selectedVegetable, quantity, selectedLocation, contactNumber, price);
+                if (address.equals("")) {
+                    // Show the address input dialog
+                    showAddressInputDialog();
+                } else {
+                    // Proceed to payment
+                    showAdvertisementChargeDialog();
+                    }
+//
             }
         });
     }
@@ -295,4 +317,91 @@ public class Items extends AppCompatActivity {
         itemContactNumber.setText("");
         itemPrice.setText("");
     }
+
+    private void navigatePayment(String userId,String email, String fName, String lName, String selectedVegetable,String quantity, String city,String contactNumber,String price,String address){
+
+        String advertismentCharge = "1500.00";
+        String paymentFrom = "Advertisment";
+
+        Intent intent = new Intent(Items.this, Payment.class);
+
+        intent.putExtra("userId", userId);
+        intent.putExtra("email", email);
+        intent.putExtra("fName", fName);
+        intent.putExtra("lName", lName);
+        intent.putExtra("selectedVegetable", selectedVegetable);
+        intent.putExtra("quantity", quantity);
+        intent.putExtra("contactNumber", contactNumber);
+        intent.putExtra("city", city);
+        intent.putExtra("price", price);
+        intent.putExtra("address", address);
+        intent.putExtra("advertismentCharge", advertismentCharge);
+        intent.putExtra("paymentFromAdvertisment",paymentFrom);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+
+
+    }
+
+    private boolean isValidPhoneNumber(String phone) {
+        // Regex for Sri Lankan phone number validation
+        return phone.matches("^(0\\d{9}|\\+94\\d{9})$");
+    }
+
+    private void showAddressInputDialog() {
+        // Create an AlertDialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please Enter Your Address");
+
+        // Create a TextInputLayout and TextInputEditText for the address
+        TextInputLayout addressInputLayout = new TextInputLayout(this);
+
+        TextInputEditText addressInputEditText = new TextInputEditText(this);
+
+        addressInputLayout.setBoxStrokeColor(ContextCompat.getColor(this, R.color.veggreen));
+        addressInputLayout.setBoxStrokeWidth(2);
+
+        // Add the TextInputEditText to the TextInputLayout
+        addressInputLayout.addView(addressInputEditText);
+
+        // Set the view of the dialog to the TextInputLayout
+        builder.setView(addressInputLayout);
+
+        // Add a "Confirm" button to the dialog
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+            String enteredAddress = addressInputEditText.getText().toString().trim();
+            if (enteredAddress.isEmpty()) {
+                Toast.makeText(this, "Please enter your address", Toast.LENGTH_SHORT).show();
+            } else {
+                // Update the address and proceed to payment
+                address = enteredAddress;
+                showAdvertisementChargeDialog();
+
+                }
+        });
+
+        // Add a "Cancel" button to the dialog
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showAdvertisementChargeDialog() {
+        // Create an AlertDialog builder for the Advertisement Charge dialog
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Advertisement Charge")
+                .setMessage("Rs. 1500.00 will be charged as an Advertisement payment. Is that OK with you?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // Proceed to payment
+                    navigatePayment(userId, email, firstName, lastName, selectedVegetable, quantity, selectedLocation, contactNumber, price, address);
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+
 }
