@@ -304,6 +304,8 @@ public class Login extends AppCompatActivity {
 
     private void navigateToHome() {
         Intent intent = new Intent(Login.this, Home.class);
+        // Clear the back stack and start a new task
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
