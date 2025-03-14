@@ -268,17 +268,33 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Password reset link sent to your email", Toast.LENGTH_LONG).show();
+        // Check if the email exists in the database
+        usersRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Email exists in the database, send password reset email
+                    mAuth.sendPasswordResetEmail(email)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Login.this, "Password reset link sent to your email", Toast.LENGTH_LONG).show();
+                                    // Open WebView dialog
+                                    openWebView("https://accounts.google.com/ServiceLogin?service=mail");
+                                } else {
+                                    Toast.makeText(Login.this, "Failed to send reset email. Check your email address.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                } else {
+                    // Email does not exist in the database
+                    Toast.makeText(Login.this, "Email not found. Please sign up first.", Toast.LENGTH_LONG).show();
+                }
+            }
 
-                        // Open WebView dialog
-                        openWebView("https://accounts.google.com/ServiceLogin?service=mail");
-                    } else {
-                        Toast.makeText(this, "Failed to send reset email. Check your email address.", Toast.LENGTH_LONG).show();
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Login.this, "Database error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void openWebView(String url) {
