@@ -35,7 +35,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     // Method to load the first 5 items
     private void loadInitialItems() {
-        int end = Math.min(5, allItems.size()); // Load up to 5 items
+        int end = Math.min(6, allItems.size()); // Load up to 5 items
         itemList.addAll(allItems.subList(0, end)); // Add the first 5 items to itemList
         updateLoadMoreButton(); // Update the flag based on the remaining items
 
@@ -129,7 +129,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private int getVegetableImageResource(String vegetableName) {
             switch (vegetableName.toLowerCase()) {
-                case "tomato":
+                case "tomatoes":
                     return R.drawable.thakkali;
                 case "carrots":
                     return R.drawable.carrot;

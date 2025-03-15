@@ -40,6 +40,8 @@ public class Payment extends AppCompatActivity {
     String userId;
     String lastName, firstName, email,address,contactNumber,selectedLocation,selectedVegetable,quantity,price,advertismentCharge;
     String payment,paymentFromAdvertisment,paymentFrom;
+
+
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,16 +188,26 @@ public class Payment extends AppCompatActivity {
         }
     }
 
-
     private void saveItemToFirebase(String userId, String vegetable, String quantity, String location, String contactNumber, String price) {
+        // Reference to the user's Items node
         DatabaseReference userRef = FirebaseDatabase.getInstance()
                 .getReference("Users")
                 .child(userId)
                 .child("Items");
 
+        // Reference to the user's SellerPayments node
+        DatabaseReference sellerPaymentRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId)
+                .child("SellingPayments");
+
+        // Generate a unique key for the item
         String itemId = userRef.push().getKey();
+
+        // Create the Item object with activeStatus set to "1"
         Items.Item item = new Items.Item(vegetable, quantity, location, contactNumber, price);
 
+        // Save the item under the user's Items node
         userRef.child(itemId).setValue(item)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -203,14 +215,27 @@ public class Payment extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(Payment.this, "Item saved successfully", Toast.LENGTH_SHORT).show();
 
+                            // Save a copy of the item under the user's SellerPayments node
+                            sellerPaymentRef.child(itemId).setValue(item)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(Payment.this, "SellerPayment saved successfully", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(Payment.this, "Failed to save SellerPayment", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
                         } else {
                             Toast.makeText(Payment.this, "Failed to save item", Toast.LENGTH_SHORT).show();
-
                             navigateToHome();
                         }
                     }
                 });
     }
+
 
     public static class Item {
         public String vegetable;
@@ -218,18 +243,31 @@ public class Payment extends AppCompatActivity {
         public String location;
         public String contactNumber;
         public String price;
+        public String activeStatus; // Add activeStatus field
 
+        // Default constructor required for Firebase
         public Item() {}
 
+        // Constructor with five parameters (without activeStatus)
         public Item(String vegetable, String quantity, String location, String contactNumber, String price) {
             this.vegetable = vegetable;
             this.quantity = quantity;
             this.location = location;
             this.contactNumber = contactNumber;
             this.price = price;
+            this.activeStatus = "1"; // Set activeStatus to "1" by default
+        }
+
+        // New constructor with six parameters (including activeStatus)
+        public Item(String vegetable, String quantity, String location, String contactNumber, String price, String activeStatus) {
+            this.vegetable = vegetable;
+            this.quantity = quantity;
+            this.location = location;
+            this.contactNumber = contactNumber;
+            this.price = price;
+            this.activeStatus = activeStatus; // Initialize activeStatus
         }
     }
-
     private void navigateToHome() {
         Intent intent = new Intent(Payment.this, Home.class);
         // Clear the back stack and start a new task
