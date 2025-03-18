@@ -74,7 +74,7 @@
                    >
 
                     <RadioButton
-                        android:id="@+id/seller"
+                        android:id="@+id/activeProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#000000"
@@ -86,7 +86,7 @@
                         tools:layout_editor_absoluteY="133dp" />
 
                     <RadioButton
-                        android:id="@+id/buyer"
+                        android:id="@+id/deactiveProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="#000000"

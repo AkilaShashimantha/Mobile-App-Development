@@ -205,7 +205,7 @@ public class Payment extends AppCompatActivity {
         String itemId = userRef.push().getKey();
 
         // Create the Item object with activeStatus set to "1"
-        Items.Item item = new Items.Item(vegetable, quantity, location, contactNumber, price);
+       Payment.Item item = new Payment.Item(vegetable, quantity, location, contactNumber, price, "1");
 
         // Save the item under the user's Items node
         userRef.child(itemId).setValue(item)
@@ -248,17 +248,7 @@ public class Payment extends AppCompatActivity {
         // Default constructor required for Firebase
         public Item() {}
 
-        // Constructor with five parameters (without activeStatus)
-        public Item(String vegetable, String quantity, String location, String contactNumber, String price) {
-            this.vegetable = vegetable;
-            this.quantity = quantity;
-            this.location = location;
-            this.contactNumber = contactNumber;
-            this.price = price;
-            this.activeStatus = "1"; // Set activeStatus to "1" by default
-        }
-
-        // New constructor with six parameters (including activeStatus)
+        // Constructor with activeStatus
         public Item(String vegetable, String quantity, String location, String contactNumber, String price, String activeStatus) {
             this.vegetable = vegetable;
             this.quantity = quantity;
@@ -268,6 +258,8 @@ public class Payment extends AppCompatActivity {
             this.activeStatus = activeStatus; // Initialize activeStatus
         }
     }
+
+
     private void navigateToHome() {
         Intent intent = new Intent(Payment.this, Home.class);
         // Clear the back stack and start a new task

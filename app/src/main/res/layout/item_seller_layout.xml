@@ -112,14 +112,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Active"
+                    android:text="Deactivate"
+                    android:textColor="@color/TextColor"
                     android:textOff="Deactivate"
                     android:textOn="Activate"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
                     android:thumbTint="#56B116"
-                    android:trackTint="#1B5603"
-                    android:textColor="@color/TextColor"
-                    />
+                    android:trackTint="#1B5603" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

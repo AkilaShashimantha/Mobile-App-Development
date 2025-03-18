@@ -7,14 +7,12 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -160,7 +158,7 @@ public class Home extends AppCompatActivity {
                 } else if (id == R.id.addProduct) {
                     showToast("Add product Selected");
                     startActivity(new Intent(Home.this, Items.class));
-                } else if (id == R.id.seller) {
+                } else if (id == R.id.activeProduct) {
                     showToast("Vegetable Sellers Selected");
                     startActivity(new Intent(Home.this, Vegetable_Sellers.class));
                 } else if (id == R.id.paymentHistory) {
