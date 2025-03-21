@@ -1,47 +1,39 @@
 package com.example.elawalu;
 
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
-
-
-//import com.example.elawalu.User_Details;
-import com.bumptech.glide.Glide;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-
-
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -57,15 +49,13 @@ import java.util.Map;
 public class User_Details extends AppCompatActivity {
 
     private DatabaseReference userRef;
-
-
     private TextInputLayout profileFirstName, profileLastName, nictextLayout, profileBirthdayLayout, profilePhoneNumberLayout,
             profileEmailLayout, profileaddressLayout, profileCityLayout;
-
-    private TextInputEditText fname,lname, phoneNumber, userEmail, birthday, nic , address,  city;
-
+    private TextInputEditText fname, lname, phoneNumber, userEmail, birthday, nic, address, city;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+    private ImageView menuButton;
+    private boolean isMenuOpen = false; // Track the state of the menu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,36 +64,32 @@ public class User_Details extends AppCompatActivity {
         setContentView(R.layout.activity_user_details);
 
         getSupportActionBar().hide();
-
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        String userName = sharedPreferences.getString("USER_NAME", "Guest");
-        String profileImageUrl = sharedPreferences.getString("PROFILE_IMAGE", "");
-        String uId = sharedPreferences.getString("USER_ID", "");
-        String email = sharedPreferences.getString("EMAIL", "");
-        String fName = sharedPreferences.getString("FIRST_NAME", "");
-        String lName = sharedPreferences.getString("LAST_NAME", "");
-        String gender = sharedPreferences.getString("GENDER", "");
-        String phone = sharedPreferences.getString("PHONE", "");
-        String role = sharedPreferences.getString("ROLE", "");
-        String getnic = sharedPreferences.getString("NIC", "");
-        String getbirthday = sharedPreferences.getString("BIRTHDAY", "");
-        String getaddress = sharedPreferences.getString("ADDRESS", "");
-        String getcity = sharedPreferences.getString("CITY","");
+        // Initialize Firebase
+        mAuth = FirebaseAuth.getInstance();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
+        // Initialize views
+        initializeViews();
 
-        ImageView profileImage = findViewById(R.id.profileImage);
-         fname = findViewById(R.id.fName);
-         lname = findViewById(R.id.lName);
-         phoneNumber = findViewById(R.id.PhoneNumber);
-         userEmail = findViewById(R.id.email);
-         birthday = findViewById(R.id.profileBirthday);
-             nic = findViewById(R.id.nic);
-            address = findViewById(R.id.address);
-            city = findViewById(R.id.city);
+        // Load user data from SharedPreferences
+        loadUserData();
 
+        // Set up date picker for birthday
+        setupDatePicker();
+
+        // Set up back button
+        setupBackButton();
+
+        // Set up menu button with animation
+        setupMenuButton();
+
+        // Set up confirm button for profile update
+        setupConfirmButton();
+    }
+
+    private void initializeViews() {
         profileFirstName = findViewById(R.id.profileFirstName);
         profileLastName = findViewById(R.id.profileLastName);
         nictextLayout = findViewById(R.id.nictextLayout);
@@ -113,15 +99,43 @@ public class User_Details extends AppCompatActivity {
         profileaddressLayout = findViewById(R.id.profileaddressLayout);
         profileCityLayout = findViewById(R.id.profileCityLayout);
 
+        fname = findViewById(R.id.fName);
+        lname = findViewById(R.id.lName);
+        phoneNumber = findViewById(R.id.PhoneNumber);
+        userEmail = findViewById(R.id.email);
+        birthday = findViewById(R.id.profileBirthday);
+        nic = findViewById(R.id.nic);
+        address = findViewById(R.id.address);
+        city = findViewById(R.id.city);
 
+        menuButton = findViewById(R.id.menuButton);
+    }
+
+    private void loadUserData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("USER_NAME", "Guest");
+        String profileImageUrl = sharedPreferences.getString("PROFILE_IMAGE", "");
+        String uId = sharedPreferences.getString("USER_ID", "");
+        String email = sharedPreferences.getString("EMAIL", "");
+        String fName = sharedPreferences.getString("FIRST_NAME", "");
+        String lName = sharedPreferences.getString("LAST_NAME", "");
+        String phone = sharedPreferences.getString("PHONE", "");
+        String getnic = sharedPreferences.getString("NIC", "");
+        String getbirthday = sharedPreferences.getString("BIRTHDAY", "");
+        String getaddress = sharedPreferences.getString("ADDRESS", "");
+        String getcity = sharedPreferences.getString("CITY", "");
+
+        // Load profile image
+        ImageView profileImage = findViewById(R.id.profileImage);
         if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
             Glide.with(this)
                     .load(profileImageUrl)
-                    .placeholder(R.drawable.account_circle_btn)  // Placeholder Image
-                    .error(R.drawable.account_circle_btn)           // Error Image
+                    .placeholder(R.drawable.account_circle_btn)
+                    .error(R.drawable.account_circle_btn)
                     .into(profileImage);
         }
 
+        // Set user data to views
         fname.setText(fName);
         lname.setText(lName);
         phoneNumber.setText(phone);
@@ -131,103 +145,119 @@ public class User_Details extends AppCompatActivity {
         address.setText(getaddress);
         city.setText(getcity);
 
-
-//Date Picker
-
-
-birthday.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-
-        MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build();
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-            @Override
-            public void onPositiveButtonClick(Long selection) {
-
-                String date = new SimpleDateFormat("dd-MM-yyy", Locale.getDefault()).format(new Date(selection));
-                birthday.setText(MessageFormat.format("{0}",date));
-
-            }
-        });
-        materialDatePicker.show(getSupportFragmentManager(),"tag");
-
-    }
-});
-
-ImageView profileBackBtn = findViewById(R.id.profileBackBtn);
-
-profileBackBtn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(User_Details.this, Home.class);
-        // Clear the back stack and start a new task
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
-});
-
+        // Initialize Firebase reference
         userRef = FirebaseDatabase.getInstance("https://elawalu-b2fff-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("Users").child(uId);
+    }
 
-        Button confirm = findViewById(R.id.confirmBtn);
-        confirm.setOnClickListener(v -> updateProfile());
+    private void setupDatePicker() {
+        birthday.setOnClickListener(v -> {
+            MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build();
+            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+                String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date(selection));
+                birthday.setText(MessageFormat.format("{0}", date));
+            });
+            materialDatePicker.show(getSupportFragmentManager(), "tag");
+        });
+    }
 
-        ImageView menuButton = findViewById(R.id.menuButton);
-        menuButton.setOnClickListener(new View.OnClickListener() {
+    private void setupBackButton() {
+        ImageView profileBackBtn = findViewById(R.id.profileBackBtn);
+        profileBackBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(User_Details.this, Home.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
+    }
+
+    private void setupMenuButton() {
+        menuButton.setOnClickListener(v -> {
+            if (isMenuOpen) {
+                // Close the menu and animate back to the menu icon
+                animateMenuButton(R.drawable.menu);
+                isMenuOpen = false;
+            } else {
+                // Open the menu and animate to the down arrow icon
+                animateMenuButton(R.drawable.down_arrow);
+                isMenuOpen = true;
+            }
+
+            // Show the popup menu
+            showPopupMenu(v);
+        });
+    }
+
+    private void animateMenuButton(int targetDrawable) {
+        // Create a rotation animation (rotate 180 degrees)
+        ObjectAnimator rotationAnimator = ObjectAnimator.ofFloat(menuButton, "rotation", isMenuOpen ? 180 : 0, isMenuOpen ? 0 : 180);
+        rotationAnimator.setDuration(300); // Animation duration in milliseconds
+        rotationAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // Smooth easing
+
+        // Create an alpha animation (fade in/out)
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(menuButton, "alpha", isMenuOpen ? 1f : 0.5f, isMenuOpen ? 0.5f : 1f);
+        alphaAnimator.setDuration(300);
+
+        // Start the animations
+        rotationAnimator.start();
+        alphaAnimator.start();
+
+        // Change the image after the animation completes
+        rotationAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onClick(View v) {
-                // Create a ContextThemeWrapper to apply the custom style
-                ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(User_Details.this, R.style.CustomPopupMenu);
-                PopupMenu popupMenu = new PopupMenu(contextThemeWrapper, v);
-                popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
+            public void onAnimationEnd(android.animation.Animator animation) {
+                menuButton.setImageResource(targetDrawable);
+            }
+        });
+    }
 
-                // Force icons to show using reflection (if needed)
-                try {
-                    Field field = popupMenu.getClass().getDeclaredField("mPopup");
-                    field.setAccessible(true);
-                    Object menuPopupHelper = field.get(popupMenu);
-                    Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
-                    Method setForceShowIcon = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
-                    setForceShowIcon.invoke(menuPopupHelper, true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private void showPopupMenu(View v) {
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(User_Details.this, R.style.CustomPopupMenu);
+        PopupMenu popupMenu = new PopupMenu(contextThemeWrapper, v);
+        popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int itemId = item.getItemId();
+        // Force icons to show using reflection
+        try {
+            Field field = popupMenu.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            Object menuPopupHelper = field.get(popupMenu);
+            Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
+            Method setForceShowIcon = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
+            setForceShowIcon.invoke(menuPopupHelper, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-                        if (itemId == R.id.menu_sign_out) {
-                            // Handle Sign Out
-                            showSignOutDialog();
-                            return true;
-                        } else if (itemId == R.id.menu_delete_account) {
-                            // Handle Delete Account
-                            deleteAccount();
-                            return true;
-                        } else if (itemId == R.id.menu_payment_history) {
-                            // Handle Payment History
-                            showPaymentHistory();
-                            return true;
-                        } else if (itemId == R.id.menu_dashboard) {
-                            // Handle Dashboard
-                            openDashboard();
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                });
+        popupMenu.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
 
-                popupMenu.show();
+            if (itemId == R.id.menu_sign_out) {
+                showSignOutDialog();
+                return true;
+            } else if (itemId == R.id.menu_delete_account) {
+                deleteAccount();
+                return true;
+            } else if (itemId == R.id.menu_payment_history) {
+                showPaymentHistory();
+                return true;
+            } else if (itemId == R.id.menu_dashboard) {
+                openDashboard();
+                return true;
+            } else {
+                return false;
             }
         });
 
+        // Reset the icon when the popup menu is dismissed
+        popupMenu.setOnDismissListener(menu -> {
+            animateMenuButton(R.drawable.menu);
+            isMenuOpen = false;
+        });
+
+        popupMenu.show();
     }
 
     private void showSignOutDialog() {
@@ -240,67 +270,52 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
     }
 
     private void signOut() {
-        // Step 1: Revoke Google Sign-In
         GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         googleSignInClient.revokeAccess().addOnCompleteListener(this, task -> {
-            // Step 2: Sign out from Firebase Authentication
             FirebaseAuth.getInstance().signOut();
 
-            // Step 3: Clear the user session data from SharedPreferences
             SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear(); // Clears all stored user data
+            editor.clear();
             editor.apply();
 
-            // Step 4: Show a success message
             Toast.makeText(this, "Successfully signed out", Toast.LENGTH_SHORT).show();
 
-            // Step 5: Navigate to the Login page
             Intent intent = new Intent(User_Details.this, Login.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            finish(); // Close the current activity
+            finish();
         });
     }
 
-
     private void deleteAccount() {
-        // Step 1: Show a confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Delete Account")
                 .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    // Step 2: Get the current user
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
-                        // Step 3: Delete the user from Firebase Authentication
                         currentUser.delete()
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
-                                        // Step 4: Delete user data from Firebase Realtime Database (if applicable)
                                         deleteUserDataFromDatabase();
 
-                                        // Step 5: Clear the user session data from SharedPreferences
                                         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.clear(); // Clears all stored user data
+                                        editor.clear();
                                         editor.apply();
 
-                                        // Step 6: Show a success message
                                         Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
 
-                                        // Step 7: Navigate to the Login page
                                         Intent intent = new Intent(User_Details.this, Login.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear the back stack
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
-                                        finish(); // Close the current activity
+                                        finish();
                                     } else {
-                                        // Handle failure to delete account
                                         Toast.makeText(this, "Failed to delete account: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     } else {
-                        // Handle case where the user is not logged in
                         Toast.makeText(this, "No user is currently logged in", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -309,21 +324,16 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
     }
 
     private void showPaymentHistory() {
-        // Handle Payment History
-        Toast.makeText(this, "Payment History Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(User_Details.this, Seller_payment_History.class);
+        startActivity(intent);
+        finish();
     }
-
 
     private void openDashboard() {
-        // Handle Dashboard
-        Toast.makeText(this, "Dashboard Clicked", Toast.LENGTH_SHORT).show();
-
-        // Navigate to the Seller_Dashboard activity
         Intent intent = new Intent(User_Details.this, Seller_Dashboard.class);
         startActivity(intent);
-        finish(); // Close the current activity
+        finish();
     }
-
 
     private void deleteUserDataFromDatabase() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
@@ -335,28 +345,26 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
                     .child(userId);
 
             userRef.removeValue()
-                    .addOnSuccessListener(aVoid -> {
-                        // Data deleted successfully
-                        Toast.makeText(this, "User data deleted from database", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        // Handle failure to delete data
-                        Toast.makeText(this, "Failed to delete user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                    .addOnSuccessListener(aVoid -> Toast.makeText(this, "User data deleted from database", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to delete user data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         }
     }
 
-    private void updateProfile(){
+    private void setupConfirmButton() {
+        Button confirm = findViewById(R.id.confirmBtn);
+        confirm.setOnClickListener(v -> updateProfile());
+    }
 
+    private void updateProfile() {
         String fname = profileFirstName.getEditText().getText().toString().trim();
-        String lname =  profileLastName.getEditText().getText().toString().trim();
+        String lname = profileLastName.getEditText().getText().toString().trim();
         String nic = nictextLayout.getEditText().getText().toString().trim();
-        String birthday =  profileBirthdayLayout.getEditText().getText().toString().trim();
+        String birthday = profileBirthdayLayout.getEditText().getText().toString().trim();
         String phoneNumber = profilePhoneNumberLayout.getEditText().getText().toString().trim();
         String address = profileaddressLayout.getEditText().getText().toString().trim();
         String city = profileCityLayout.getEditText().getText().toString().trim();
 
-        if(TextUtils.isEmpty(fname) || TextUtils.isEmpty(lname)){
+        if (TextUtils.isEmpty(fname) || TextUtils.isEmpty(lname)) {
             Toast.makeText(this, "Please fill the first Name and Last Name!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -381,43 +389,32 @@ profileBackBtn.setOnClickListener(new View.OnClickListener() {
 
         userRef.updateChildren(userUpdates)
                 .addOnSuccessListener(aVoid -> {
+                    SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("FIRST_NAME", fname);
+                    editor.putString("LAST_NAME", lname);
+                    editor.putString("NIC", nic);
+                    editor.putString("BIRTHDAY", birthday);
+                    editor.putString("PHONE", phoneNumber);
+                    editor.putString("ADDRESS", address);
+                    editor.putString("CITY", city);
+                    editor.apply();
 
-                            // ✅ 1. Save updated data to SharedPreferences
-                            SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("FIRST_NAME", fname);
-                            editor.putString("LAST_NAME", lname);
-                            editor.putString("NIC", nic);
-                            editor.putString("BIRTHDAY", birthday);
-                            editor.putString("PHONE", phoneNumber);
-                            editor.putString("ADDRESS", address);
-                            editor.putString("CITY", city);
-                            editor.apply();
+                    Toast.makeText(getApplicationContext(), "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(getApplicationContext(), "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
-
-                            // ✅ 2. Restart activity to refresh data
-                            Intent intent = new Intent(User_Details.this, User_Details.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
-                       )
+                    Intent intent = new Intent(User_Details.this, User_Details.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                })
                 .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Update Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
     }
 
     private boolean isValidNIC(String nic) {
-        // Regex for Sri Lankan phone number validation
         return nic.matches("^(\\d{12}|\\d{9}[Vv])$");
     }
 
     private boolean isValidPhoneNumber(String phone) {
-        // Regex for Sri Lankan phone number validation
         return phone.matches("^(0\\d{9}|\\+94\\d{9})$");
     }
-
-
-
-
 }

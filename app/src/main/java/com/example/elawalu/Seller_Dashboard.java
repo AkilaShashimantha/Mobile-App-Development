@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class Seller_Dashboard extends AppCompatActivity {
     private List<SellerItem> allItems; // Store all items for filtering
     private RadioGroup radioGroup;
     private RadioButton activeProduct, deactiveProduct;
+    private TextView noDataTextView; // TextView to show "No data to display"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,9 @@ public class Seller_Dashboard extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         activeProduct = findViewById(R.id.activeProduct);
         deactiveProduct = findViewById(R.id.deactiveProduct);
+
+        // Initialize the "No data to display" TextView
+        noDataTextView = findViewById(R.id.noDataTextView);
 
         // Set up RadioGroup listener
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -133,6 +138,15 @@ public class Seller_Dashboard extends AppCompatActivity {
             if (item.getActiveStatus().equals(activeStatus)) {
                 itemList.add(item);
             }
+        }
+
+        // Show "No data to display" if the list is empty
+        if (itemList.isEmpty()) {
+            noDataTextView.setVisibility(View.VISIBLE); // Show the TextView
+            recyclerView.setVisibility(View.GONE); // Hide the RecyclerView
+        } else {
+            noDataTextView.setVisibility(View.GONE); // Hide the TextView
+            recyclerView.setVisibility(View.VISIBLE); // Show the RecyclerView
         }
 
         itemAdapter.notifyDataSetChanged(); // Notify adapter of data changes

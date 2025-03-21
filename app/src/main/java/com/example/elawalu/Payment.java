@@ -204,8 +204,11 @@ public class Payment extends AppCompatActivity {
         // Generate a unique key for the item
         String itemId = userRef.push().getKey();
 
-        // Create the Item object with activeStatus set to "1"
-       Payment.Item item = new Payment.Item(vegetable, quantity, location, contactNumber, price, "1");
+        // Get the current date and time
+        String currentDateTime = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
+
+        // Create the Item object with activeStatus set to "1" and paymentDateTime set to the current date and time
+        Payment.Item item = new Payment.Item(vegetable, quantity, location, contactNumber, price, "1", currentDateTime);
 
         // Save the item under the user's Items node
         userRef.child(itemId).setValue(item)
@@ -244,18 +247,20 @@ public class Payment extends AppCompatActivity {
         public String contactNumber;
         public String price;
         public String activeStatus; // Add activeStatus field
+        public String paymentDateTime; // Add paymentDateTime field
 
         // Default constructor required for Firebase
         public Item() {}
 
-        // Constructor with activeStatus
-        public Item(String vegetable, String quantity, String location, String contactNumber, String price, String activeStatus) {
+        // Constructor with activeStatus and paymentDateTime
+        public Item(String vegetable, String quantity, String location, String contactNumber, String price, String activeStatus, String paymentDateTime) {
             this.vegetable = vegetable;
             this.quantity = quantity;
             this.location = location;
             this.contactNumber = contactNumber;
             this.price = price;
             this.activeStatus = activeStatus; // Initialize activeStatus
+            this.paymentDateTime = paymentDateTime; // Initialize paymentDateTime
         }
     }
 

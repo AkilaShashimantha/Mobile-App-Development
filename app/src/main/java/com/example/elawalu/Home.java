@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class Home extends AppCompatActivity {
     private ItemAdapter adapter;
     private List<Item> allItems = new ArrayList<>(); // All items fetched from Firebase
     private int currentPage = 0; // Current page number
-    private static final int ITEMS_PER_PAGE = 10; // Number of items to load per page
+    private static final int ITEMS_PER_PAGE = 5; // Number of items to load per page
 
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
@@ -49,7 +50,6 @@ public class Home extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
     private boolean showLoadMoreButton;
-
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -177,19 +177,17 @@ public class Home extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mGoogleSignInClient = GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build());
 
-
         // Initialize RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize the adapter with an empty list
-        adapter = new ItemAdapter(new ArrayList<>());
+        adapter = new ItemAdapter(new ArrayList<>(), false);
         recyclerView.setAdapter(adapter);
 
         // Set "Load More" listener
         adapter.setOnLoadMoreListener(() -> loadNextPage());
 
-
-// Set item click listener
+        // Set item click listener
         adapter.setOnItemClickListener(position -> {
             Item item = adapter.getItem(position); // Get the clicked item
             if (item != null) {
@@ -214,13 +212,20 @@ public class Home extends AppCompatActivity {
         fetchDataFromFirebase();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh data every time the activity comes into the foreground
+        fetchDataFromFirebase();
+    }
+
     private void fetchDataFromFirebase() {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
 
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                allItems.clear();
+                allItems.clear(); // Clear the existing list
 
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     String firstName = userSnapshot.child("firstName").getValue(String.class);
@@ -232,15 +237,23 @@ public class Home extends AppCompatActivity {
 
                         for (DataSnapshot itemSnapshot : itemsSnapshot.getChildren()) {
                             Item item = itemSnapshot.getValue(Item.class);
-                            if (item != null) {
+                            if (item != null && "1".equals(item.getActiveStatus())) { // Filter by activeStatus = "1"
                                 item.setUserName(userName);
                                 allItems.add(item);
                             }
                         }
                     }
                 }
-                adapter.addItems(allItems);
-                // Load the first page
+
+                // Sort items by paymentDateTime in descending order (newest first)
+                Collections.sort(allItems, (item1, item2) -> {
+                    if (item1.getPaymentDateTime() == null || item2.getPaymentDateTime() == null) {
+                        return 0; // Handle null values
+                    }
+                    return item2.getPaymentDateTime().compareTo(item1.getPaymentDateTime()); // Descending order
+                });
+
+                // Load the first page of data
                 loadNextPage();
             }
 
@@ -286,6 +299,4 @@ public class Home extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-
 }

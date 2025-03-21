@@ -24,12 +24,13 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private OnItemClickListener itemClickListener; // Listener for item clicks
 
     private List<Item> allItems; // Store all items fetched from Firebase
+    private boolean showPaymentDateTime; // Flag to show/hide the paymentDateTimeTextView
 
-
-
-    public ItemAdapter(List<Item> allItems) {
+    // Constructor with showPaymentDateTime flag
+    public ItemAdapter(List<Item> allItems, boolean showPaymentDateTime) {
         this.allItems = allItems;
         this.itemList = new ArrayList<>(); // Initialize itemList as an empty list
+        this.showPaymentDateTime = showPaymentDateTime; // Set the flag
         loadInitialItems(); // Load the first 5 items initially
     }
 
@@ -68,7 +69,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else {
             // Inflate the regular item layout
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_layout, parent, false);
-            return new ItemViewHolder(view, itemClickListener);
+            return new ItemViewHolder(view, itemClickListener, showPaymentDateTime); // Pass the flag to the ViewHolder
         }
     }
 
@@ -93,9 +94,9 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // ViewHolder for regular items
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView imageVegetable;
-        TextView textUserName, textVegetable, textQuantity, textLocation, textContactNumber, textPrice;
+        TextView textUserName, textVegetable, textQuantity, textLocation, textContactNumber, textPrice, paymentDateTimeTextView;
 
-        public ItemViewHolder(@NonNull View itemView, OnItemClickListener listener) {
+        public ItemViewHolder(@NonNull View itemView, OnItemClickListener listener, boolean showPaymentDateTime) {
             super(itemView);
             imageVegetable = itemView.findViewById(R.id.imageVegetable);
             textUserName = itemView.findViewById(R.id.textUserName);
@@ -104,6 +105,10 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             textLocation = itemView.findViewById(R.id.textLocation);
             textContactNumber = itemView.findViewById(R.id.textContactNumber);
             textPrice = itemView.findViewById(R.id.textPrice);
+            paymentDateTimeTextView = itemView.findViewById(R.id.paymentDateTimeTextView);
+
+            // Set visibility of paymentDateTimeTextView based on the flag
+            paymentDateTimeTextView.setVisibility(showPaymentDateTime ? View.VISIBLE : View.GONE);
 
             // Set click listener for the item
             itemView.setOnClickListener(v -> {
@@ -121,7 +126,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             textLocation.setText("Location : " + item.getLocation());
             textContactNumber.setText("Contact : " + item.getContactNumber());
             textPrice.setText("Price: Rs. " + item.getPrice() + " per kg");
-
+            paymentDateTimeTextView.setText("Payment Create Date: " + item.getPaymentDateTime());
             // Set vegetable image dynamically
             int vegetableImageResId = getVegetableImageResource(item.getVegetable());
             imageVegetable.setImageResource(vegetableImageResId);

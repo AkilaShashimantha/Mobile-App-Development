@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MyApp"
         tools:targetApi="31">
         <activity
+            android:name=".Seller_payment_History"
+            android:exported="false" />
+        <activity
             android:name=".Seller_Dashboard"
             android:exported="false" />
         <activity
