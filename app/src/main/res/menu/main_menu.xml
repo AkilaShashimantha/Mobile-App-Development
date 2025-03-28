@@ -16,7 +16,7 @@
             android:title="Add product"
             android:icon="@drawable/shopping"
             />
-        <item android:id="@+id/seller"
+        <item android:id="@+id/activeProduct"
             android:title="vegetable Sellers"
             android:icon="@drawable/seller"
             />

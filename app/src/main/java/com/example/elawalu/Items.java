@@ -261,48 +261,7 @@ public class Items extends AppCompatActivity {
         });
     }
 
-    private void saveItemToFirebase(String userId, String vegetable, String quantity, String location, String contactNumber, String price) {
-        DatabaseReference userRef = FirebaseDatabase.getInstance()
-                .getReference("Users")
-                .child(userId)
-                .child("Items");
 
-        String itemId = userRef.push().getKey();
-        Item item = new Item(vegetable, quantity, location, contactNumber, price);
-
-        userRef.child(itemId).setValue(item)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Items.this, "Item saved successfully", Toast.LENGTH_SHORT).show();
-                            clearFormFields();
-                        } else {
-                            Toast.makeText(Items.this, "Failed to save item", Toast.LENGTH_SHORT).show();
-                            clearFormFields();
-                            navigateToHome();
-                        }
-                    }
-                });
-    }
-
-    public static class Item {
-        public String vegetable;
-        public String quantity;
-        public String location;
-        public String contactNumber;
-        public String price;
-
-        public Item() {}
-
-        public Item(String vegetable, String quantity, String location, String contactNumber, String price) {
-            this.vegetable = vegetable;
-            this.quantity = quantity;
-            this.location = location;
-            this.contactNumber = contactNumber;
-            this.price = price;
-        }
-    }
 
     private void clearFormFields() {
         Spinner vegetableSpinner = findViewById(R.id.vegetableSpinner);

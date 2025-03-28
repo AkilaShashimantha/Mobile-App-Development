@@ -1,26 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@drawable/border"
-        >
+        android:background="@drawable/border">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:padding="5dp"
-            android:orientation="vertical"
-
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageVegetable"
@@ -32,10 +28,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:background="@drawable/border"
             android:orientation="vertical"
-            android:paddingStart="10dp"
-            android:background="@drawable/border">
+            android:paddingStart="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +40,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textVegetable"
+                    android:id="@+id/vegetableName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vegetable: Tomato"
@@ -53,53 +49,78 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textUserName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Seller: John Doe"
-                android:textColor="@color/TextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textQuantity"
+                android:id="@+id/quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quantity: 10 kg"
                 android:textColor="@color/TextColor" />
 
             <TextView
-                android:id="@+id/textLocation"
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location: Colombo"
                 android:textColor="@color/color_red" />
 
             <TextView
-                android:id="@+id/textContactNumber"
+                android:id="@+id/contactNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Contact: 1234567890"
                 android:textColor="@color/TextColor" />
 
             <TextView
-                android:id="@+id/textPrice"
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price: Rs. 100/kg"
                 android:textColor="@color/TextColor" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/paymentDateTimeTextView"
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Paid on: 2023-10-15 12:34:56"
-                android:textSize="14sp"
-                android:visibility="gone"
-                android:textColor="@color/black" />
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/delete2_"
+                    android:background="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:id="@+id/activatebtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Deactivate"
+                    android:textColor="@color/TextColor"
+                    android:textOff="Deactivate"
+                    android:textOn="Activate"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:thumbTint="#56B116"
+                    android:trackTint="#1B5603" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

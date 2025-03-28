@@ -192,17 +192,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:gravity="end"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Don't Have Account"
-                        android:textAlignment="center"
-
+                        android:text="Don't Have an Account"
+                        android:gravity="end"
                         android:textColor="#211F1F"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -212,7 +211,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <Button
@@ -226,12 +225,7 @@
                         android:textColor="#3F51B5"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.871"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.862" />
+                      />
                 </LinearLayout>
             </LinearLayout>
 

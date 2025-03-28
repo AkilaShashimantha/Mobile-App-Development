@@ -1,8 +1,6 @@
 package com.example.elawalu;
 
-import java.io.Serializable;
-
-public class Item implements Serializable {
+public class SellerItem {
     private String itemId; // Add this field
     private String vegetable;
     private String quantity;
@@ -10,22 +8,19 @@ public class Item implements Serializable {
     private String contactNumber;
     private String price;
     private String activeStatus;
-    private String userName;
-    private String paymentDateTime; // New field for payment date and time
 
     // Default constructor required for Firebase
-    public Item() {}
+    public SellerItem() {}
 
     // Constructor with all fields
-    public Item(String vegetable, String quantity, String location, String contactNumber, String price, String activeStatus, String userName, String paymentDateTime) {
+    public SellerItem(String itemId, String vegetable, String quantity, String location, String contactNumber, String price, String activeStatus) {
+        this.itemId = itemId;
         this.vegetable = vegetable;
         this.quantity = quantity;
         this.location = location;
         this.contactNumber = contactNumber;
         this.price = price;
         this.activeStatus = activeStatus;
-        this.userName = userName;
-        this.paymentDateTime = paymentDateTime; // Initialize paymentDateTime
     }
 
     // Getters and Setters
@@ -83,21 +78,5 @@ public class Item implements Serializable {
 
     public void setActiveStatus(String activeStatus) {
         this.activeStatus = activeStatus;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPaymentDateTime() {
-        return paymentDateTime;
-    }
-
-    public void setPaymentDateTime(String paymentDateTime) {
-        this.paymentDateTime = paymentDateTime;
     }
 }
