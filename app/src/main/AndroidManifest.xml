@@ -42,9 +42,6 @@
             android:name=".Payment"
             android:exported="false" />
         <activity
-            android:name=".Farmer_Payment"
-            android:exported="false" />
-        <activity
             android:name=".View_Product"
             android:exported="false" />
         <activity
