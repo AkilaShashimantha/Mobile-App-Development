@@ -172,7 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Whole Sale Price"
+                    android:hint="Whole Sale Price (Rs.)"
                     android:textColorHint="@color/TextColor"
                     android:textColor="@color/TextColor"
                     app:boxStrokeColor="@color/veggreen"
@@ -282,24 +282,6 @@
                         android:textColor="#FFFFFF"
                         android:textStyle="bold"
                   />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/payNowBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#0AB108"
-                        android:text="Pay Now"
-                        android:textColor="#FFFFFF"
-
-                        />
                 </LinearLayout>
 
             </LinearLayout>

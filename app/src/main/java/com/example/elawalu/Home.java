@@ -40,9 +40,9 @@ public class Home extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
-    private List<Item> allItems = new ArrayList<>(); // All items fetched from Firebase
-    private int currentPage = 0; // Current page number
-    private static final int ITEMS_PER_PAGE = 5; // Number of items to load per page
+    private List<Item> allItems = new ArrayList<>();
+    private int currentPage = 0;
+    private static final int ITEMS_PER_PAGE = 5;
 
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
@@ -88,12 +88,12 @@ public class Home extends AppCompatActivity {
             userNameTextView.setText(displayName);
         }
 
-        // Load Profile Image using Glide (Recommended)
+        // Load Profile Image
         if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
             Glide.with(this)
                     .load(profileImageUrl)
-                    .placeholder(R.drawable.account_circle_btn)  // Placeholder Image
-                    .error(R.drawable.account_circle_btn)           // Error Image
+                    .placeholder(R.drawable.account_circle_btn)
+                    .error(R.drawable.account_circle_btn)
                     .into(profileImageView);
         }
 
@@ -106,10 +106,8 @@ public class Home extends AppCompatActivity {
             int keypadHeight = screenHeight - r.bottom;
 
             if (keypadHeight > screenHeight * 0.15) {
-                // Keyboard is open
                 bottomNavigationView.setVisibility(View.GONE);
             } else {
-                // Keyboard is closed
                 bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
@@ -122,10 +120,14 @@ public class Home extends AppCompatActivity {
             if (id == R.id.bottom_home) {
                 return true;
             } else if (id == R.id.bottom_search) {
-                startActivity(new Intent(getApplicationContext(), Search.class));
+                Intent searchIntent = new Intent(getApplicationContext(), Search.class);
+                searchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(searchIntent);
                 return true;
             } else if (id == R.id.bottom_Cart) {
-                startActivity(new Intent(getApplicationContext(), View_Cart.class));
+                Intent cartIntent = new Intent(getApplicationContext(), View_Cart.class);
+                cartIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(cartIntent);
                 return true;
             }
 
@@ -137,85 +139,75 @@ public class Home extends AppCompatActivity {
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        // Enable ActionBar Up Button
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         // Handle Navigation Drawer Clicks
         navigationView.setCheckedItem(R.id.home);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-                if (id == R.id.home) {
-                    showToast("Home Selected");
-                } else if (id == R.id.profile) {
-                    showToast("Profile Selected");
-                    startActivity(new Intent(Home.this, User_Details.class));
-                } else if (id == R.id.addProduct) {
-                    showToast("Add product Selected");
-                    startActivity(new Intent(Home.this, Items.class));
-                } else if (id == R.id.activeProduct) {
-                    showToast("Vegetable Sellers Selected");
-                    startActivity(new Intent(Home.this, Vegetable_Sellers.class));
-                } else if (id == R.id.paymentHistory) {
-                    showToast("Payment History Selected");
-                    startActivity(new Intent(Home.this, Payment_History.class));
-                } else {
-                    return false; // If no valid item is selected
-                }
-
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true; // Return true when an item is handled
+            if (id == R.id.home) {
+                showToast("Home Selected");
+            } else if (id == R.id.profile) {
+                showToast("Profile Selected");
+                startActivity(new Intent(Home.this, User_Details.class));
+            } else if (id == R.id.addProduct) {
+                showToast("Add product Selected");
+                startActivity(new Intent(Home.this, Items.class));
+            } else if (id == R.id.activeProduct) {
+                showToast("Vegetable Sellers Selected");
+                startActivity(new Intent(Home.this, Vegetable_Sellers.class));
+            } else if (id == R.id.paymentHistory) {
+                showToast("Payment History Selected");
+                startActivity(new Intent(Home.this, Payment_History.class));
+            } else {
+                return false;
             }
+
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
         });
 
-        // Handle Sign Out
+        // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build());
+        mGoogleSignInClient = GoogleSignIn.getClient(this,
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build());
 
         // Initialize RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Initialize the adapter with an empty list
         adapter = new ItemAdapter(new ArrayList<>(), false);
         recyclerView.setAdapter(adapter);
 
         // Set "Load More" listener
-        adapter.setOnLoadMoreListener(() -> loadNextPage());
+        adapter.setOnLoadMoreListener(this::loadNextPage);
 
-        // Set item click listener
-        adapter.setOnItemClickListener(position -> {
-            Item item = adapter.getItem(position); // Get the clicked item
+        // Set item click listener - UPDATED TO USE ITEM OBJECT
+        adapter.setOnItemClickListener(item -> {
             if (item != null) {
-                // Navigate to View_Product activity and pass the selected item's data
                 Intent intent = new Intent(Home.this, View_Product.class);
-
-                // Pass all the data from the Item object
+                intent.putExtra("productId", item.getItemId());
                 intent.putExtra("userName", item.getUserName());
                 intent.putExtra("vegetable", item.getVegetable());
                 intent.putExtra("quantity", item.getQuantity());
                 intent.putExtra("location", item.getLocation());
                 intent.putExtra("contactNumber", item.getContactNumber());
                 intent.putExtra("price", item.getPrice());
-
+                intent.putExtra("sellerId", item.getSellerId());
                 startActivity(intent);
             } else {
                 Toast.makeText(Home.this, "Invalid item data", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Fetch data from Firebase
+        // Fetch initial data
         fetchDataFromFirebase();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh data every time the activity comes into the foreground
         fetchDataFromFirebase();
     }
 
@@ -225,7 +217,7 @@ public class Home extends AppCompatActivity {
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                allItems.clear(); // Clear the existing list
+                allItems.clear();
 
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     String firstName = userSnapshot.child("firstName").getValue(String.class);
@@ -237,23 +229,27 @@ public class Home extends AppCompatActivity {
 
                         for (DataSnapshot itemSnapshot : itemsSnapshot.getChildren()) {
                             Item item = itemSnapshot.getValue(Item.class);
-                            if (item != null && "1".equals(item.getActiveStatus())) { // Filter by activeStatus = "1"
+                            if (item != null && "1".equals(item.getActiveStatus())) {
                                 item.setUserName(userName);
+                                item.setItemId(itemSnapshot.getKey());
+                                item.setSellerId(userSnapshot.getKey());
                                 allItems.add(item);
                             }
                         }
                     }
                 }
 
-                // Sort items by paymentDateTime in descending order (newest first)
+                // Sort items by paymentDateTime
                 Collections.sort(allItems, (item1, item2) -> {
                     if (item1.getPaymentDateTime() == null || item2.getPaymentDateTime() == null) {
-                        return 0; // Handle null values
+                        return 0;
                     }
-                    return item2.getPaymentDateTime().compareTo(item1.getPaymentDateTime()); // Descending order
+                    return item2.getPaymentDateTime().compareTo(item1.getPaymentDateTime());
                 });
 
-                // Load the first page of data
+                // Reset pagination and load first page
+                currentPage = 0;
+                adapter.addItems(new ArrayList<>()); // Clear existing items
                 loadNextPage();
             }
 
@@ -270,15 +266,13 @@ public class Home extends AppCompatActivity {
 
         if (start < allItems.size()) {
             List<Item> nextItems = allItems.subList(start, end);
-            adapter.addItems(nextItems); // Add the next set of items to the adapter
-            currentPage++; // Increment the page counter
+            adapter.addItems(nextItems);
+            currentPage++;
         }
 
-        // Update the "Load More" button visibility
         adapter.setShowLoadMoreButton(end < allItems.size());
     }
 
-    // Function to show Toast messages
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
