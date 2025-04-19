@@ -17,9 +17,12 @@
         <item name="android:textColor">@android:color/white</item> <!-- Default text color -->
         <item name="android:textColorHint">@android:color/darker_gray</item>
 
-
+        <item name="buttonStyle">@style/MyButtonStyle</item>
 
     </style>
 
+    <style name="MyButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/black</item> <!-- Force black text -->
+    </style>
 
 </resources>

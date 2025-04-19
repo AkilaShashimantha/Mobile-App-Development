@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBFBFB"
-    android:backgroundTint="#FFFFFF"
+    android:fitsSystemWindows="true"
     tools:context=".View_Cart">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FBFBFB"
-        android:backgroundTint="#FFFFFF"
-        tools:context=".View_Cart">
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
 
-        <!-- Toolbar for the cart page -->
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="#FFFFFF"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:paddingTop="50dp"
-            android:gravity="center_vertical|center_horizontal">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <!-- Custom Title TextView -->
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
@@ -37,7 +33,6 @@
                 android:textSize="22sp"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="#000000"
-                android:gravity="center"
                 android:layout_gravity="center"/>
         </androidx.appcompat.widget.Toolbar>
 
@@ -47,71 +42,79 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
-            android:layout_marginTop="32dp"
             android:gravity="center"
             android:text="Your cart is empty!"
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:visibility="gone" />
 
-        <!-- RecyclerView to display cart items -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cartRecyclerView"
+        <!-- ScrollView to contain all content -->
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_above="@+id/totalPriceLayout"
-            android:padding="16dp"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_cart" />
-
-        <!-- Layout for total price, checkout button, and remove all button -->
-        <LinearLayout
-            android:id="@+id/totalPriceLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@id/bottomNavigation"
-            android:orientation="vertical"
-            android:background="#FFFFFF"
-            android:elevation="8dp"
-            android:padding="16dp">
+            android:layout_below="@id/toolbar"
+            android:fillViewport="true">
 
-            <!-- Total price TextView -->
-            <TextView
-                android:id="@+id/totalPriceTextView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total: Rs:0.00"
-                android:textSize="18sp"
-                android:textColor="@android:color/black"
-                android:textAlignment="textEnd"
-                android:paddingBottom="8dp" />
+                android:layout_height="wrap_content">
 
-            <!-- Remove All Button -->
-            <Button
-                android:id="@+id/removeAllButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Remove All"
-                android:backgroundTint="@color/veggreen"
-                android:textColor="@android:color/white"
-                android:textAllCaps="false"
-                android:padding="12dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp" />
+                <!-- RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cartRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:padding="16dp"
+                    tools:listitem="@layout/item_cart" />
 
-            <!-- Checkout Button -->
-            <Button
-                android:id="@+id/checkoutButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Proceed to Checkout"
-                android:backgroundTint="@color/veggreen"
-                android:textColor="@android:color/white"
-                android:textAllCaps="false"
-                android:padding="12dp"
-                android:elevation="4dp" />
-        </LinearLayout>
+                <!-- Total Price Layout -->
+                <LinearLayout
+                    android:id="@+id/totalPriceLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cartRecyclerView"
+                    android:background="#FFFFFF"
+                    android:elevation="8dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/totalPriceTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total: Rs:0.00"
+                        android:textAlignment="textEnd"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/removeAllButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/veggreen"
+                        android:elevation="4dp"
+                        android:padding="12dp"
+                        android:text="Remove All"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:id="@+id/checkoutButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/veggreen"
+                        android:elevation="4dp"
+                        android:padding="12dp"
+                        android:text="Proceed to Checkout"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -125,6 +128,5 @@
             app:itemRippleColor="@android:color/transparent"
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_menu" />
-
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

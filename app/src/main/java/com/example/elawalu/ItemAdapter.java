@@ -14,90 +14,79 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TYPE_ITEM = 0; // Type for regular items
-    private static final int TYPE_LOAD_MORE = 1; // Type for the "Load More" button
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_LOAD_MORE = 1;
 
-    private List<Item> itemList; // List of items currently displayed
-    private boolean showLoadMoreButton; // Flag to show/hide the "Load More" button
+    private List<Item> itemList;
+    private boolean showLoadMoreButton;
+    private OnLoadMoreListener loadMoreListener;
+    private OnItemClickListener itemClickListener;
+    private List<Item> allItems;
+    private boolean showPaymentDateTime;
 
-    private OnLoadMoreListener loadMoreListener; // Listener for "Load More" button
-    private OnItemClickListener itemClickListener; // Listener for item clicks
-
-    private List<Item> allItems; // Store all items fetched from Firebase
-    private boolean showPaymentDateTime; // Flag to show/hide the paymentDateTimeTextView
-
-    // Constructor with showPaymentDateTime flag
     public ItemAdapter(List<Item> allItems, boolean showPaymentDateTime) {
         this.allItems = allItems;
-        this.itemList = new ArrayList<>(); // Initialize itemList as an empty list
-        this.showPaymentDateTime = showPaymentDateTime; // Set the flag
-        loadInitialItems(); // Load the first 5 items initially
+        this.itemList = new ArrayList<>();
+        this.showPaymentDateTime = showPaymentDateTime;
+        loadInitialItems();
     }
 
-    // Method to load the first 5 items
     private void loadInitialItems() {
-        int end = Math.min(6, allItems.size()); // Load up to 5 items
-        itemList.addAll(allItems.subList(0, end)); // Add the first 5 items to itemList
-        updateLoadMoreButton(); // Update the flag based on the remaining items
-
-        // Log the items in itemList for debugging
-        for (Item item : itemList) {
-            Log.d("ItemAdapter", "Item: " + item.getVegetable() + ", Quantity: " + item.getQuantity());
-        }
+        int end = Math.min(6, allItems.size());
+        itemList.addAll(allItems.subList(0, end));
+        updateLoadMoreButton();
     }
 
-    // Method to update the showLoadMoreButton flag
     private void updateLoadMoreButton() {
-        this.showLoadMoreButton = itemList.size() < allItems.size(); // Show "Load More" if there are more items
+        this.showLoadMoreButton = itemList.size() < allItems.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == itemList.size()) {
-            return TYPE_LOAD_MORE; // "Load More" button
+            return TYPE_LOAD_MORE;
         }
-        return TYPE_ITEM; // Regular item
+        return TYPE_ITEM;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_LOAD_MORE) {
-            // Inflate the "Load More" button layout
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.load_more_button, parent, false);
-            return new LoadMoreViewHolder(view, loadMoreListener); // Pass the listener to the ViewHolder
+            return new LoadMoreViewHolder(view, loadMoreListener);
         } else {
-            // Inflate the regular item layout
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_layout, parent, false);
-            return new ItemViewHolder(view, itemClickListener, showPaymentDateTime); // Pass the flag to the ViewHolder
+            return new ItemViewHolder(view, itemClickListener, showPaymentDateTime, itemList);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
-            // Bind regular item data
             Item item = itemList.get(position);
             ((ItemViewHolder) holder).bind(item);
         } else if (holder instanceof LoadMoreViewHolder) {
-            // Bind the "Load More" button
             ((LoadMoreViewHolder) holder).bind();
         }
     }
 
     @Override
     public int getItemCount() {
-        // Return the number of items + 1 if "Load More" button is visible
         return itemList.size() + (showLoadMoreButton ? 1 : 0);
     }
 
-    // ViewHolder for regular items
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView imageVegetable;
         TextView textUserName, textVegetable, textQuantity, textLocation, textContactNumber, textPrice, paymentDateTimeTextView;
+        private List<Item> itemList;
+        private OnItemClickListener listener;
 
-        public ItemViewHolder(@NonNull View itemView, OnItemClickListener listener, boolean showPaymentDateTime) {
+        public ItemViewHolder(@NonNull View itemView, OnItemClickListener listener, boolean showPaymentDateTime, List<Item> itemList) {
             super(itemView);
+            this.itemList = itemList;
+            this.listener = listener;
+
             imageVegetable = itemView.findViewById(R.id.imageVegetable);
             textUserName = itemView.findViewById(R.id.textUserName);
             textVegetable = itemView.findViewById(R.id.textVegetable);
@@ -107,116 +96,91 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             textPrice = itemView.findViewById(R.id.textPrice);
             paymentDateTimeTextView = itemView.findViewById(R.id.paymentDateTimeTextView);
 
-            // Set visibility of paymentDateTimeTextView based on the flag
             paymentDateTimeTextView.setVisibility(showPaymentDateTime ? View.VISIBLE : View.GONE);
 
-            // Set click listener for the item
             itemView.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onItemClick(getAdapterPosition());
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onItemClick(itemList.get(position));
                 }
             });
         }
 
         public void bind(Item item) {
-            // Bind item data to views
             textUserName.setText("Seller : " + item.getUserName());
             textVegetable.setText("Vegetable : " + item.getVegetable());
             textQuantity.setText("Quantity : " + item.getQuantity());
             textLocation.setText("Location : " + item.getLocation());
             textContactNumber.setText("Contact : " + item.getContactNumber());
-            textPrice.setText("Price: Rs. " + item.getPrice() + " per kg");
+            textPrice.setText(item.getPrice());
             paymentDateTimeTextView.setText("Payment Create Date: " + item.getPaymentDateTime());
-            // Set vegetable image dynamically
-            int vegetableImageResId = getVegetableImageResource(item.getVegetable());
-            imageVegetable.setImageResource(vegetableImageResId);
+            imageVegetable.setImageResource(getVegetableImageResource(item.getVegetable()));
         }
 
         private int getVegetableImageResource(String vegetableName) {
             switch (vegetableName.toLowerCase()) {
-                case "tomatoes":
-                    return R.drawable.thakkali;
-                case "carrots":
-                    return R.drawable.carrot;
-                case "cabbage":
-                    return R.drawable.gova;
-                case "pumpkin":
-                    return R.drawable.pumking;
-                case "brinjols":
-                    return R.drawable.brinjol;
-                case "ladies fingers":
-                    return R.drawable.ladies_fingers;
-                case "onions":
-                    return R.drawable.b_onion;
-                case "potato":
-                    return R.drawable.potato;
-                case "beetroots":
-                    return R.drawable.beetroot;
-                case "leeks":
-                    return R.drawable.leeks;
-                // Add more cases for other vegetables
-                default:
-                    return R.drawable.elavaluokkoma; // A default image if no match is found
+                case "tomatoes": return R.drawable.thakkali;
+                case "carrots": return R.drawable.carrot;
+                case "cabbage": return R.drawable.gova;
+                case "pumpkin": return R.drawable.pumking;
+                case "brinjols": return R.drawable.brinjol;
+                case "ladies fingers": return R.drawable.ladies_fingers;
+                case "onions": return R.drawable.b_onion;
+                case "potato": return R.drawable.potato;
+                case "beetroots": return R.drawable.beetroot;
+                case "leeks": return R.drawable.leeks;
+                default: return R.drawable.elavaluokkoma;
             }
         }
     }
 
-    // ViewHolder for the "Load More" button
     public static class LoadMoreViewHolder extends RecyclerView.ViewHolder {
         Button loadMoreButton;
         OnLoadMoreListener listener;
 
         public LoadMoreViewHolder(@NonNull View itemView, OnLoadMoreListener listener) {
             super(itemView);
-            this.listener = listener; // Initialize the listener
+            this.listener = listener;
             loadMoreButton = itemView.findViewById(R.id.loadMoreButton);
         }
 
         public void bind() {
-            // Handle "Load More" button click
             loadMoreButton.setOnClickListener(v -> {
                 if (listener != null) {
-                    listener.onLoadMore(); // Notify the listener
+                    listener.onLoadMore();
                 }
             });
         }
     }
 
-    // Interface for "Load More" button click
     public interface OnLoadMoreListener {
         void onLoadMore();
     }
 
-    // Interface for item clicks
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(Item item);
     }
 
-    // Set the "Load More" listener
     public void setOnLoadMoreListener(OnLoadMoreListener listener) {
         this.loadMoreListener = listener;
     }
 
-    // Set the item click listener
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }
 
-    // Method to add items to the adapter
     public void addItems(List<Item> newItems) {
-        itemList.clear(); // Clear the list before adding new items
-        itemList.addAll(newItems); // Add new items to the list
-        updateLoadMoreButton(); // Update the "Load More" button flag
-        notifyDataSetChanged(); // Notify the adapter of data changes
+        itemList.clear();
+        itemList.addAll(newItems);
+        updateLoadMoreButton();
+        notifyDataSetChanged();
     }
 
-    // Method to set the "Load More" button visibility
     public void setShowLoadMoreButton(boolean showLoadMoreButton) {
         this.showLoadMoreButton = showLoadMoreButton;
-        notifyDataSetChanged(); // Notify the adapter of data changes
+        notifyDataSetChanged();
     }
 
-    // Method to get an item at a specific position
     public Item getItem(int position) {
         return itemList.get(position);
     }
