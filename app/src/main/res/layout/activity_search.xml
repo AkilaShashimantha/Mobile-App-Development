@@ -84,14 +84,46 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/noResultsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No results found"
+                    android:textSize="18sp"
+                    android:textColor="@color/TextColor"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Try a different search term"
+                    android:textSize="14sp"
+                    android:textColor="@color/TextColor"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
             <ScrollView
+                android:id="@+id/scrollViewContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </ScrollView>
 
         </LinearLayout>
