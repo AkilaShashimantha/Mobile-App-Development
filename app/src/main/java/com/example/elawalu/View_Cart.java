@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Tasks;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,8 +34,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import lk.payhere.androidsdk.PHConfigs;
@@ -55,6 +59,7 @@ public class View_Cart extends AppCompatActivity {
 
     private DatabaseReference cartRef;
     private DatabaseReference userRef;
+    private DatabaseReference buyingProductsRef;
     private String currentUserId;
     private ValueEventListener cartValueEventListener;
 
@@ -71,22 +76,27 @@ public class View_Cart extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://elawalu-b2fff-default-rtdb.asia-southeast1.firebasedatabase.app");
         cartRef = database.getReference("Carts").child(currentUserId);
         userRef = database.getReference("Users").child(currentUserId);
+        buyingProductsRef = database.getReference("BuyingProducts");
 
-        // Initialize views
         initializeViews();
-
-        // Set up RecyclerView
         setupRecyclerView();
-
-        // Load cart items from Firebase
         loadCartItems();
-
-        // Set up buttons
         setupCheckoutButton();
         setupRemoveAllButton();
-
-        // Set up bottom navigation
         setupBottomNavigation();
+
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+
+        // Set the navigation click listener
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle back button press
+                onBackPressed();
+            }
+        });
+
     }
 
     private void initializeViews() {
@@ -96,12 +106,11 @@ public class View_Cart extends AppCompatActivity {
         removeAllButton = findViewById(R.id.removeAllButton);
         emptyCartTextView = findViewById(R.id.emptyCartTextView);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-
         cartItemList = new ArrayList<>();
     }
 
     private void setupRecyclerView() {
-        cartAdapter = new CartAdapter(cartItemList, () -> updateTotalPrice());
+        cartAdapter = new CartAdapter(cartItemList, this::updateTotalPrice);
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartRecyclerView.setAdapter(cartAdapter);
     }
@@ -159,35 +168,7 @@ public class View_Cart extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    String email = snapshot.child("email").getValue(String.class);
-                    String firstName = snapshot.child("firstName").getValue(String.class);
-                    String lastName = snapshot.child("lastName").getValue(String.class);
-                    String phone = snapshot.child("phone").getValue(String.class);
-                    String address = snapshot.child("address").getValue(String.class);
-                    String city = snapshot.child("city").getValue(String.class);
-
-                    // Prepare payment request
-                    InitRequest req = new InitRequest();
-                    req.setMerchantId("1229451");
-                    req.setCurrency("LKR");
-                    req.setAmount(total[0]);
-                    req.setOrderId(UUID.randomUUID().toString());
-                    req.setItemsDescription("Cart Payment");
-
-                    // Customer Details
-                    req.getCustomer().setFirstName(firstName);
-                    req.getCustomer().setLastName(lastName);
-                    req.getCustomer().setEmail(email);
-                    req.getCustomer().setPhone(phone);
-                    req.getCustomer().getAddress().setAddress(address != null ? address : "");
-                    req.getCustomer().getAddress().setCity(city != null ? city : "");
-                    req.getCustomer().getAddress().setCountry("Sri Lanka");
-                    req.setNotifyUrl("https://sandbox.payhere.lk/notify");
-
-                    // Start PayHere payment
-                    Intent intent = new Intent(View_Cart.this, PHMainActivity.class);
-                    intent.putExtra(PHConstants.INTENT_EXTRA_DATA, req);
-                    startActivityForResult(intent, PAYHERE_REQUEST);
+                    startPayHerePayment(snapshot, total[0]);
                 } else {
                     Toast.makeText(View_Cart.this, "User details not found", Toast.LENGTH_SHORT).show();
                 }
@@ -200,61 +181,188 @@ public class View_Cart extends AppCompatActivity {
         });
     }
 
+    private void startPayHerePayment(DataSnapshot userSnapshot, double total) {
+        String email = userSnapshot.child("email").getValue(String.class);
+        String firstName = userSnapshot.child("firstName").getValue(String.class);
+        String lastName = userSnapshot.child("lastName").getValue(String.class);
+        String phone = userSnapshot.child("phone").getValue(String.class);
+        String address = userSnapshot.child("address").getValue(String.class);
+        String city = userSnapshot.child("city").getValue(String.class);
+
+        InitRequest req = new InitRequest();
+        req.setMerchantId("1229451");
+        req.setCurrency("LKR");
+        req.setAmount(total);
+        req.setOrderId(UUID.randomUUID().toString());
+        req.setItemsDescription("Cart Payment");
+
+        req.getCustomer().setFirstName(firstName);
+        req.getCustomer().setLastName(lastName);
+        req.getCustomer().setEmail(email);
+        req.getCustomer().setPhone(phone);
+        req.getCustomer().getAddress().setAddress(address != null ? address : "");
+        req.getCustomer().getAddress().setCity(city != null ? city : "");
+        req.getCustomer().getAddress().setCountry("Sri Lanka");
+        req.setNotifyUrl("https://sandbox.payhere.lk/notify");
+
+        Intent intent = new Intent(View_Cart.this, PHMainActivity.class);
+        intent.putExtra(PHConstants.INTENT_EXTRA_DATA, req);
+        startActivityForResult(intent, PAYHERE_REQUEST);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAYHERE_REQUEST && data != null && data.hasExtra(PHConstants.INTENT_EXTRA_RESULT)) {
             PHResponse<StatusResponse> response = (PHResponse<StatusResponse>) data.getSerializableExtra(PHConstants.INTENT_EXTRA_RESULT);
-            if (resultCode == Activity.RESULT_OK) {
-                if (response != null && response.isSuccess()) {
-                    saveOrderToBuyingProducts();
-                    clearCart();
-                    Toast.makeText(this, "Payment successful!", Toast.LENGTH_SHORT).show();
-                    navigateToHome();
-                } else {
-                    Toast.makeText(this, "Payment failed", Toast.LENGTH_SHORT).show();
-                }
+            if (resultCode == Activity.RESULT_OK && response != null && response.isSuccess()) {
+                saveOrderToDatabase();
+                clearCart();
+                Toast.makeText(this, "Payment successful!", Toast.LENGTH_SHORT).show();
+                navigateToHome();
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(this, "Payment cancelled", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Payment failed", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void saveOrderToBuyingProducts() {
-        DatabaseReference buyingProductsRef = userRef.child("BuyingProducts");
+    private void saveOrderToDatabase() {
         String orderId = buyingProductsRef.push().getKey();
         String currentDateTime = DateFormat.getDateTimeInstance().format(new Date());
 
+        // Build product details
         StringBuilder itemsDesc = new StringBuilder();
-        double total = 0;
+        StringBuilder productIds = new StringBuilder();
+        double totalAmount = 0;
+
+        // Get the first item to get seller details (assuming all items are from same seller)
+        CartItem firstItem = cartItemList.get(0);
+        String sellerId = firstItem.getSellerId();
+
         for (CartItem item : cartItemList) {
-            itemsDesc.append(item.getProductName())
-                    .append(" (")
-                    .append(item.getQuantity())
-                    .append(" kg), ");
-            total += item.getPrice() * item.getQuantity();
-        }
-        if (itemsDesc.length() > 2) {
-            itemsDesc.setLength(itemsDesc.length() - 2);
+            itemsDesc.append(item.getProductName()).append(" (").append(item.getQuantity()).append(" kg), ");
+            productIds.append(item.getProductId()).append(",");
+            totalAmount += item.getPrice() * item.getQuantity();
         }
 
-        Order order = new Order(
-                itemsDesc.toString(),
-                cartItemList.size() + " items",
-                cartItemList.get(0).getLocation(),
-                cartItemList.get(0).getSellerContact(),
-                String.format(Locale.getDefault(), "%.2f", total),
-                "1",
-                currentDateTime
-        );
+        if (itemsDesc.length() > 2) itemsDesc.setLength(itemsDesc.length() - 2);
+        if (productIds.length() > 0) productIds.setLength(productIds.length() - 1);
 
-        buyingProductsRef.child(orderId).setValue(order)
+        // Format total as string with 2 decimal places
+        String formattedTotal = String.format(Locale.getDefault(), "%.2f", totalAmount);
+
+        // Create order data with seller information
+        Map<String, Object> orderData = new HashMap<>();
+        orderData.put("activeStatus", "1");
+        orderData.put("contactNumber", firstItem.getSellerContact());
+        orderData.put("location", firstItem.getLocation());
+        orderData.put("paymentDateTime", currentDateTime);
+        orderData.put("price", formattedTotal);
+        orderData.put("quantity", cartItemList.size() + " items");
+        orderData.put("vegetable", itemsDesc.toString());
+        orderData.put("productIds", productIds.toString());
+        orderData.put("sellerName", firstItem.getSellerName());
+        orderData.put("sellerId", sellerId);
+        orderData.put("buyerId", currentUserId); // Store buyer's ID for reference
+
+        // Save to BuyingProducts under buyer's account
+        buyingProductsRef.child(orderId).setValue(orderData)
                 .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
+                    if (task.isSuccessful()) {
+                        // Save to SellingPayments under seller's account
+                        saveSellerPaymentDetails(orderId, currentDateTime, itemsDesc.toString(),
+                                formattedTotal, firstItem.getSellerName(),
+                                sellerId, currentUserId);
+                    } else {
                         Log.e("View_Cart", "Failed to save order", task.getException());
                     }
                 });
     }
+
+    private void saveSellerPaymentDetails(String orderId, String dateTime, String itemsDesc,
+                                          String total, String sellerName, String sellerId,
+                                          String buyerId) {
+        // Get reference to seller's account
+        DatabaseReference sellerRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(sellerId);
+
+        sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Map<String, Object> sellerPayment = new HashMap<>();
+                    // Seller's own information
+                    sellerPayment.put("address", snapshot.child("address").getValue(String.class));
+                    sellerPayment.put("birthday", snapshot.child("birthday").getValue(String.class));
+                    sellerPayment.put("city", snapshot.child("city").getValue(String.class));
+                    sellerPayment.put("email", snapshot.child("email").getValue(String.class));
+                    sellerPayment.put("firstName", snapshot.child("firstName").getValue(String.class));
+                    sellerPayment.put("gender", snapshot.child("gender").getValue(String.class));
+                    sellerPayment.put("lastName", snapshot.child("lastName").getValue(String.class));
+                    sellerPayment.put("nic", snapshot.child("nic").getValue(String.class));
+                    sellerPayment.put("phone", snapshot.child("phone").getValue(String.class));
+                    sellerPayment.put("profileImageUrl", snapshot.child("profileImageUrl").getValue(String.class));
+                    sellerPayment.put("role", snapshot.child("role").getValue(String.class));
+
+                    // Payment information
+                    sellerPayment.put("activeStatus", "1");
+                    sellerPayment.put("paymentDateTime", dateTime);
+                    sellerPayment.put("vegetable", itemsDesc);
+                    sellerPayment.put("price", total);
+                    sellerPayment.put("sellerName", sellerName);
+                    sellerPayment.put("sellerId", sellerId);
+                    sellerPayment.put("buyerId", buyerId); // Who bought these products
+                    sellerPayment.put("buyerContact", getBuyerContact()); // Optional: buyer's contact
+
+                    // Save under seller's SellingPayments node
+                    sellerRef.child("SellingPayments").child(orderId).setValue(sellerPayment);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("View_Cart", "Failed to load seller details", error.toException());
+            }
+        });
+    }
+
+    // Helper method to get buyer's contact information
+    private String getBuyerContact() {
+        // Get the current user's phone number from Firebase
+        String phoneNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
+
+        // If phone number is not available (if user signed up with email), get it from database
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            // You could either:
+            // 1. Return a placeholder (not recommended for production)
+            // return "Not available";
+
+            // 2. Or better, get it from the database (you'll need to ensure this is stored)
+            // This assumes you have the phone number stored in the user's database record
+            DatabaseReference userRef = FirebaseDatabase.getInstance()
+                    .getReference("Users")
+                    .child(currentUserId);
+
+            // This is a synchronous call which isn't ideal, but works for this case
+            // In a real app, you might want to make this asynchronous
+            try {
+                DataSnapshot snapshot = Tasks.await(userRef.child("phone").get());
+                if (snapshot.exists()) {
+                    return snapshot.getValue(String.class);
+                }
+            } catch (Exception e) {
+                Log.e("View_Cart", "Error getting user phone", e);
+            }
+
+            return ""; // Return empty if not found
+        }
+
+        return phoneNumber;
+    }
+
 
     private void setupRemoveAllButton() {
         removeAllButton.setOnClickListener(v -> {
@@ -320,7 +428,6 @@ public class View_Cart extends AppCompatActivity {
         }
     }
 
-    // Model classes
     public static class CartItem {
         private String cartItemId;
         private String productId;
@@ -354,30 +461,6 @@ public class View_Cart extends AppCompatActivity {
         public void setSellerId(String sellerId) { this.sellerId = sellerId; }
     }
 
-    public static class Order {
-        public String vegetable;
-        public String quantity;
-        public String location;
-        public String contactNumber;
-        public String price;
-        public String activeStatus;
-        public String paymentDateTime;
-
-        public Order() {}
-
-        public Order(String vegetable, String quantity, String location,
-                     String contactNumber, String price, String activeStatus,
-                     String paymentDateTime) {
-            this.vegetable = vegetable;
-            this.quantity = quantity;
-            this.location = location;
-            this.contactNumber = contactNumber;
-            this.price = price;
-            this.activeStatus = activeStatus;
-            this.paymentDateTime = paymentDateTime;
-        }
-    }
-
     public static class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
         private List<CartItem> cartItemList;
         private OnQuantityChangeListener quantityChangeListener;
@@ -390,8 +473,7 @@ public class View_Cart extends AppCompatActivity {
         @NonNull
         @Override
         public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_cart, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart, parent, false);
             return new CartViewHolder(view);
         }
 
@@ -406,8 +488,7 @@ public class View_Cart extends AppCompatActivity {
             holder.productTitle.setText(item.getProductName());
             holder.productPrice.setText(String.format(Locale.getDefault(), "Rs%.2f", item.getPrice()));
             holder.quantityEditText.setText(String.valueOf(item.getQuantity()));
-            int imageResId = getVegetableImageResource(item.getProductName());
-            holder.productImage.setImageResource(imageResId);
+            holder.productImage.setImageResource(getVegetableImageResource(item.getProductName()));
 
             holder.textWatcher = new TextWatcher() {
                 @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -444,6 +525,23 @@ public class View_Cart extends AppCompatActivity {
             holder.deleteButton.setOnClickListener(v -> deleteCartItem(item.getCartItemId(), position));
         }
 
+        private int getVegetableImageResource(String vegetableName) {
+            if (vegetableName == null) return R.drawable.elavaluokkoma;
+            switch (vegetableName.toLowerCase()) {
+                case "tomatoes": return R.drawable.thakkali;
+                case "carrots": return R.drawable.carrot;
+                case "cabbage": return R.drawable.gova;
+                case "pumpkin": return R.drawable.pumking;
+                case "brinjols": return R.drawable.brinjol;
+                case "ladies fingers": return R.drawable.ladies_fingers;
+                case "onions": return R.drawable.b_onion;
+                case "potato": return R.drawable.potato;
+                case "beetroots": return R.drawable.beetroot;
+                case "leeks": return R.drawable.leeks;
+                default: return R.drawable.elavaluokkoma;
+            }
+        }
+
         private void updateCartItemQuantity(String cartItemId, int newQuantity) {
             DatabaseReference cartItemRef = FirebaseDatabase.getInstance()
                     .getReference("Carts")
@@ -473,23 +571,6 @@ public class View_Cart extends AppCompatActivity {
                             }
                         }
                     });
-        }
-        private int getVegetableImageResource(String vegetableName) {
-            if (vegetableName == null) return R.drawable.elavaluokkoma;
-
-            switch (vegetableName.toLowerCase()) {
-                case "tomatoes": return R.drawable.thakkali;
-                case "carrots": return R.drawable.carrot;
-                case "cabbage": return R.drawable.gova;
-                case "pumpkin": return R.drawable.pumking;
-                case "brinjols": return R.drawable.brinjol;
-                case "ladies fingers": return R.drawable.ladies_fingers;
-                case "onions": return R.drawable.b_onion;
-                case "potato": return R.drawable.potato;
-                case "beetroots": return R.drawable.beetroot;
-                case "leeks": return R.drawable.leeks;
-                default: return R.drawable.elavaluokkoma;
-            }
         }
 
         @Override

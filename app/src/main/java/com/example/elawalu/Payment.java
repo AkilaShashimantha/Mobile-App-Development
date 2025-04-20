@@ -199,7 +199,7 @@ public class Payment extends AppCompatActivity {
         DatabaseReference sellerPaymentRef = FirebaseDatabase.getInstance()
                 .getReference("Users")
                 .child(userId)
-                .child("SellingPayments");
+                .child("ItemAdvertismentPayment");
 
         // Generate a unique key for the item
         String itemId = userRef.push().getKey();

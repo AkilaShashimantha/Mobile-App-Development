@@ -95,8 +95,8 @@ public class Seller_payment_History extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 allItems.clear(); // Clear the existing list
 
-                if (snapshot.hasChild("SellingPayments")) {
-                    DataSnapshot itemsSnapshot = snapshot.child("SellingPayments");
+                if (snapshot.hasChild("ItemAdvertismentPayment")) {
+                    DataSnapshot itemsSnapshot = snapshot.child("ItemAdvertismentPayment");
 
                     for (DataSnapshot itemSnapshot : itemsSnapshot.getChildren()) {
                         Item item = itemSnapshot.getValue(Item.class);

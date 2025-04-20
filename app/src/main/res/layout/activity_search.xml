@@ -5,76 +5,96 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
     tools:context=".Search">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
         tools:context=".Search">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
 
-            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                app:navigationIcon="@drawable/left_arrow"
+                app:title="Search Vegetables"
+                app:titleTextColor="@color/veggreen">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:padding="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/elawalu"
+                    app:shapeAppearanceOverlay="@style/RoundedImageView"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="2dp" />
+            </com.google.android.material.appbar.MaterialToolbar>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/searchTextlayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:hint="Search Vegetables Here"
+                    android:textColorHint="@color/TextColor"
+                    app:boxStrokeColor="@color/veggreen">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/searchText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        android:textSize="12sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/searchBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/searchbtn" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="156dp">
-
-                        <EditText
-                            android:id="@+id/editTextText6"
-                            android:layout_width="271dp"
-                            android:layout_height="48dp"
-                            android:background="@drawable/edittext_border"
-                            android:backgroundTint="#F8F7F7"
-                            android:ems="10"
-                            android:hint="Search Vegetables"
-                            android:inputType="text"
-                            android:textAlignment="center"
-                            android:textColor="#504E4E"
-                            android:textColorHint="#504E4E"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.271"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.172" />
-
-                        <ImageButton
-                            android:id="@+id/searchBtn"
-                            android:layout_width="53dp"
-                            android:layout_height="48dp"
-                            android:background="@drawable/edittext_border"
-                            android:backgroundTint="#F8F7F7"
-                            android:src="@drawable/searchbtn"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.907"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.172"
-                            app:tint="#0AB108" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
