@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -57,18 +58,32 @@ public class Search extends AppCompatActivity {
             int id = item.getItemId();
 
             if (id == R.id.bottom_home) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
+                startActivity(new Intent(getApplicationContext(), Home.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
                 return true;
             } else if (id == R.id.bottom_search) {
                 return true;
             } else if (id == R.id.bottom_Cart) {
-                startActivity(new Intent(getApplicationContext(), View_Cart.class));
-
+                startActivity(new Intent(getApplicationContext(), View_Cart.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 return true;
             }
 
             return false;
         });
+
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+
+        // Set the navigation click listener
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle back button press
+                onBackPressed();
+            }
+        });
+
     }
 }
