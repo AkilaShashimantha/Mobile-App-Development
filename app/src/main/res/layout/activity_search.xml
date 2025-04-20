@@ -24,11 +24,11 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_margin="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_margin="5dp"
                 android:background="@drawable/border"
                 app:navigationIcon="@drawable/left_arrow"
                 app:title="Search Vegetables"
+                app:titleCentered="true"
                 app:titleTextColor="@color/veggreen">
 
                 <com.google.android.material.imageview.ShapeableImageView

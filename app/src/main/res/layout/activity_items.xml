@@ -4,319 +4,294 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+
     >
 
-    <ScrollView
-        android:id="@+id/itemScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation">
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="?attr/actionBarSize"
+            android:layout_margin="5dp"
+            android:background="@drawable/border"
+            app:navigationIcon="@drawable/left_arrow"
+            app:title="Add Vegetable Stock For Sale"
+            app:titleTextAppearance="@style/ToolbarTitleTextAppearance"
+            app:titleCentered="true"
+            app:titleTextColor="@color/veggreen">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/elawalu"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
+        </com.google.android.material.appbar.MaterialToolbar>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-
-                    android:orientation="vertical">
-
-
-                    <ImageButton
-                        android:id="@+id/itemBackBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@color/white"
-                        app:srcCompat="@drawable/back_button" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView7"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:srcCompat="@drawable/elawalu" />
-                </LinearLayout>
-            </LinearLayout>
+        <ScrollView
+            android:id="@+id/itemScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="5dp">
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center"
-                    android:text="Add Vegetable Stock For Sale"
-                    android:textColor="@color/veggreen"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    <ViewFlipper
-                        android:id="@+id/viewFlipper"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:flipInterval="3000">
+                        android:layout_height="match_parent">
 
-
-                        <ImageView
+                        <ViewFlipper
+                            android:id="@+id/viewFlipper"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/elavaluokkoma" />
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/carrot" />
+                            android:layout_height="200dp"
+                            android:flipInterval="3000">
 
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/elavalu3" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/elavaluokkoma" />
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/elavalu2" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/carrot" />
 
-                    </ViewFlipper>
-                </FrameLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/elavalu3" />
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/elavalu2" />
+
+                        </ViewFlipper>
+                    </FrameLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView12"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Select vegetable"
-                        android:textColor="@color/TextColor"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <Spinner
-                        android:id="@+id/vegetableSpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@drawable/spinner_background"
-                        android:rotation="0"
-                        android:textColor="#0AFFFFFF"
-                        android:theme="@style/SpinnerStyle" />
-                </LinearLayout>
-            </LinearLayout>
+                        android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select vegetable"
+                            android:textColor="@color/TextColor"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/itemQuantityLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Quantity"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:counterTextColor="@color/TextColor"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/itemQuantity"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:textColor="@color/TextColor"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/vegetableSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/spinner_background"
+                            android:rotation="0"
+                            android:textColor="#0AFFFFFF"
+                            android:theme="@style/SpinnerStyle" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/itemQuantityLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Quantity"
                         android:textColorHint="@color/TextColor"
-                        android:textSize="12sp"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:counterTextColor="@color/TextColor"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor">
 
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/itemQuantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView13"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Select Location"
-                        android:textColor="@color/TextColor"
-                        android:textStyle="bold" />
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select Location"
+                            android:textColor="@color/TextColor"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/locationspinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/spinner_background"
+                            android:textColor="#0AFFFFFF"
+                            android:theme="@style/SpinnerStyle" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/locationspinner"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/itemContactNumberlayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/spinner_background"
-                        android:textColor="#0AFFFFFF"
-                        android:theme="@style/SpinnerStyle" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="Contact Number"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="10"
+                        app:counterOverflowTextColor="@color/TextColor"
+                        app:counterTextColor="@color/TextColor"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/itemContactNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/itemContactNumberlayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Contact Number"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="10"
-                    app:counterOverflowTextColor="@color/TextColor"
-                    app:counterTextColor="@color/TextColor"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor">
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/itemContactNumber"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/itemPriceLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:textColor="@color/TextColor"
+                        android:hint="Price per kg Rs."
                         android:textColorHint="@color/TextColor"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconTint="@color/TextColor">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/itemPriceLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/itemPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp"
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Price per kg Rs."
-                    android:textColorHint="@color/TextColor"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                    app:boxStrokeColor="@color/veggreen"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor"
-                    app:startIconTint="@color/TextColor">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/itemPrice"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/readyToSaleBtn"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
-
-                        android:inputType="numberDecimal"
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="12sp"
+                        android:backgroundTint="@color/white"
+                        android:text="Ready to Sale"
+                        android:textColor="@color/veggreen"
+                        app:cornerRadius="10dp"
+                        app:strokeColor="@color/veggreen"
+                        app:strokeWidth="2dp"
 
                         />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/readyToSaleBtn"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:text="Ready to Sale"
-                    android:textColor="@color/veggreen"
-                    app:cornerRadius="10dp"
-                    app:strokeColor="@color/veggreen"
-                    app:strokeWidth="2dp"
-
-                    />
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

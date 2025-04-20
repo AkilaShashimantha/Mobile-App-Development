@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -80,17 +81,20 @@ public class Seller_Dashboard extends AppCompatActivity {
             Log.e("SellerDashboard", "User not logged in");
         }
 
-        // Back button
-        ImageView sellerDashBackBtn = findViewById(R.id.sellerDashBackBtn);
-        sellerDashBackBtn.setOnClickListener(new View.OnClickListener() {
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        // Set the navigation click listener
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Seller_Dashboard.this, User_Details.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                // Handle back button press
+//                onBackPressed();
+                startActivity(new Intent(getApplicationContext(), User_Details.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
             }
         });
+
     }
 
     private void loadAllItems(String userId) {

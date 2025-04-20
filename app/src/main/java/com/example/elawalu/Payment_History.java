@@ -38,11 +38,15 @@ public class Payment_History extends AppCompatActivity {
 
     private MaterialToolbar topAppBar;
 
+    private TextView emptyCartTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_history);
         getSupportActionBar().hide();
+
+        emptyCartTextView = findViewById(R.id.emptyCartTextView);
 
         // Initialize views
         recyclerView = findViewById(R.id.recycleView);
@@ -83,6 +87,15 @@ public class Payment_History extends AppCompatActivity {
 
     }
 
+    private void checkIfCartIsEmpty() {
+        if (paymentHistoryList.isEmpty()) {
+            emptyCartTextView.setVisibility(View.VISIBLE);
+
+        } else {
+            emptyCartTextView.setVisibility(View.GONE);
+
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -152,6 +165,7 @@ public class Payment_History extends AppCompatActivity {
                             paymentHistoryList.add(item);
                         }
                         adapter.notifyDataSetChanged();
+                        checkIfCartIsEmpty();
                     }
 
                     @Override

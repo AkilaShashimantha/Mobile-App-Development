@@ -3,6 +3,7 @@ package com.example.elawalu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,13 +49,18 @@ public class Vegetable_Sellers extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        ImageView profileBackBtn = findViewById(R.id.sellerDetailsBackBtn);
-        profileBackBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(Vegetable_Sellers.this, Home.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
+
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        // Set the navigation click listener
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle back button press
+                onBackPressed();
+            }
         });
+
 
         loadSellersWithVegetables();
     }

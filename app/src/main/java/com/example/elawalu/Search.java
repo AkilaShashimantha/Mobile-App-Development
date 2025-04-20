@@ -75,7 +75,6 @@ public class Search extends AppCompatActivity {
 
         // Initialize the toolbar
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
-
         // Set the navigation click listener
         topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
