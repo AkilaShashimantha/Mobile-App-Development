@@ -1,5 +1,6 @@
 package com.example.elawalu;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -268,34 +269,64 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-        // Check if the email exists in the database
-        usersRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    // Email exists in the database, send password reset email
-                    mAuth.sendPasswordResetEmail(email)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Password reset link sent to your email", Toast.LENGTH_LONG).show();
-                                    // Open WebView dialog
-                                    openWebView("https://accounts.google.com/ServiceLogin?service=mail");
-                                } else {
-                                    Toast.makeText(Login.this, "Failed to send reset email. Check your email address.", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                } else {
-                    // Email does not exist in the database
-                    Toast.makeText(Login.this, "Email not found. Please sign up first.", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Login.this, "Database error: " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        // Step 1: Send password reset email
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Step 2: Show instructions about password requirements
+                        showPasswordRequirementsDialog(email);
+                    } else {
+                        // Don't reveal whether email exists or not (security best practice)
+                        Toast.makeText(this,
+                                "If this email is registered, you'll receive a reset link",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
     }
+
+    private void showPasswordRequirementsDialog(String email) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Password Requirements");
+        builder.setMessage("When setting your new password, please ensure it contains:\n\n" +
+                "• At least 7 characters\n" +
+                "• 1 uppercase letter\n" +
+                "• 1 number\n" +
+                "• 1 special character (@$!%*?&)\n\n" +
+                "Check your email for the reset link.");
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            // Optionally open email client
+            openEmailClient(email);
+        });
+        builder.show();
+    }
+
+    private void openEmailClient(String email) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "Please check your email app", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isValidPassword(String password) {
+        // Regular expression for:
+        // At least 7 characters, one uppercase letter, one number, one special character
+        String passwordPattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{7,}$";
+        return password.matches(passwordPattern);
+    }
+
+//database default rules
+//    {
+//        "rules": {
+//        ".read": "auth != null",  // Allow read access to authenticated users
+//                ".write": "auth != null"  // Allow write access to authenticated users
+//    }
+//    }
+//
 
     private void openWebView(String url) {
         Dialog webDialog = new Dialog(this);

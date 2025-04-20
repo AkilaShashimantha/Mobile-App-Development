@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,8 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -156,6 +161,25 @@ public class Home extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setBackgroundDrawable(
+                    new ColorDrawable(ContextCompat.getColor(this, R.color.veggreen))
+            );
+
+            // 3. Create custom view for ActionBar
+            ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    Gravity.CENTER
+            );
+
+            View actionBarView = LayoutInflater.from(this).inflate(R.layout.custom_actionbar, null);
+            getSupportActionBar().setCustomView(actionBarView, params);
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+
+            // 4. Set up the logo at the end
+            ImageView actionBarLogo = actionBarView.findViewById(R.id.action_bar_logo);
+            actionBarLogo.setImageResource(R.drawable.elawalu);
+
         }
 
         // Handle Navigation Drawer Clicks

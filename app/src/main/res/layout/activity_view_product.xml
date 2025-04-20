@@ -7,115 +7,166 @@
     android:background="@color/white"
     >
 
-    <ScrollView
-        android:id="@+id/itemScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation">
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="?attr/actionBarSize"
+            android:layout_margin="5dp"
+            android:background="@drawable/border"
+            app:navigationIcon="@drawable/left_arrow"
+            app:title="Vegetables"
+            app:titleCentered="true"
+            app:titleTextColor="@color/veggreen">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/elawalu"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
+        </com.google.android.material.appbar.MaterialToolbar>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/viewProductBackbtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:srcCompat="@drawable/back_button" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="end"
-                    android:gravity="end"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="74dp"
-                        android:layout_height="79dp"
-                        app:srcCompat="@drawable/elawalu" />
-                </LinearLayout>
-            </LinearLayout>
+        <ScrollView
+            android:id="@+id/itemScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/border"
-                    app:srcCompat="@drawable/carrot" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Carrots"
-                    android:textAlignment="center"
-                    android:textColor="#0AB108"
-                    android:textSize="34sp"
-
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/vegetableQuantityLayout"
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border"
+                        app:srcCompat="@drawable/carrot" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Quantity"
-                        android:textColorHint="@color/TextColor"
-                        android:textColor="@color/TextColor"
-                        app:boxStrokeColor="@color/veggreen"
+                        android:fontFamily="sans-serif-black"
+                        android:text="Carrots"
+                        android:textAlignment="center"
+                        android:textColor="#0AB108"
+                        android:textSize="34sp"
 
-                        >
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/vegetableQuantityLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Quantity"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            app:boxStrokeColor="@color/veggreen"
+
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/vegetableQuantity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:editable="false"
+                                android:enabled="false"
+                                android:textAlignment="center"
+                                android:textColor="@color/TextColor"
+                                android:textColorHint="@color/TextColor"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/vegetableLocationLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Location"
+                        android:textColor="@color/color_red"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/vegetableQuantity"
+                            android:id="@+id/vegetableLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:enabled="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/color_red"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/vegetablePriceLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Whole Sale Price (Rs.)"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/vegetablePrice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:editable="false"
@@ -124,170 +175,104 @@
                             android:textColor="@color/TextColor"
                             android:textColorHint="@color/TextColor"
                             android:textSize="14sp"
-                            />
+                            android:textStyle="bold" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/vegetableLocationLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Location"
-                    android:textColorHint="@color/TextColor"
-                    android:textColor="@color/color_red"
-                    app:boxStrokeColor="@color/veggreen"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/vegetableLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:editable="false"
-                        android:enabled="false"
-                        android:textColor="@color/color_red"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="14sp"
-                        android:textAlignment="center"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-              android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/vegetablePriceLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Whole Sale Price (Rs.)"
-                    android:textColorHint="@color/TextColor"
-                    android:textColor="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/vegetablePrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:editable="false"
-                        android:enabled="false"
-                        android:textAlignment="center"
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/vegetableSellerLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Seller Name"
-                    android:textColorHint="@color/TextColor"
-                    android:textColor="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/vegetableSeller"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:editable="false"
-                        android:enabled="false"
-                        android:textAlignment="center"
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="14sp"
-
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/vegetableContactLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Seller Contact Number"
-                    android:textColorHint="@color/TextColor"
-                    android:textColor="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/vegetableContact"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:editable="false"
-                        android:enabled="false"
-                        android:textAlignment="center"
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="14sp"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:textAlignment="center">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/addCartBtn"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/vegetableSellerLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#0AB108"
-                        android:text="Add to Cart"
-                        android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
-                  />
+                        android:hint="Seller Name"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/vegetableSeller"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:enabled="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="14sp"
+
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/vegetableContactLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Seller Contact Number"
+                        android:textColor="@color/TextColor"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/vegetableContact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:enabled="false"
+                            android:textAlignment="center"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:textAlignment="center">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <Button
+                            android:id="@+id/addCartBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#0AB108"
+                            android:text="Add to Cart"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

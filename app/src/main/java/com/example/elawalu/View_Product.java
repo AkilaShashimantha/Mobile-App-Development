@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +24,7 @@ public class View_Product extends AppCompatActivity {
 
     private static final String TAG = "View_Product";
     private Button addCartBtn;
-    private ImageView viewProductBackbtn, imageVegetable;
+    private ImageView imageVegetable;
     private TextView textVegetable, textQuantity, textLocation, textPrice, textSellerName, textContactNumber;
 
     private String productId, productName, price, location, sellerName, sellerContact, sellerId, quantity;
@@ -66,6 +67,11 @@ public class View_Product extends AppCompatActivity {
 
         // Set up click listeners
         setupClickListeners();
+
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        topAppBar.setNavigationOnClickListener(v -> onBackPressed());
+
     }
 
     private void initializeViews() {
@@ -77,7 +83,7 @@ public class View_Product extends AppCompatActivity {
         textSellerName = findViewById(R.id.vegetableSeller);
         textContactNumber = findViewById(R.id.vegetableContact);
         addCartBtn = findViewById(R.id.addCartBtn);
-        viewProductBackbtn = findViewById(R.id.viewProductBackbtn);
+
     }
 
     private boolean getIntentData() {
@@ -132,7 +138,6 @@ public class View_Product extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        viewProductBackbtn.setOnClickListener(v -> finish());
 
         addCartBtn.setOnClickListener(v -> {
             try {
