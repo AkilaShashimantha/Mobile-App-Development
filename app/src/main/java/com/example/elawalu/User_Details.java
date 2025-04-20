@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -79,14 +80,23 @@ public class User_Details extends AppCompatActivity {
         // Set up date picker for birthday
         setupDatePicker();
 
-        // Set up back button
-        setupBackButton();
-
         // Set up menu button with animation
         setupMenuButton();
 
         // Set up confirm button for profile update
         setupConfirmButton();
+
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        // Set the navigation click listener
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle back button press
+                onBackPressed();
+            }
+        });
+
     }
 
     private void initializeViews() {
@@ -164,15 +174,7 @@ public class User_Details extends AppCompatActivity {
         });
     }
 
-    private void setupBackButton() {
-        ImageView profileBackBtn = findViewById(R.id.profileBackBtn);
-        profileBackBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(User_Details.this, Home.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        });
-    }
+
 
     private void setupMenuButton() {
         menuButton.setOnClickListener(v -> {
@@ -198,7 +200,7 @@ public class User_Details extends AppCompatActivity {
         rotationAnimator.setInterpolator(new AccelerateDecelerateInterpolator()); // Smooth easing
 
         // Create an alpha animation (fade in/out)
-        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(menuButton, "alpha", isMenuOpen ? 1f : 0.5f, isMenuOpen ? 0.5f : 1f);
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(menuButton, "alpha", isMenuOpen ? 1f : 0.5f, isMenuOpen ? 1f : 1f);
         alphaAnimator.setDuration(300);
 
         // Start the animations

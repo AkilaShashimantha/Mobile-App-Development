@@ -8,420 +8,392 @@
     >
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation"
-       >
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="10dp"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_margin="5dp"
+            android:background="@drawable/border"
+            app:navigationIcon="@drawable/left_arrow"
+            app:title="Profile"
+            app:titleCentered="true"
+            app:titleTextColor="@color/veggreen">
 
-            >
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/menuButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Menu"
+                android:src="@drawable/menu"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp" />
+        </com.google.android.material.appbar.MaterialToolbar>
 
-            <!-- First Name & Last Name -->
-
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="10dp"
+
+                >
+
+                <!-- First Name & Last Name -->
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/profileBackBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-
-                        android:layout_gravity="start"
-                        android:backgroundTint="@color/veggreen"
-                        app:srcCompat="@drawable/back_button" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txtProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
-                        android:text="Profile"
-                        android:textColor="@color/veggreen"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="end"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/menuButton"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="end"
-                        android:contentDescription="Menu"
-                        android:src="@drawable/menu" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/profileback"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal"
-                        android:paddingStart="10dp">
+                        android:layout_height="200dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/profileback"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="end"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="10dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imageView6"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:layout_gravity="end"
+
+                                    app:srcCompat="@drawable/elawalu" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/imageView6"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:layout_gravity="end"
-
-                                app:srcCompat="@drawable/elawalu" />
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/profileImage"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/account_circle_btn"
+                                app:shapeAppearanceOverlay="@style/RoundedImageView"
+                                app:strokeColor="@color/white"
+                                app:strokeWidth="2dp" />
                         </LinearLayout>
 
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/profileImage"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/account_circle_btn"
-                            app:shapeAppearanceOverlay="@style/RoundedImageView"
-                            app:strokeColor="@color/white"
-                            app:strokeWidth="2dp" />
-                    </LinearLayout>
-
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/profileFirstName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="First Name"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor"
-                    app:startIconDrawable="@drawable/account_circle_btn"
-                    app:startIconTint="@color/black">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/profileLastName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Last Name"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/lName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <!-- NIC -->
-            <!-- Birthday -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-
-                    android:id="@+id/nictextLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:hint="NIC"
-                    android:textColorHint="#504E4E"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:endIconMode="clear_text"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    app:endIconTint="@color/TextColor"
-                    app:startIconDrawable="@drawable/idsvg"
-                    app:startIconTint="#000000">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nic"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profileFirstName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#504E4E"
-                        android:textColorHint="#504E4E"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/profileBirthdayLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:hint="Birthday"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:endIconMode="clear_text"
-
-                    app:endIconTint="@color/TextColor"
-                    app:startIconDrawable="@drawable/date"
-
-                    app:startIconTint="@color/black">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/profileBirthday"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:inputType="date"
-                        android:textColor="@color/TextColor"
+                        android:layout_weight="1"
+                        android:hint="First Name"
                         android:textColorHint="@color/TextColor"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconDrawable="@drawable/account_circle_btn"
+                        app:startIconTint="@color/black">
 
-            <!-- Contact Number -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/profilePhoneNumberLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Phone Number"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="10"
-                    app:counterOverflowTextColor="@color/TextColor"
-                    app:counterTextColor="@color/TextColor"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor"
-                    app:startIconDrawable="@drawable/phone_circle"
-                    app:startIconTint="@color/black"
-
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/PhoneNumber"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profileLastName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:inputType="phone"
-                        android:textColor="@color/TextColor"
+                        android:layout_weight="1"
+                        android:hint="Last Name"
                         android:textColorHint="@color/TextColor"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor">
 
-            <!-- Email Address -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/profileEmailLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <!-- NIC -->
+                <!-- Birthday -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    android:hint="Email Address"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:startIconDrawable="@drawable/email"
-                    app:startIconTint="@color/black"
+                    <com.google.android.material.textfield.TextInputLayout
 
-                    >
+                        android:id="@+id/nictextLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:hint="NIC"
+                        android:textColorHint="#504E4E"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/email"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconDrawable="@drawable/idsvg"
+                        app:startIconTint="#000000">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#504E4E"
+                            android:textColorHint="#504E4E"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profileBirthdayLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:editable="false"
-                        android:enabled="false"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/TextColor"
+                        android:hint="Birthday"
                         android:textColorHint="@color/TextColor"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
 
-            <!-- Address -->
+                        app:endIconTint="@color/TextColor"
+                        app:startIconDrawable="@drawable/date"
 
-            <!-- Confirm Changes Button -->
+                        app:startIconTint="@color/black">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/profileBirthday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/profileaddressLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:inputType="date"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Contact Number -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profilePhoneNumberLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone Number"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="10"
+                        app:counterOverflowTextColor="@color/TextColor"
+                        app:counterTextColor="@color/TextColor"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconDrawable="@drawable/phone_circle"
+                        app:startIconTint="@color/black"
+
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/PhoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:inputType="phone"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Email Address -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profileEmailLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:hint="Email Address"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:startIconDrawable="@drawable/email"
+                        app:startIconTint="@color/black"
+
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:editable="false"
+                            android:enabled="false"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Address -->
+
+                <!-- Confirm Changes Button -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profileaddressLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="Address"
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconDrawable="@drawable/location"
+                        app:startIconTint="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profileCityLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="City"
+
+                        android:textColorHint="@color/TextColor"
+                        app:boxStrokeColor="@color/veggreen"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/TextColor"
+                        app:startIconDrawable="@drawable/city"
+                        app:startIconTint="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/TextColor"
+                            android:textColorHint="@color/TextColor"
+                            android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                    android:hint="Address"
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor"
-                    app:startIconDrawable="@drawable/location"
-                    app:startIconTint="@color/black">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/address"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/confirmBtn"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:text="Confirm Changes"
+                        android:textColor="@color/veggreen"
+                        app:cornerRadius="10dp"
+                        app:strokeColor="@color/veggreen"
+                        app:strokeWidth="2dp" />
 
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/profileCityLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:hint="City"
-
-                    android:textColorHint="@color/TextColor"
-                    app:boxStrokeColor="@color/veggreen"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/TextColor"
-                    app:startIconDrawable="@drawable/city"
-                    app:startIconTint="@color/black">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/city"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:textColor="@color/TextColor"
-                        android:textColorHint="@color/TextColor"
-                        android:textSize="12sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/confirmBtn"
-                    android:backgroundTint="@color/white"
-                    android:text="Confirm Changes"
-                    android:textColor="@color/veggreen"
-                    app:cornerRadius="10dp"
-                    app:strokeColor="@color/veggreen"
-                    app:strokeWidth="2dp"
-                    />
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-    </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

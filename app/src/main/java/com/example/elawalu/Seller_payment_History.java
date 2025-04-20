@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +38,8 @@ public class Seller_payment_History extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
+    private TextView emptyCartTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,25 +48,30 @@ public class Seller_payment_History extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        emptyCartTextView = findViewById(R.id.emptyCartTextView);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) {
             // User is not logged in, redirect to login screen
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             finish();
             return;
         }
 
-        // Back button
-        ImageView sellerDashBackBtn = findViewById(R.id.sellerPaymentBackBtn);
-        sellerDashBackBtn.setOnClickListener(new View.OnClickListener() {
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        // Set the navigation click listener
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Seller_payment_History.this, User_Details.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                // Handle back button press
+//                onBackPressed();
+                startActivity(new Intent(getApplicationContext(), User_Details.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
             }
         });
@@ -82,8 +91,18 @@ public class Seller_payment_History extends AppCompatActivity {
         adapter.setOnLoadMoreListener(() -> loadNextPage());
 
         fetchDataFromFirebase();
+
     }
 
+    private void checkIfCartIsEmpty() {
+        if (allItems.isEmpty()) {
+            emptyCartTextView.setVisibility(View.VISIBLE);
+
+        } else {
+            emptyCartTextView.setVisibility(View.GONE);
+
+        }
+    }
     private void fetchDataFromFirebase() {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -110,7 +129,7 @@ public class Seller_payment_History extends AppCompatActivity {
                         }
                     }
                 }
-
+                checkIfCartIsEmpty();
                 // Sort items by paymentDateTime in descending order (newest first)
                 Collections.sort(allItems, (item1, item2) -> {
                     if (item1.getPaymentDateTime() == null || item2.getPaymentDateTime() == null) {

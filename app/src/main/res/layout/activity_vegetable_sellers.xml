@@ -10,96 +10,61 @@
      >
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
+        android:fitsSystemWindows="true"
         tools:context=".Vegetable_Sellers">
 
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
-            android:paddingBottom="100dp"
-            android:padding="10dp"
-            android:fillViewport="true"
-            >
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-               >
+                android:layout_height="?attr/actionBarSize"
+                android:layout_margin="5dp"
+                android:background="@drawable/border"
+                app:navigationIcon="@drawable/left_arrow"
+                app:title="Vegetable Sellers"
+                app:titleCentered="true"
+                app:titleTextColor="@color/veggreen"
+                tools:layout_editor_absoluteX="10dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:padding="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/elawalu"
+                    app:shapeAppearanceOverlay="@style/RoundedImageView"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="2dp" />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/sellerDetailsBackBtn"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            app:srcCompat="@drawable/back_button" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView16"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Seller Details"
-                            android:textAlignment="center"
-                            android:textColor="#0AB108"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/sellerHeaderImage"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/elawalu" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
+                    android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:clipToPadding="false"
-                        android:paddingBottom="16dp"/>
-
-
-            </LinearLayout>
-        </ScrollView>
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
@@ -116,6 +81,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_menu" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

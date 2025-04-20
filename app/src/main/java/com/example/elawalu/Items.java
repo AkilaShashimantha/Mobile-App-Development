@@ -32,6 +32,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -66,6 +67,20 @@ public class Items extends AppCompatActivity {
         } else {
             initializeUI();
         }
+
+
+        // Initialize the toolbar
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        // Set the navigation click listener
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle back button press
+                onBackPressed();
+            }
+        });
+
+
     }
 
     private void showSellerRegistrationDialog(String userId) {
@@ -207,14 +222,6 @@ public class Items extends AppCompatActivity {
             }
         });
 
-        // Back Button
-        ImageButton itemBackBtn = findViewById(R.id.itemBackBtn);
-        itemBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToHome();
-            }
-        });
 
         // Ready Sale Button
         MaterialButton readySaleButton = findViewById(R.id.readyToSaleBtn);
