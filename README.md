@@ -16,7 +16,10 @@ Elawalu.lk App Screenshot
 >
 </div>
 
-
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/user-attachments/assets/35591339-bcc8-49ba-8499-5e8226427456" width="45%" style="margin: 10px;">
+  <img src="https://github.com/user-attachments/assets/24f9e2ca-0f95-4bc8-afa1-1cca9ee672d5" width="45%" style="margin: 10px;">
+</div>
 
 
 A complete Android marketplace solution connecting vegetable sellers directly with buyers, built with Java in Android Studio using Firebase backend.
